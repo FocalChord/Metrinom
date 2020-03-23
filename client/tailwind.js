@@ -239,14 +239,7 @@ module.exports = {
                 '"Noto Color Emoji"',
             ],
             serif: ["Georgia", "Cambria", '"Times New Roman"', "Times", "serif"],
-            mono: [
-                "Menlo",
-                "Monaco",
-                "Consolas",
-                '"Liberation Mono"',
-                '"Courier New"',
-                "monospace",
-            ],
+            mono: ["Menlo", "Monaco", "Consolas", '"Liberation Mono"', '"Courier New"', "monospace"],
         },
         fontSize: {
             xs: "0.75rem",
@@ -583,8 +576,7 @@ module.exports = {
         transitionProperty: {
             none: "none",
             all: "all",
-            default:
-                "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
+            default: "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
             colors: "background-color, border-color, color, fill, stroke",
             opacity: "opacity",
             shadow: "box-shadow",
