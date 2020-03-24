@@ -26,7 +26,7 @@ let logLevel = LOG_LEVEL.DEBUG;
 /** USAGE INFO
  *  ----------
  * 1. Import:
- *      > import * as logger from "./log/logger";
+ *      > import logger from "./log/logger";
  *
  * 2. Set log level:
  *      > logger.setLogLevel(<lvl>);
