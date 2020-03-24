@@ -3,6 +3,14 @@ import ReactDOM from "react-dom";
 import "./styles/main.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import logger from "./log/logger";
+
+// Configuration options
+const opt = {
+    LOG_LEVEL: process.env.REACT_ENV_LOG_LEVEL || "DEBUG",
+};
+
+logger.setLogLevel(opt.LOG_LEVEL);
 
 ReactDOM.render(
     <React.StrictMode>
