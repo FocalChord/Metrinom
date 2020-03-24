@@ -1,26 +1,3 @@
-/* ~~~~~ USAGE INFO ~~~~~
- *
- * 1. Import:
- *      > import * as logger from "./log/logger";
- *
- * 2. Set log level:
- *      > logger.setLogLevel(<lvl>);
- *
- * 3. Get log level:
- *      > logger.getLogLevel();
- *
- * 4. Logging:
- *      > logger.info(<msg>);
- *          Use this for general messages about the system
- *      > logger.debug(<msg>);
- *          Use this for more detailed messages that might be needed for debugging
- *      > logger.warn(<msg>);
- *          Use this for warnings
- *      > logger.error(<msg>);
- *          Use this for errors, e.g. after catching an error. Although, ideally caught errors should be handled gracefully
- *
- */
-
 // The different levels logs can be printed in
 const LOG_LEVEL = {
     INFO: "INFO",
@@ -46,41 +23,65 @@ const IS_PRODUCTION = process.env.NODE_ENV === "production";
 // The current log level of the system
 let logLevel = LOG_LEVEL.DEBUG;
 
-/**
- * Sets the log level. The log level should only be set once at the start of the program, e.g. in index.js.
+/** USAGE INFO
+ *  ----------
+ * 1. Import:
+ *      > import * as logger from "./log/logger";
  *
- * @param {string} lvl Should be either 'INFO' or 'DEBUG'
+ * 2. Set log level:
+ *      > logger.setLogLevel(<lvl>);
+ *
+ * 3. Get log level:
+ *      > logger.getLogLevel();
+ *
+ * 4. Logging:
+ *      > logger.info(<msg>);
+ *          Use this for general messages about the system
+ *      > logger.debug(<msg>);
+ *          Use this for more detailed messages that might be needed for debugging
+ *      > logger.warn(<msg>);
+ *          Use this for warnings
+ *      > logger.error(<msg>);
+ *          Use this for errors, e.g. after catching an error. Although, ideally caught errors should be handled gracefully
+ *
  */
-const setLogLevel = lvl => {
-    logLevel = SETTABLE_LOG_LEVELS.includes(lvl) ? lvl : invalidLogLevel(lvl);
-    info(`Log level set to: ${logLevel}`);
+const logger = {
+    /**
+     * Sets the log level. The log level should only be set once at the start of the program, e.g. in index.js.
+     *
+     * @param {string} lvl Should be either 'INFO' or 'DEBUG'
+     */
+    setLogLevel: (lvl) => {
+        logLevel = SETTABLE_LOG_LEVELS.includes(lvl) ? lvl : invalidLogLevel(lvl);
+        logger.info(`Log level set to: ${logLevel}`);
+    },
+
+    getLogLevel: () => {
+        return logLevel;
+    },
+
+    info: (msg) => {
+        log(msg, LOG_LEVEL.INFO);
+    },
+
+    debug: (msg) => {
+        logLevel === LOG_LEVEL.DEBUG && log(msg, LOG_LEVEL.DEBUG);
+    },
+
+    warn: (msg) => {
+        log(msg, LOG_LEVEL.WARN);
+    },
+
+    error: (msg) => {
+        log(msg, LOG_LEVEL.ERROR);
+    },
 };
 
-const getLogLevel = () => {
-    return logLevel;
-};
-
-const invalidLogLevel = lvl => {
-    info(`Invalid log level: ${lvl} - it should be one of ${SETTABLE_LOG_LEVELS.join(", ")}`);
+const invalidLogLevel = (lvl) => {
+    logger.info(`Invalid log level: ${lvl} - it should be one of ${SETTABLE_LOG_LEVELS.join(", ")}`);
 
     // Set the log level to the most detailed one
     return LOG_LEVEL.DEBUG;
-};
-
-const info = msg => {
-    log(msg, LOG_LEVEL.INFO);
-};
-
-const debug = msg => {
-    logLevel === LOG_LEVEL.DEBUG && log(msg, LOG_LEVEL.DEBUG);
-};
-
-const warn = msg => {
-    log(msg, LOG_LEVEL.WARN);
-};
-
-const error = msg => {
-    log(msg, LOG_LEVEL.ERROR);
 };
 
 const log = (msg, lvl) => {
@@ -94,4 +95,4 @@ const log = (msg, lvl) => {
     !IS_PRODUCTION && CONSOLE_LOG[lvl](now + lvlFormatted + msg);
 };
 
-export { setLogLevel, getLogLevel, info, debug, warn, error };
+export default logger;

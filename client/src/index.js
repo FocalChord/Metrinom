@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./styles/main.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import * as logger from "./log/logger";
+import logger from "./log/logger";
 
 // Configuration options
 const opt = {
