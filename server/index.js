@@ -2,8 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const UserModel = require("./src/models/user");
-const NotificationModel = require("./src/models/notification");
 require("dotenv").config();
 
 const connectionString = process.env.DEV_DB_CONN || "mongodb://localhost/Metrinome";
@@ -16,36 +14,6 @@ db.once("open", () => {
     console.log("Connected to MongoDB.");
 });
 db.on("error", () => {});
-
-const validUser1 = new UserModel({
-    spotifyUserId: "dinner",
-    displayName: "Dinith",
-    profilePic: "x",
-    friends: ["Hong"],
-    notification: null,
-    isPrivate: true,
-});
-validUser1.save(function (err) {
-    if (err) console.log(err);
-});
-const validNotification = new NotificationModel({
-    fromUser: validUser1,
-});
-validNotification.save(function (err) {
-    if (err) console.log(err);
-});
-
-const validUser2 = new UserModel({
-    spotifyUserId: "Hong",
-    displayName: "Hong",
-    profilePic: "x",
-    friends: ["Dinith"],
-    notification: validNotification,
-    isPrivate: true,
-});
-validUser2.save(function (err) {
-    if (err) console.log(err);
-});
 
 const app = express();
 const port = process.env.PORT || 3001;
