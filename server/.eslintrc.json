@@ -10,11 +10,13 @@
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-        "ecmaVersion": 2018
+        "ecmaVersion": 2018,
+        "sourceType": "module"
     },
     "plugins": ["prettier"],
     "rules": {
         "no-console": "off",
-        "func-names": "off"
+        "func-names": "off",
+        "no-undef": "off"
     }
 }
