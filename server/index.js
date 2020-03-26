@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
 require("dotenv").config();
 
 const connectionString = process.env.DEV_DB_CONN || "mongodb://localhost/Metrinome";
@@ -30,3 +29,4 @@ app.get("/", (req, res) => {
 //     res.send;
 // });
 app.listen(port, () => console.log(`Server running on port ${port}`));
+console.log("hi");
