@@ -4,7 +4,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 const shareableSchema = mongoose.Schema({
     type: {
         type: String,
-        enum: ["SONG", "ARTIST", "PLAYLIST"],
+        enum: ["SONG", "ARTIST", "PLAYLIST", "FRIEND REQUEST"],
         required: true,
     },
     spotifyId: {

@@ -4,7 +4,7 @@ const User = require("../src/models/user");
 
 require("dotenv").config();
 
-describe("User Model Test", () => {
+describe("Data Model Test", () => {
     before(async () => {
         await mongoose.connect(process.env.TEST_DB_CONN, { useNewUrlParser: true }, (err) => {
             if (err) {
@@ -52,7 +52,7 @@ describe("User Model Test", () => {
         });
     });
 
-    it("Create object with a missing field", async () => {
+    it("Create object with a missing field should result in error", async () => {
         const missingFieldUser = new User({
             displayName: "Dinith",
             profilePic: "image.png",
@@ -65,9 +65,8 @@ describe("User Model Test", () => {
     });
 
     it("Deletes user from the database", async () => {
-        User.remove({ user: "Dinith123" }).then(() => {
-            assert(user === null);
-            done();
-        });
+        await User.deleteOne({ spotifyUserId: "Dinith123" });
+        const user = await User.find({ spotifyUserId: "Dinith123" });
+        assert(user[0] === undefined);
     });
 });

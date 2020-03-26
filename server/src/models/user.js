@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
         default: null,
     },
     notification: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [mongoose.Schema.Types.ObjectId],
         required: false,
         default: null,
     },

@@ -17,6 +17,7 @@
     "rules": {
         "no-console": "off",
         "func-names": "off",
-        "no-undef": "off"
+        "no-undef": "off",
+        "no-underscore-dangle": "off"
     }
 }
