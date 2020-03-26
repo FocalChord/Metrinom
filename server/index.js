@@ -29,4 +29,3 @@ app.get("/", (req, res) => {
 //     res.send;
 // });
 app.listen(port, () => console.log(`Server running on port ${port}`));
-console.log("hi");
