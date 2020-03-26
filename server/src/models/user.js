@@ -20,6 +20,11 @@ const userSchema = mongoose.Schema({
         required: true,
         default: null,
     },
+    notification: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        default: null,
+    },
     isPrivate: {
         type: Boolean,
         require: true,
