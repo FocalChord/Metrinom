@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
 require("dotenv").config();
 
 const connectionString = process.env.DEV_DB_CONN || "mongodb://localhost/Metrinome";
