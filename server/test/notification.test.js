@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const assert = require("assert");
-const User = require("../src/models/user");
-const Notification = require("../src/models/notification");
-const Shareable = require("../src/models/shareable");
+const User = require("../models/user");
+const Notification = require("../models/notification");
+const Shareable = require("../models/shareable");
 
 require("dotenv").config();
 

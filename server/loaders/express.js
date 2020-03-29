@@ -10,13 +10,11 @@ const setUpExpress = (app) => {
     app.use(cors());
     app.use(routes);
 
-    app.get("/status", (req, res) => {
-        res.status(200).end();
-    });
-
-    app.head("/status", (req, res) => {
-        res.status(200).end();
-    });
+    app.get("/heartbeat", (req, res) =>
+        res.send({
+            dateTime: new Date().toJSON(),
+        }),
+    );
 };
 
 module.exports = setUpExpress;
