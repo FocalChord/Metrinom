@@ -95,4 +95,4 @@ const log = (msg, lvl) => {
     !IS_PRODUCTION && CONSOLE_LOG[lvl](now + lvlFormatted + msg);
 };
 
-export default logger;
+modules.exports = logger;

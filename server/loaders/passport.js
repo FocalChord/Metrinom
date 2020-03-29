@@ -1,6 +1,6 @@
 const passport = require("passport");
 const SpotifyStrategy = require("passport-spotify").Strategy;
-const User = require("../src/models/user");
+const User = require("../models/user");
 require("dotenv").config();
 
 const spotifyConfig = {
@@ -9,7 +9,7 @@ const spotifyConfig = {
     callbackURL: "http://localhost:3001/auth/spotify/callback",
 };
 
-module.exports = (app) => {
+const setUpPassport = (app) => {
     passport.serializeUser((user, done) => {
         User.findById(user.id).then((t) => console.log(t));
         done(null, user.id);
@@ -34,3 +34,5 @@ module.exports = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 };
+
+module.exports = setUpPassport;

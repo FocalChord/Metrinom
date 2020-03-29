@@ -18,6 +18,10 @@
         "no-console": "off",
         "func-names": "off",
         "no-undef": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "import/newline-after-import": "off",
+        "no-use-before-define": "off",
+        "prefer-template": "off",
+        "no-unused-expressions": "off"
     }
 }
