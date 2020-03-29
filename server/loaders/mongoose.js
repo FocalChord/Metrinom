@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const connectionString = process.env.DEV_DB_CONN || "mongodb://localhost/Metrinome";
 
 const connectToMongoose = async () => {
-    await mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
     const db = mongoose.connection;
 
     db.once("open", () => {
