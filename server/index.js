@@ -25,7 +25,9 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => {
     res.send("Hello Worldsss");
 });
-// app.get("/api/users", (req, res) => {
-//     res.send;
-// });
+
+const user = require("./src/routing/user-routing");
+
+app.use("/user", user);
+
 app.listen(port, () => console.log(`Server running on port ${port}`));
