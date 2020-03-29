@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
+const findOrCreate = require("mongoose-findorcreate");
 
 const userSchema = mongoose.Schema({
     spotifyUserId: {
@@ -31,5 +32,7 @@ const userSchema = mongoose.Schema({
         default: false,
     },
 });
+
 userSchema.plugin(uniqueValidator);
+userSchema.plugin(findOrCreate);
 module.exports = mongoose.model("User", userSchema);
