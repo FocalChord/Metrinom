@@ -416,9 +416,8 @@ ul {
  */
 
 html {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-        Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji"; /* 1 */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 1 */
     line-height: 1.5; /* 2 */
 }
 
@@ -3681,9 +3680,8 @@ video {
 }
 
 .font-sans {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-        Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .font-serif {
@@ -9173,10 +9171,8 @@ video {
     --transform-skew-y: 0;
     --transform-scale-x: 1;
     --transform-scale-y: 1;
-    transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y))
-        rotate(var(--transform-rotate)) skewX(var(--transform-skew-x))
-        skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x))
-        scaleY(var(--transform-scale-y));
+    transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate))
+        skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
 }
 
 .transform-none {
@@ -10854,8 +10850,7 @@ video {
 }
 
 .transition {
-    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow,
-        transform;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
 }
 
 .transition-colors {
@@ -13994,9 +13989,8 @@ video {
     }
 
     .sm\:font-sans {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-            "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-            "Segoe UI Symbol", "Noto Color Emoji";
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     .sm\:font-serif {
@@ -19486,10 +19480,8 @@ video {
         --transform-skew-y: 0;
         --transform-scale-x: 1;
         --transform-scale-y: 1;
-        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y))
-            rotate(var(--transform-rotate)) skewX(var(--transform-skew-x))
-            skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x))
-            scaleY(var(--transform-scale-y));
+        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate))
+            skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
     }
 
     .sm\:transform-none {
@@ -21167,8 +21159,7 @@ video {
     }
 
     .sm\:transition {
-        transition-property: background-color, border-color, color, fill, stroke, opacity,
-            box-shadow, transform;
+        transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     }
 
     .sm\:transition-colors {
@@ -24308,9 +24299,8 @@ video {
     }
 
     .md\:font-sans {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-            "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-            "Segoe UI Symbol", "Noto Color Emoji";
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     .md\:font-serif {
@@ -29800,10 +29790,8 @@ video {
         --transform-skew-y: 0;
         --transform-scale-x: 1;
         --transform-scale-y: 1;
-        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y))
-            rotate(var(--transform-rotate)) skewX(var(--transform-skew-x))
-            skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x))
-            scaleY(var(--transform-scale-y));
+        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate))
+            skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
     }
 
     .md\:transform-none {
@@ -31481,8 +31469,7 @@ video {
     }
 
     .md\:transition {
-        transition-property: background-color, border-color, color, fill, stroke, opacity,
-            box-shadow, transform;
+        transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     }
 
     .md\:transition-colors {
@@ -34622,9 +34609,8 @@ video {
     }
 
     .lg\:font-sans {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-            "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-            "Segoe UI Symbol", "Noto Color Emoji";
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     .lg\:font-serif {
@@ -40114,10 +40100,8 @@ video {
         --transform-skew-y: 0;
         --transform-scale-x: 1;
         --transform-scale-y: 1;
-        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y))
-            rotate(var(--transform-rotate)) skewX(var(--transform-skew-x))
-            skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x))
-            scaleY(var(--transform-scale-y));
+        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate))
+            skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
     }
 
     .lg\:transform-none {
@@ -41795,8 +41779,7 @@ video {
     }
 
     .lg\:transition {
-        transition-property: background-color, border-color, color, fill, stroke, opacity,
-            box-shadow, transform;
+        transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     }
 
     .lg\:transition-colors {
@@ -44936,9 +44919,8 @@ video {
     }
 
     .xl\:font-sans {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-            "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-            "Segoe UI Symbol", "Noto Color Emoji";
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+            "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     }
 
     .xl\:font-serif {
@@ -50428,10 +50410,8 @@ video {
         --transform-skew-y: 0;
         --transform-scale-x: 1;
         --transform-scale-y: 1;
-        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y))
-            rotate(var(--transform-rotate)) skewX(var(--transform-skew-x))
-            skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x))
-            scaleY(var(--transform-scale-y));
+        transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate))
+            skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y));
     }
 
     .xl\:transform-none {
@@ -52109,8 +52089,7 @@ video {
     }
 
     .xl\:transition {
-        transition-property: background-color, border-color, color, fill, stroke, opacity,
-            box-shadow, transform;
+        transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     }
 
     .xl\:transition-colors {
