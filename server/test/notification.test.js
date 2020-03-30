@@ -22,7 +22,7 @@ const newShareable = new Shareable({
 const shareableId = newShareable._id;
 
 const newNotification = new Notification({
-    fromUser: newUser,
+    fromUser: newUser.spotifyUserId,
     shareable: newShareable,
 });
 const notificationId = newNotification._id;
@@ -69,7 +69,7 @@ describe("Notification Model Test", () => {
     it("gets Notification information and checks shareable and users exist in the database from the notification object", async () => {
         const notificationInfo = await Notification.find({ _id: notificationId });
         // Checks that the user that the notification is from exists
-        const user = await User.find({ _id: notificationInfo[0].fromUser });
+        const user = await User.find({ spotifyUserId: notificationInfo[0].fromUser });
         assert(user[0].spotifyUserId === "Dinith123");
         // Checks the shareable entitiy that relates to the notification exists
         const shareable = await Shareable.find({ _id: notificationInfo[0].shareable });
