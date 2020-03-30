@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
-// import logger from "../log/logger";
-
+const LOGGER = require("../log/logger");
 // GET Single user
 /**
  * @swagger
@@ -30,10 +29,10 @@ const User = require("../models/user");
 router.get("/:id", (req, res) => {
     User.findOne({ spotifyUserId: req.params.id }, (err, users) => {
         if (err) {
-            // logger.error(err);
+            LOGGER.error(err);
             res.status(400).json({ msg: "error" });
         } else {
-            // logger.info(users);
+            LOGGER.info(users);
             res.status(200).json(users);
         }
     });
@@ -57,10 +56,10 @@ router.get("/:id", (req, res) => {
 router.get("/", (req, res) => {
     User.find({}, (err, users) => {
         if (err) {
-            // logger.error(err);
+            LOGGER.error(err);
             res.status(400).json({ msg: err });
         } else {
-            // logger.info(users);
+            LOGGER.info(users);
             res.status(200).json(users);
         }
     });
@@ -90,10 +89,10 @@ router.get("/", (req, res) => {
 router.put("/", (req, res) => {
     User.updateOne({ spotifyUserId: req.body.spotifyUserId }, req.body, { upsert: "true" }, (err, user) => {
         if (err) {
-            // logger.error(err);
+            LOGGER.error(err);
             res.status(400).json({ msg: "error" });
         } else {
-            // logger.info(users);
+            LOGGER.info(users);
             res.status(200).json(user);
         }
     });

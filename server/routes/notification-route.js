@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Notification = require("../models/notification");
 const User = require("../models/user");
+const LOGGER = require("../log/logger");
 
 /**
  * @swagger
@@ -29,14 +30,15 @@ const User = require("../models/user");
 router.get("/:id", (req, res) => {
     User.findOne({ spotifyUserId: req.params.id }, (err, user) => {
         if (err || user == null) {
+            LOGGER.error(err);
             res.status(400).json({ msg: "error" });
         } else {
             Notification.find({ _id: { $in: user.notification } }, (err, notifications) => {
                 if (err) {
-                    // logger.error(err);
+                    LOGGER.error(err);
                     res.status(400).json({ msg: "error" });
                 } else {
-                    // logger.info(notifications);
+                    LOGGER.info(notifications);
                     res.status(200).json(notifications);
                 }
             });
@@ -73,24 +75,29 @@ router.get("/:id", (req, res) => {
  *                $ref: '#/components/schemas/Notification'
  */
 router.post("/:id", (req, res) => {
-    console.log(req.body);
     Notification.create(req.body, (err, notification) => {
         if (err) {
-            console.log(err);
+            LOGGER.log(err);
             res.status(400).json({ msg: "couldnt create notification" });
         } else {
+            LOGGER.log(notification);
             User.findOne({ spotifyUserId: req.params.id }, (err, user) => {
                 user.notification.push(notification);
                 if (err || user == null) {
+                    LOGGER.log(err);
                     res.status(400).json({ msg: "couldnt find user that the notification is for" });
+                } else {
+                    LOGGER.info(user);
+                    User.updateOne({ spotifyUserId: user.spotifyUserId }, user, { upsert: "false" }, (err, user) => {
+                        if (err) {
+                            LOGGER.log(err);
+                            res.status(400).json({ msg: "couldnt add notification to user" });
+                        } else {
+                            LOGGER.info(user);
+                            res.status(200).json({ msg: notification });
+                        }
+                    });
                 }
-                User.updateOne({ spotifyUserId: user.spotifyUserId }, user, { upsert: "false" }, (err, user) => {
-                    if (err) {
-                        res.status(400).json({ msg: "couldnt add notification to user" });
-                    } else {
-                        res.status(200).json({ msg: notification });
-                    }
-                });
             });
         }
     });
@@ -121,10 +128,10 @@ router.post("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
     Notification.findOneAndRemove({ _id: req.params.id }, (err, notifications) => {
         if (err) {
-            // logger.error(err);
+            LOGGER.error(err);
             res.status(400).json({ msg: "error" });
         } else {
-            // logger.info(notifications);
+            LOGGER.info(notifications);
             res.status(200).json(notifications);
         }
     });

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const assert = require("assert");
 const User = require("../models/user");
-
 require("dotenv").config();
 
 describe("Data Model Test", () => {
