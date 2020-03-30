@@ -47,10 +47,17 @@ router.get("/:id", (req, res) => {
 /**
  * @swagger
  * path:
- *  /user/:
+ *  /notification/{id}:
  *    post:
  *      tags: [Notification]
- *      summary: Creates a new notification
+ *      summary: Creates a new notification for the specific userId
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: Id of the user
  *      requestBody:
  *        required: true
  *        content:
@@ -65,14 +72,26 @@ router.get("/:id", (req, res) => {
  *              schema:
  *                $ref: '#/components/schemas/Notification'
  */
-router.post("/", (req, res) => {
-    Notification.create(req.params.body, (err, notifications) => {
+router.post("/:id", (req, res) => {
+    console.log(req.body);
+    Notification.create(req.body, (err, notification) => {
         if (err) {
-            // logger.error(err);
-            res.status(400).json({ msg: "error" });
+            console.log(err);
+            res.status(400).json({ msg: "couldnt create notification" });
         } else {
-            // logger.info(notifications);
-            res.status(200).json(notifications);
+            User.findOne({ spotifyUserId: req.params.id }, (err, user) => {
+                user.notification.push(notification);
+                if (err || user == null) {
+                    res.status(400).json({ msg: "couldnt find user that the notification is for" });
+                }
+                User.updateOne({ spotifyUserId: user.spotifyUserId }, user, { upsert: "false" }, (err, user) => {
+                    if (err) {
+                        res.status(400).json({ msg: "couldnt add notification to user" });
+                    } else {
+                        res.status(200).json({ msg: notification });
+                    }
+                });
+            });
         }
     });
 });

@@ -15,24 +15,34 @@ const uniqueValidator = require("mongoose-unique-validator");
  *            type: String
  *            description: User object that sent the notification
  *          shareable:
- *            type: string
+ *            type: shareable
  *            description: display name for spotify
  *          viewed:
  *            type: boolean
  *            description: if the notification has been viewed or not
  *        example:
- *           User:
+ *           fromUser: "Dinith"
  *           shareable:
+ *              type: SONG
+ *              spotifyId: SD89cjs2j342
  *           viewed: false
  */
 const notificationSchema = mongoose.Schema({
     fromUser: {
         type: String,
         required: true,
+        unique: false,
     },
     shareable: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        type: {
+            type: String,
+            enum: ["SONG", "ARTIST", "PLAYLIST", "FRIEND REQUEST"],
+            required: true,
+        },
+        spotifyId: {
+            type: String,
+            required: true,
+        },
     },
     viewed: {
         type: Boolean,
@@ -40,5 +50,4 @@ const notificationSchema = mongoose.Schema({
         default: false,
     },
 });
-notificationSchema.plugin(uniqueValidator);
 module.exports = mongoose.model("Notification", notificationSchema);
