@@ -15,8 +15,15 @@ const uniqueValidator = require("mongoose-unique-validator");
  *            type: String
  *            description: User object that sent the notification
  *          shareable:
- *            type: shareable
- *            description: display name for spotify
+ *            type: object
+ *            description: The
+ *            properties:
+ *              type:
+ *                type: String
+ *                description: Type of notification [SONG, ARTIST, PLAYLIST, FRIEND REQUEST]
+ *              spotifyId:
+ *                type: String
+ *                description: The id provided by spotify for the song,artist,playlist
  *          viewed:
  *            type: boolean
  *            description: if the notification has been viewed or not
