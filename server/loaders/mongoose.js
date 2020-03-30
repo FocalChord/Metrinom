@@ -1,18 +1,23 @@
 require("dotenv").config();
-
 const mongoose = require("mongoose");
 const connectionString = process.env.DEV_DB_CONN || "mongodb://localhost/Metrinome";
+const LOGGER = require("../log/logger");
 
 const connectToMongoose = async () => {
-    await mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+    await mongoose.connect(connectionString, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+    });
     const db = mongoose.connection;
 
     db.once("open", () => {
-        console.log("Connected to MongoDB.");
+        LOGGER.info("Connected to MongoDB");
     });
 
     db.on("error", () => {
-        console.log("error");
+        LOGGER.error("Error for MongoDB");
     });
 };
 

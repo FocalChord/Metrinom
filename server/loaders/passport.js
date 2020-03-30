@@ -6,12 +6,11 @@ require("dotenv").config();
 const spotifyConfig = {
     clientID: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-    callbackURL: "http://localhost:3001/auth/spotify/callback",
+    callbackURL: process.env.CALLBACK_URL || "http://localhost:3001/auth/spotify/callback",
 };
 
 const setUpPassport = (app) => {
     passport.serializeUser((user, done) => {
-        User.findById(user.id).then((t) => console.log(t));
         done(null, user.id);
     });
 
@@ -20,14 +19,38 @@ const setUpPassport = (app) => {
     });
 
     passport.use(
-        new SpotifyStrategy(spotifyConfig, (accessToken, refreshToken, expiresIn, profile, done) => {
-            const { id, displayName } = profile;
-            const userLoggingIn = {
-                spotifyUserId: id,
-                displayName,
-            };
+        new SpotifyStrategy(spotifyConfig, async (accessToken, refreshToken, expiresIn, profile, done) => {
+            let user;
 
-            User.findOrCreate(userLoggingIn, (err, user) => done(err, user));
+            try {
+                user = await User.findOneAndUpdate(
+                    {
+                        spotifyUserId: profile.id,
+                        displayName: profile.displayName,
+                    },
+                    {
+                        accessToken,
+                        refreshToken,
+                    },
+                );
+            } catch (err) {
+                return done(err, null);
+            }
+
+            if (!user) {
+                try {
+                    user = await User.create({
+                        spotifyUserId: profile.id,
+                        displayName: profile.displayName,
+                        accessToken,
+                        refreshToken,
+                    });
+                } catch (err) {
+                    return done(err, null);
+                }
+            }
+
+            return done(null, user);
         }),
     );
 

@@ -31,7 +31,17 @@ const userSchema = mongoose.Schema({
         require: true,
         default: false,
     },
+    accessToken: String,
+    refreshToken: String,
 });
+
+userSchema.statics.findAccessToken = async function (userId) {
+    const user = await this.findOne({
+        userId: new mongoose.Types.ObjectId(userId),
+    });
+
+    return user;
+};
 
 userSchema.plugin(uniqueValidator);
 userSchema.plugin(findOrCreate);
