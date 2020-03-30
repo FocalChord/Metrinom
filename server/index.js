@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const user = require("./src/routing/user-routing");
 require("dotenv").config();
 
 const connectionString = process.env.DEV_DB_CONN || "mongodb://localhost/Metrinome";
@@ -22,12 +25,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-    res.send("Hello Worldsss");
-});
-
-const user = require("./src/routing/user-routing");
-
 app.use("/user", user);
+// Set swagger options
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Metrinom API",
+            description: "Documentation for the APIs Metrinom uses",
+            contact: {
+                name: "YEYA",
+            },
+            servers: ["http://localhost:3001"],
+        },
+    },
+    apis: ["./src/routing/*.js", "./src/models/user.js"],
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
