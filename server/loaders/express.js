@@ -16,5 +16,4 @@ const setUpExpress = (app) => {
         }),
     );
 };
-
 module.exports = setUpExpress;
