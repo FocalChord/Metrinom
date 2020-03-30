@@ -32,6 +32,10 @@ const findOrCreate = require("mongoose-findorcreate");
  *          isPrivate:
  *            type: boolean
  *            description: if the user wants to show there profile information
+ *          accessToken:
+ *             type: string
+ *          refreshToken:
+ *             type: string
  *        example:
  *           spotifyUserId: 390FGD84JD
  *           displayName: Dinitj
