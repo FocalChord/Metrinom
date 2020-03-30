@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const assert = require("assert");
-const Shareable = require("../src/models/shareable");
+const Shareable = require("../models/shareable");
 
 require("dotenv").config();
 

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const assert = require("assert");
-const User = require("../src/models/user");
+const User = require("../models/user");
 
 require("dotenv").config();
 
