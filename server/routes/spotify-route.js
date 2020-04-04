@@ -107,7 +107,7 @@ router.get("/top/:id/genres", (req, res) => {
     const timeFrame = "medium_term";
 
     // Retrieve the user in the database
-    User.findOne({ spotifyUserId: req.params.id }, (err, user) => {
+    User.findOne({ spotifyUserId: req.params.id }, async (err, user) => {
         if (err || user == null) {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
