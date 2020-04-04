@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/user");
 const LOGGER = require("../log/logger");
 const fetch = require("node-fetch");
-const spotify = require("../spotify-logic/genre");
+const spotify = require("../spotify-logic");
 
 const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
 
