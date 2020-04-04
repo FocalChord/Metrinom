@@ -31,7 +31,7 @@ const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
  *          schema:
  *            type: string
  *          required: false
- *          description: Optional. Over what time frame the affinities are computed. Valid values= long_term (calculated from several years of data and including all new data as it becomes available), medium_term (approximately last 6 months), short_term (approximately last 4 weeks). Default= medium_term
+ *          description: Optional. Valid values= long_term (calculated from several years of data and including all new data as it becomes available), medium_term (approximately last 6 months), short_term (approximately last 4 weeks). Default= medium_term
  *      responses:
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
