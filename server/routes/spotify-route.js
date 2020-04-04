@@ -6,6 +6,7 @@ const fetch = require("node-fetch");
 const spotify = require("../spotify-logic");
 
 const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
+const spotifyRecommendationUrl = "https://api.spotify.com/v1/recommendations";
 
 /**
  * @swagger
