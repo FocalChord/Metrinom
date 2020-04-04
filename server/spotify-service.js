@@ -49,9 +49,7 @@ const fetchTopGenres = async (timeFrame, authToken) => {
         "Content-Type": "application/json",
     };
     try {
-        console.log(spotifyTopUrl + `/artists?time_range=${timeFrame}&limit=50`);
         const response = await fetch(spotifyTopUrl + `/artists?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers });
-        console.log(response);
         const json = await response.json();
         const topGenreJson = spotify.findGenres(json);
 
@@ -85,7 +83,6 @@ const fetchMakePlaylist = async (songURIList, spotifyUserId, authToken) => {
         const addTrackBody = {
             uris: songURIList,
         };
-        console.log(addTrackBody);
         // adds the songs to the playlist
         const addedTrackResponse = await fetch(spotifyPlaylistUrl + `/${playlistId}/tracks`, {
             method: "POST",
