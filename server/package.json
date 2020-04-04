@@ -20,6 +20,7 @@
         "mongoose": "^5.9.6",
         "mongoose-findorcreate": "^3.0.0",
         "mongoose-unique-validator": "^2.0.3",
+        "node-fetch": "^2.6.0",
         "nodemon": "^2.0.2",
         "passport": "^0.4.1",
         "passport-spotify": "^1.1.0",
