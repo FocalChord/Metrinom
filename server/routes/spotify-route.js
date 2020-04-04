@@ -55,7 +55,12 @@ router.get("/top/:id", (req, res) => {
             fetch(spotifyTopUrl + `/${type}?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers })
                 .then((response) => response.json())
                 .then((data) => {
-                    res.status(200).json(data);
+                    if (data.error) {
+                        LOGGER.error(data);
+                        res.status(400).json(data);
+                    } else {
+                        res.status(200).json(data);
+                    }
                 });
         }
     });
