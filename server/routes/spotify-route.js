@@ -207,7 +207,7 @@ router.get("/recommendations/:id", (req, res) => {
  *              $ref: '#/components/schemas/TrackURI'
  *      responses:
  *        "200":
- *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
+ *          description: A snapshot that shows the added tracks to playlist  ref= https://developer.spotify.com/documentation/web-api/reference/playlists/add-tracks-to-playlist/
  */
 router.post("/playlist/create/:id", (req, res) => {
     const songURIList = req.body.uris || "";
