@@ -1,15 +1,20 @@
 const fetch = require("node-fetch");
 const spotify = require("./spotify-logic");
-const LOGGER = require("../log/logger");
+const LOGGER = require("./log/logger");
 
-const fetchTopArtistOrTracks = async (url, type, timeFrame, authToken) => {
+const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
+const spotifyRecommendationUrl = "https://api.spotify.com/v1/recommendations";
+const spotifyUserUrl = "https://api.spotify.com/v1/users";
+const spotifyPlaylistUrl = "https://api.spotify.com/v1/playlists";
+
+const fetchTopArtistOrTracks = async (type, timeFrame, authToken) => {
     const headers = {
         Authorization: "Bearer " + authToken,
         Accept: "application/json",
         "Content-Type": "application/json",
     };
     try {
-        const response = await fetch(url + `/${type}?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers });
+        const response = await fetch(spotifyTopUrl + `/${type}?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers });
         const json = await response.json();
         return json;
     } catch (error) {
@@ -17,7 +22,7 @@ const fetchTopArtistOrTracks = async (url, type, timeFrame, authToken) => {
     }
 };
 
-const fetchRecomendations = async (url, seedArtist, seedTracks, seedGenres, authToken) => {
+const fetchRecomendations = async (seedArtist, seedTracks, seedGenres, authToken) => {
     const headers = {
         Authorization: "Bearer " + authToken,
         Accept: "application/json",
@@ -25,7 +30,7 @@ const fetchRecomendations = async (url, seedArtist, seedTracks, seedGenres, auth
     };
     try {
         const response = await fetch(
-            url +
+            spotifyRecommendationUrl +
                 `/?limit=20&seed_artist=${seedArtist}&seed_tracks=${seedTracks}&seed_genres=${seedGenres}&min_energy=0.4&min_popularity=50`,
             { method: "GET", headers: headers },
         );
@@ -37,14 +42,14 @@ const fetchRecomendations = async (url, seedArtist, seedTracks, seedGenres, auth
     }
 };
 
-const fetchTopGenres = async (url, timeFrame, authToken) => {
+const fetchTopGenres = async (timeFrame, authToken) => {
     const headers = {
         Authorization: "Bearer " + authToken,
         Accept: "application/json",
         "Content-Type": "application/json",
     };
     try {
-        const response = await fetch(url + `/artists?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers });
+        const response = await fetch(spotifyTopUrl + `/artists?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers });
         const json = await response.json();
         const topGenreJson = spotify.findGenres(json);
 
@@ -54,4 +59,43 @@ const fetchTopGenres = async (url, timeFrame, authToken) => {
     }
 };
 
-module.exports = { fetchTopArtistOrTracks, fetchRecomendations, fetchTopGenres };
+const fetchMakePlaylist = async (songURIList, spotifyUserId, authToken) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+
+    try {
+        // creates a playlist for the specified user
+
+        const createdplaylistResponse = await fetch(spotifyUserUrl + `/${spotifyUserId}/playlists`, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                name: "New Playlist from Metronom",
+                description: "New playlist created by Metronom",
+                public: false,
+            }),
+        });
+        const playlistResponseJson = await createdplaylistResponse.json();
+        const playlistId = playlistResponseJson.id;
+
+        const addTrackBody = {
+            uris: songURIList,
+        };
+        console.log(addTrackBody);
+        // adds the songs to the playlist
+        const addedTrackResponse = await fetch(spotifyPlaylistUrl + `/${playlistId}/tracks`, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(addTrackBody),
+        });
+        const addedTrackResponseJson = await addedTrackResponse.json();
+        return addedTrackResponseJson;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
+
+module.exports = { fetchTopArtistOrTracks, fetchRecomendations, fetchTopGenres, fetchMakePlaylist };

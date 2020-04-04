@@ -4,9 +4,6 @@ const User = require("../models/user");
 const LOGGER = require("../log/logger");
 const spotify = require("../spotify-service");
 
-const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
-const spotifyRecommendationUrl = "https://api.spotify.com/v1/recommendations";
-
 /**
  * @swagger
  *  components:
@@ -19,6 +16,20 @@ const spotifyRecommendationUrl = "https://api.spotify.com/v1/recommendations";
  *             type: Array
  *        example:
  *           genres: [[pop,21],[rap,12]]
+ */
+
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      TrackURI:
+ *        type: object
+ *        required:
+ *        properties:
+ *          uris:
+ *             type: Array
+ *        example:
+ *           uris: ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh","spotify:track:1301WleyT98MSxVHPZCA6M"]
  */
 
 /**
@@ -62,7 +73,7 @@ router.get("/top/:id", (req, res) => {
             res.status(400).json({ msg: "error" });
         } else {
             const authToken = user.accessToken;
-            const data = await spotify.fetchTopArtistOrTracks(spotifyTopUrl, type, timeFrame, authToken);
+            const data = await spotify.fetchTopArtistOrTracks(type, timeFrame, authToken);
             if (data.error) {
                 LOGGER.error(data);
                 res.status(400).json(data);
@@ -104,7 +115,7 @@ router.get("/top/:id/genres", (req, res) => {
             res.status(400).json({ msg: "error" });
         } else {
             const authToken = user.accessToken;
-            const data = await spotify.fetchTopGenres(spotifyTopUrl, timeFrame, authToken);
+            const data = await spotify.fetchTopGenres(timeFrame, authToken);
             if (data.error) {
                 LOGGER.error(data);
                 res.status(400).json(data);
@@ -163,7 +174,7 @@ router.get("/recommendations/:id", (req, res) => {
             res.status(400).json({ msg: "error" });
         } else {
             const authToken = user.accessToken;
-            const data = await spotify.fetchRecomendations(spotifyRecommendationUrl, seedArtist, seedTracks, seedGenres, authToken);
+            const data = await spotify.fetchRecomendations(seedArtist, seedTracks, seedGenres, authToken);
             if (data.error) {
                 LOGGER.error(data);
                 res.status(400).json(data);
@@ -173,4 +184,49 @@ router.get("/recommendations/:id", (req, res) => {
         }
     });
 });
+/**
+ * @swagger
+ * path:
+ *  /spotify/playlist/create/{id}:
+ *    post:
+ *      tags: [Spotify]
+ *      summary: Get recommended tracks based on seeds
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: spotify id of user
+ *      requestBody:
+ *        required: true
+ *        description: A JSON array of the Spotify track URIs to add.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/TrackURI'
+ *      responses:
+ *        "200":
+ *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
+ */
+router.post("/playlist/create/:id", (req, res) => {
+    const songURIList = req.body.uris || "";
+    // Retrieve the user in the database
+    User.findOne({ spotifyUserId: req.params.id }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.fetchMakePlaylist(songURIList, req.params.id, authToken);
+            if (data.error) {
+                LOGGER.error(data);
+                res.status(400).json(data);
+            } else {
+                res.status(200).json(data);
+            }
+        }
+    });
+});
+
 module.exports = router;
