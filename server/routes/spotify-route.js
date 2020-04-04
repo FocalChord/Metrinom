@@ -86,7 +86,7 @@ router.get("/top/:id", (req, res) => {
  *  /spotify/top/{id}/genres:
  *    get:
  *      tags: [Spotify]
- *      summary: Get top genres for the particular user
+ *      summary: Gets top genres for the particular user
  *      parameters:
  *        - in: path
  *          name: id
@@ -96,7 +96,7 @@ router.get("/top/:id", (req, res) => {
  *          description: spotify id of user
  *      responses:
  *        "200":
- *          description: An array of genres in rankings from top to bottom
+ *          description: An array of genres in rankings from highest to lowest
  *          content:
  *            application/json:
  *              schema:
