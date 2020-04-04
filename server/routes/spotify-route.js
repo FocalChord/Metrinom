@@ -3,8 +3,23 @@ const router = express.Router();
 const User = require("../models/user");
 const LOGGER = require("../log/logger");
 const fetch = require("node-fetch");
+const spotify = require("../spotify_logic/genre");
 
 const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
+
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Genres:
+ *        type: object
+ *        required:
+ *        properties:
+ *          genres:
+ *             type: Array
+ *        example:
+ *           genres: [[pop,21],[rap,12]]
+ */
 
 /**
  * @swagger
@@ -65,5 +80,55 @@ router.get("/top/:id", (req, res) => {
         }
     });
 });
+/**
+ * @swagger
+ * path:
+ *  /spotify/top/{id}/genres:
+ *    get:
+ *      tags: [Spotify]
+ *      summary: Get top genres for the particular user
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *            type: string
+ *          required: true
+ *          description: spotify id of user
+ *      responses:
+ *        "200":
+ *          description: An array of genres in rankings from top to bottom
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Genres'
+ */
+router.get("/top/:id/genres", (req, res) => {
+    const timeFrame = "medium_term";
 
+    // Retrieve the user in the database
+    User.findOne({ spotifyUserId: req.params.id }, (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const headers = {
+                Authorization: "Bearer " + authToken,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            fetch(spotifyTopUrl + `/artists?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.error) {
+                        LOGGER.error(data);
+                        res.status(400).json(data);
+                    } else {
+                        const topGenreJson = spotify.findGenres(data);
+                        res.status(200).json(topGenreJson);
+                    }
+                });
+        }
+    });
+});
 module.exports = router;
