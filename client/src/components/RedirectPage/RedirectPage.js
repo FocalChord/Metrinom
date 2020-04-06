@@ -10,6 +10,7 @@ const RedirectPage = () => {
         const { token } = params;
         CookieManager.setUserToken(token);
         setRedirect(true);
+        // eslint-disable-next-line
     }, []);
 
     if (redirect) {
