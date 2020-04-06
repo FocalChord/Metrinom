@@ -17,6 +17,7 @@
     },
     "plugins": ["react"],
     "rules": {
-        "no-undef": "off"
+        "no-undef": "off",
+        "react-hooks/exhaustive-deps": "off"
     }
 }

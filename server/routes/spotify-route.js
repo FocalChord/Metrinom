@@ -62,12 +62,13 @@ const spotify = require("../spotify-service");
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
  */
-router.get("/top/:id", (req, res) => {
+router.get("/top/", (req, res) => {
+    const { authorization } = req.headers;
     const timeFrame = req.query.timeFrame || "medium_term";
-    const type = req.query.type;
+    const { type } = req.query;
 
     // Retrieve the user in the database
-    User.findOne({ spotifyUserId: req.params.id }, async (err, user) => {
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
         if (err || user == null) {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
@@ -105,11 +106,13 @@ router.get("/top/:id", (req, res) => {
  *              schema:
  *                $ref: '#/components/schemas/Genres'
  */
-router.get("/top/:id/genres", (req, res) => {
+router.get("/top/genres", (req, res) => {
+    const { authorization } = req.headers;
+
     const timeFrame = "medium_term";
 
     // Retrieve the user in the database
-    User.findOne({ spotifyUserId: req.params.id }, async (err, user) => {
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
         if (err || user == null) {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
@@ -162,13 +165,15 @@ router.get("/top/:id/genres", (req, res) => {
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
  */
-router.get("/recommendations/:id", (req, res) => {
+router.get("/recommendations/", (req, res) => {
     const seedArtist = req.query.seed_artist || "";
     const seedTracks = req.query.seed_tracks || "";
     const seedGenres = req.query.seed_genres || "";
 
+    const { authorization } = req.headers;
+
     // Retrieve the user in the database
-    User.findOne({ spotifyUserId: req.params.id }, async (err, user) => {
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
         if (err || user == null) {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
@@ -209,10 +214,12 @@ router.get("/recommendations/:id", (req, res) => {
  *        "200":
  *          description: A snapshot that shows the added tracks to playlist  ref= https://developer.spotify.com/documentation/web-api/reference/playlists/add-tracks-to-playlist/
  */
-router.post("/playlist/create/:id", (req, res) => {
+router.post("/playlist/create/", (req, res) => {
+    const { authorization } = req.headers;
+
     const songURIList = req.body.uris || "";
     // Retrieve the user in the database
-    User.findOne({ spotifyUserId: req.params.id }, async (err, user) => {
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
         if (err || user == null) {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
