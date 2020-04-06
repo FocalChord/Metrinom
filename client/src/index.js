@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./styles/main.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import AuthDataProvider from "./context/AuthDataProvider.js";
 import logger from "./log/logger";
 
 // Configuration options
@@ -14,7 +16,11 @@ logger.setLogLevel(opt.LOG_LEVEL);
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <Router>
+            <AuthDataProvider>
+                <App />
+            </AuthDataProvider>
+        </Router>
     </React.StrictMode>,
     document.getElementById("root"),
 );

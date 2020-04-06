@@ -1,14 +1,16 @@
 import React from "react";
-import "./App.css";
+import { Route, Switch, withRouter } from "react-router-dom";
+import RedirectPage from "./components/RedirectPage/RedirectPage";
+import HomePage from "./components/HomePage/HomePage";
+import PrivateRoute from "./utils/routes/PrivateRoute";
 
 const App = () => {
     return (
-        <div className="text-center">
-            <header className="min-h-screen flex flex-col items-center justify-center bg-black text-white text-6xl">
-                <a href="http://localhost:3001/auth/spotify">Logon</a>
-            </header>
-        </div>
+        <Switch>
+            <PrivateRoute exact path="/" component={HomePage} />
+            <Route exact path="/login/redirect/:token" component={RedirectPage} />
+        </Switch>
     );
 };
 
-export default App;
+export default withRouter(App);
