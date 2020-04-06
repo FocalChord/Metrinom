@@ -13,8 +13,9 @@ router.get(
     }),
 );
 
-router.get("/spotify/callback", passport.authenticate("spotify", { failureRedirect: "/login" }), (req, res) => {
-    res.send(req.user);
+router.get("/spotify/callback", passport.authenticate("spotify", { failureRedirect: "/", showDialog: true }), (req, res) => {
+    const { spotifyUserId } = req.user;
+    res.redirect(`http://localhost:3000/login/redirect/${spotifyUserId}`);
 });
 
 module.exports = router;
