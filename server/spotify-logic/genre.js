@@ -1,32 +1,26 @@
 // function to sort genres into a list of most popular in json format
 const findGenres = (data) => {
-    const genresDict = {};
-    const topGenres = [];
-    // Populates the dictionary of genres
-    for (let i = 0; i < data.items.length; i++) {
-        let genres = data.items[i].genres;
-        for (let j = 0; j < genres.length; j++) {
-            if (genresDict[genres[j]] != null) {
-                genresDict[genres[j]] = genresDict[genres[j]] + 1;
-            } else {
-                genresDict[genres[j]] = 1;
-            }
-        }
-    }
-    for (let g in genresDict) {
-        topGenres.push([g, genresDict[g]]);
-    }
-    const topGenreJson = {
-        genres: topGenres.sort(comparator),
-    };
-    return topGenreJson;
-};
+    const { items } = data;
+    const genreCount = items
+        .map((item) => item.genres)
+        .filter((genres) => genres.length > 0)
+        .flat()
+        .map((genre) => genre.toString())
+        .reduce(
+            (acc, val) => ({
+                ...acc,
+                [val]: acc[val] ? acc[val] + 1 : 1,
+            }),
+            {},
+        );
 
-// function to sort the genres
-const comparator = (a, b) => {
-    if (a[1] > b[1]) return -1;
-    if (a[1] < b[1]) return 1;
-    return 0;
+    const sortedGenreCount = Object.entries(genreCount)
+        .reduce((acc, val) => [...acc, val], [])
+        .sort((a, b) => b[1] - a[1]);
+
+    return {
+        genres: sortedGenreCount,
+    };
 };
 
 module.exports = { findGenres };
