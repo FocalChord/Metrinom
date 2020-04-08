@@ -141,7 +141,9 @@ router.delete("/:id", (req, res) => {
             res.status(200).json(notifications);
             for (let i = 0; i < user.notification.length; i++) {
                 if (user.notification[i].equals(req.params.id)) {
-                    user.notification.splice(i, i);
+                    console.log(req.params.id);
+                    user.notification.splice(i, 1);
+                    console.log(user.notification);
                 }
             }
             user.notification;
