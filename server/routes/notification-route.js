@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Notification = require("../models/notification");
 const User = require("../models/user");
-const LOGGER = require("../log/logger");
+const LOGGER = require("../common/logger");
 
 /**
  * @swagger
