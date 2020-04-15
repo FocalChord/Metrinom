@@ -1,7 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const connectionString = process.env.DEV_DB_CONN || "mongodb://localhost/Metrinome";
-const LOGGER = require("../log/logger");
+const LOGGER = require("../common/logger");
 
 const connectToMongoose = async () => {
     await mongoose.connect(connectionString, {
