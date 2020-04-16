@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
-const LOGGER = require("../log/logger");
+const LOGGER = require("../common/logger");
 const spotify = require("../spotify-service");
 
 /**
