@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import SpotifyClient from "../../utils/SpotifyClient";
-import CookieManager from "../../utils/CookieManager";
+import SpotifyClient from "../utils/SpotifyClient";
+import CookieManager from "../utils/CookieManager";
 import { useHistory } from "react-router";
 
 const HomePage = () => {
     const history = useHistory();
     const [genres, setGenres] = useState([]);
+
     useEffect(() => {
         SpotifyClient.getTopGenres().then((r) => setGenres(r.genres));
     }, []);
