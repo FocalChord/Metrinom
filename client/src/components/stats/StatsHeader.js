@@ -10,21 +10,21 @@ const StatsHeader = () => {
                 <Link
                     to="/stats/genres"
                     onClick={() => setSelected("genres")}
-                    class={"border-b-2 border-transparent hover:border-green-600" + (selected === "genres" ? " text-green-600" : "")}
+                    className={"border-b-2 border-transparent hover:border-green-500" + (selected === "genres" ? " text-green-500" : "")}
                 >
                     <li>Genres</li>
                 </Link>
                 <Link
                     to="/stats/artists"
                     onClick={() => setSelected("artists")}
-                    class={"border-b-2 border-transparent hover:border-green-600" + (selected === "artists" ? " text-green-600" : "")}
+                    className={"border-b-2 border-transparent hover:border-green-500" + (selected === "artists" ? " text-green-500" : "")}
                 >
                     <li>Artists</li>
                 </Link>
                 <Link
                     to="/stats/tracks"
                     onClick={() => setSelected("tracks")}
-                    class={"border-b-2 border-transparent hover:border-green-600" + (selected === "tracks" ? " text-green-600" : "")}
+                    className={"border-b-2 border-transparent hover:border-green-500" + (selected === "tracks" ? " text-green-500" : "")}
                 >
                     <li>Tracks</li>
                 </Link>

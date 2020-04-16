@@ -1,29 +1,21 @@
 import React, { useState, useEffect } from "react";
 import SpotifyClient from "../../utils/SpotifyClient";
+import List from "@material-ui/core/List";
+import TableRow from "./TableRow";
 
 const GenreStats = () => {
     const [genres, setGenres] = useState([]);
 
     useEffect(() => {
         SpotifyClient.getTopGenres().then((r) => setGenres(r.genres));
-        console.log("GENRES: " + genres);
     }, []);
 
     return (
         <div className="text-center">
-            <h1>Your top Artists are</h1>
-            <ul>
-                {genres ? (
-                    genres.map((x, idx) => (
-                        <li key={idx}>
-                            {" "}
-                            {x[0]} {x[1]}
-                        </li>
-                    ))
-                ) : (
-                    <li>No Genre data available</li>
-                )}
-            </ul>
+            <h1>Your top Genres are</h1>
+            <List>
+                {genres ? genres.map((x, i) => <TableRow key={i} id={i} name={x[0]} number={x[1]} />) : <li>No Genre data available</li>}
+            </List>
         </div>
     );
 };

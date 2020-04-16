@@ -6,7 +6,6 @@ const TrackStats = () => {
 
     useEffect(() => {
         SpotifyClient.getTopTracks().then((r) => setTracks(r.genres));
-        console.log("GENRES: " + tracks);
     }, []);
 
     return (
@@ -21,7 +20,7 @@ const TrackStats = () => {
                         </li>
                     ))
                 ) : (
-                    <li>No Track data available</li>
+                    <li>No Track data available :(</li>
                 )}
             </ul>
         </div>

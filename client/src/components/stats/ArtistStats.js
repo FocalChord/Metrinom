@@ -6,7 +6,6 @@ const ArtistStats = () => {
 
     useEffect(() => {
         SpotifyClient.getTopArtists().then((r) => setArtists(r.genres));
-        console.log("GENRES: " + artists);
     }, []);
 
     return (
@@ -21,7 +20,7 @@ const ArtistStats = () => {
                         </li>
                     ))
                 ) : (
-                    <li>No Artist data available</li>
+                    <li>No Artist data available :(</li>
                 )}
             </ul>
         </div>

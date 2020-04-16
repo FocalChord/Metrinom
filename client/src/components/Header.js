@@ -12,28 +12,39 @@ const Header = (props) => {
     };
 
     return token ? (
-        <nav class="lg:px-16 px-6 lg:h-12 bg-black text-white text-6x1 cursor-text- flex justify-around items-center lg:py-0 py-2">
-            <Link to="/" class="list-none border-b-2 border-transparent hover:border-green-600 hover:border-green-600">
+        <nav className="lg:px-16 px-6 lg:h-12 bg-black text-white text-6x1 cursor-text- flex justify-around items-center lg:py-0 py-2">
+            <Link
+                to="/"
+                onClick={() => setSelected("")}
+                className={
+                    "list-none border-b-2 border-transparent hover:border-green-500 hover:border-green-500" +
+                    (selected === "" ? " text-green-500" : "")
+                }
+            >
                 <li>LOGO HERE</li>
             </Link>
-            <ul class="flex justify-around items-center w-1/2">
+            <ul className="flex justify-around items-center w-1/2">
                 <Link
                     to="/stats"
-                    onClick={() => setSelected("stats")}
-                    class={"border-b-2 border-transparent c hover:border-green-600" + (selected === "stats" ? " text-green-600" : "")}
+                    // Prevent clicking on the 'Stats' link when already on a stats subpage (genres, artists or tracks)
+                    onClick={(e) => (selected !== "stats" ? setSelected("stats") : e.preventDefault())}
+                    className={
+                        "border-b-2 border-transparent c hover:border-green-500" +
+                        (selected === "stats" ? " text-green-500 cursor-default" : "")
+                    }
                 >
                     <li>Stats</li>
                 </Link>
                 <Link
                     to={`/profile/${props.user}`}
                     onClick={() => setSelected("profile")}
-                    class={"border-b-2 border-transparent hover:border-green-600" + (selected === "profile" ? " text-green-600" : "")}
+                    className={"border-b-2 border-transparent hover:border-green-500" + (selected === "profile" ? " text-green-500" : "")}
                 >
                     <li>{props.user}</li>
                 </Link>
             </ul>
             <Link to="/">
-                <button onClick={logoutHandler} class="border-b-2 border-transparent hover:border-green-600">
+                <button onClick={logoutHandler} className="border-b-2 border-transparent hover:border-red-600">
                     Logout
                 </button>
             </Link>
