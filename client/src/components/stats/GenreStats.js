@@ -11,14 +11,18 @@ const GenreStats = () => {
 
     return (
         <div className="text-center">
-            <h1>Your top genres are</h1>
+            <h1>Your top Artists are</h1>
             <ul>
-                {genres.map((x, idx) => (
-                    <li key={idx}>
-                        {" "}
-                        {x[0]} {x[1]}
-                    </li>
-                ))}
+                {genres ? (
+                    genres.map((x, idx) => (
+                        <li key={idx}>
+                            {" "}
+                            {x[0]} {x[1]}
+                        </li>
+                    ))
+                ) : (
+                    <li>No Genre data available</li>
+                )}
             </ul>
         </div>
     );
