@@ -7,9 +7,11 @@ const StatsPage = () => {
     return (
         <div>
             <StatsHeader />
-            <PrivateRoute exact path="/stats/genres" component={GenreStats} />
-            <PrivateRoute exact path="/stats/artists" component={ArtistStats} />
-            <PrivateRoute exact path="/stats/tracks" component={TrackStats} />
+            <Switch>
+                <PrivateRoute exact path="/stats/genres" component={GenreStats} />
+                <PrivateRoute exact path="/stats/artists" component={ArtistStats} />
+                <PrivateRoute exact path="/stats/tracks" component={TrackStats} />
+            </Switch>
         </div>
     );
 };

@@ -6,6 +6,7 @@ const HomePage = () => {
 
     useEffect(() => {
         SpotifyClient.getTopGenres().then((r) => setGenres(r.genres));
+        console.log("HOME: " + genres);
     }, []);
 
     return (

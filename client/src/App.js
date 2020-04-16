@@ -15,7 +15,7 @@ const App = () => {
             <Switch>
                 <Route exact path="/login/redirect/:token" component={RedirectPage} />
                 <PrivateRoute exact path="/" component={HomePage} />
-                <PrivateRoute exact path="/stats" component={StatsPage} />
+                <PrivateRoute path="/stats" component={StatsPage} />
                 <PrivateRoute exact path="/profile/:user" component={ProfilePage} />
             </Switch>
         </div>
