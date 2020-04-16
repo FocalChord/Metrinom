@@ -38,6 +38,7 @@ router.get("/:id", (req, res) => {
                     LOGGER.error(err);
                     res.status(400).json({ msg: "error" });
                 } else {
+                    LOGGER.info("GET Request Suceeded for /notification/{id}");
                     LOGGER.info(notifications);
                     res.status(200).json(notifications);
                 }
@@ -93,6 +94,7 @@ router.post("/:id", (req, res) => {
                             LOGGER.log(err);
                             res.status(400).json({ msg: "couldnt add notification to user" });
                         } else {
+                            LOGGER.info("POST Request Suceeded for /notification/{id}");
                             LOGGER.info(user);
                             res.status(200).json({ msg: notification });
                         }
@@ -131,6 +133,7 @@ router.delete("/:id", (req, res) => {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
         } else {
+            LOGGER.info("DELETE Request Suceeded for /notification/{id}");
             LOGGER.info(notifications);
             res.status(200).json(notifications);
         }

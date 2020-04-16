@@ -30,8 +30,9 @@ router.get("/:id", (req, res) => {
     User.findOne({ spotifyUserId: req.params.id }, (err, users) => {
         if (err) {
             LOGGER.error(err);
-            res.status(400).json({ msg: "error" });
+            res.status(400).json({ msg: "User was not found" });
         } else {
+            LOGGER.info("GET Request Suceeded for /user/{id}");
             LOGGER.info(users);
             res.status(200).json(users);
         }
@@ -59,6 +60,7 @@ router.get("/", (req, res) => {
             LOGGER.error(err);
             res.status(400).json({ msg: err });
         } else {
+            LOGGER.info("GET Request Suceeded for /user/");
             LOGGER.info(users);
             res.status(200).json(users);
         }
@@ -90,8 +92,9 @@ router.put("/", (req, res) => {
     User.updateOne({ spotifyUserId: req.body.spotifyUserId }, req.body, { upsert: "true" }, (err, user) => {
         if (err) {
             LOGGER.error(err);
-            res.status(400).json({ msg: "error" });
+            res.status(400).json({ msg: "User was not found" });
         } else {
+            LOGGER.info("PUT Request Suceeded for /user/");
             LOGGER.info(users);
             res.status(200).json(user);
         }
