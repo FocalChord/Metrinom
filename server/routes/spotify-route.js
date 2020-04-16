@@ -71,14 +71,15 @@ router.get("/top/", (req, res) => {
     User.findOne({ spotifyUserId: authorization }, async (err, user) => {
         if (err || user == null) {
             LOGGER.error(err);
-            res.status(400).json({ msg: "error" });
+            res.status(400).json({ msg: "User was not found" });
         } else {
             const authToken = user.accessToken;
             const data = await spotify.fetchTopArtistOrTracks(type, timeFrame, authToken);
             if (data.error) {
-                LOGGER.error(data);
-                res.status(400).json(data);
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
             } else {
+                LOGGER.info("GET Request Suceeded for /spotify/top/{id}");
                 res.status(200).json(data);
             }
         }
@@ -120,9 +121,11 @@ router.get("/top/genres", (req, res) => {
             const authToken = user.accessToken;
             const data = await spotify.fetchTopGenres(timeFrame, authToken);
             if (data.error) {
-                LOGGER.error(data);
-                res.status(400).json(data);
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
             } else {
+                LOGGER.info("GET Request Suceeded for /spotify/top/genres/{id}");
+                LOGGER.info(data);
                 res.status(200).json(data);
             }
         }
@@ -181,9 +184,11 @@ router.get("/recommendations/", (req, res) => {
             const authToken = user.accessToken;
             const data = await spotify.fetchRecomendations(seedArtist, seedTracks, seedGenres, authToken);
             if (data.error) {
-                LOGGER.error(data);
-                res.status(400).json(data);
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
             } else {
+                LOGGER.info("GET Request Suceeded for /spotify/recommendations/{id}");
+                LOGGER.info(data);
                 res.status(200).json(data);
             }
         }
@@ -216,7 +221,6 @@ router.get("/recommendations/", (req, res) => {
  */
 router.post("/playlist/create/", (req, res) => {
     const { authorization } = req.headers;
-
     const songURIList = req.body.uris || "";
     // Retrieve the user in the database
     User.findOne({ spotifyUserId: authorization }, async (err, user) => {
@@ -227,8 +231,8 @@ router.post("/playlist/create/", (req, res) => {
             const authToken = user.accessToken;
             const data = await spotify.fetchMakePlaylist(songURIList, req.params.id, authToken);
             if (data.error) {
-                LOGGER.error(data);
-                res.status(400).json(data);
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
             } else {
                 res.status(200).json(data);
             }
