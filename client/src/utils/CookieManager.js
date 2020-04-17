@@ -2,13 +2,13 @@ import Cookies from "js-cookie";
 
 const CookieManager = {
     setUserToken: (token) => {
-        Cookies.set("token", token);
+        Cookies.set("metrinom_token", token);
     },
     getUserToken: () => {
-        return Cookies.get("token");
+        return Cookies.get("metrinom_token");
     },
     removeUserToken: () => {
-        Cookies.remove("token");
+        Cookies.remove("metrinom_token");
     },
 };
 

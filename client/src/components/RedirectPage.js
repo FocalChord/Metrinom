@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import CookieManager from "../../utils/CookieManager";
+import CookieManager from "../utils/CookieManager";
 
 const RedirectPage = () => {
     const [redirect, setRedirect] = useState(false);
