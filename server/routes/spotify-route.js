@@ -157,13 +157,13 @@ router.get("/top/genres", (req, res) => {
  *          schema:
  *            type: string
  *          required: false
- *          description: A comma separated list of Spotify IDs for seed artists. Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+ *          description: A comma separated list of Spotify IDs for seed tracks. Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
  *        - in: query
  *          name: seed_genres
  *          schema:
  *            type: string
  *          required: false
- *          description: A comma separated list of Spotify IDs for seed artists. Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
+ *          description: A comma separated list of Spotify IDs for seed genres. Up to 5 seed values may be provided in any combination of seed_artists, seed_tracks and seed_genres.
  *      responses:
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
