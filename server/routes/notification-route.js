@@ -136,9 +136,12 @@ router.delete("/:id", (req, res) => {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
         } else {
+<<<<<<< HEAD
             LOGGER.info("DELETE Request Suceeded for /notification/{id}");
             LOGGER.info(notifications);
             res.status(200).json(notifications);
+=======
+>>>>>>> 816defdadd3467f5b10ad80ea06c33f7522beea1
             for (let i = 0; i < user.notification.length; i++) {
                 if (user.notification[i].equals(req.params.id)) {
                     console.log(req.params.id);
