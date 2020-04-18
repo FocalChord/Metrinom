@@ -34,18 +34,25 @@ const spotify = require("../spotify-service");
 
 /**
  * @swagger
+ *  components:
+ *    securitySchemes:
+ *      ApiKeyAuth:
+ *        type: apiKey
+ *        in: header
+ *        name: authorization
+ *        description: spotify id of user
+ */
+
+/**
+ * @swagger
  * path:
- *  /spotify/top/{id}:
+ *  /spotify/top/:
  *    get:
+ *      security:
+ *        - ApiKeyAuth: []
  *      tags: [Spotify]
  *      summary: Get top tracks or artists for the particular user
  *      parameters:
- *        - in: path
- *          name: id
- *          schema:
- *            type: string
- *          required: true
- *          description: spotify id of user
  *        - in: query
  *          name: type
  *          schema:
@@ -62,7 +69,7 @@ const spotify = require("../spotify-service");
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
  */
-router.get("/top/", (req, res) => {
+router.get("/top", (req, res) => {
     const { authorization } = req.headers;
     const timeFrame = req.query.timeFrame || "medium_term";
     const { type } = req.query;
@@ -88,17 +95,12 @@ router.get("/top/", (req, res) => {
 /**
  * @swagger
  * path:
- *  /spotify/top/{id}/genres:
+ *  /spotify/top/genres:
  *    get:
+ *      security:
+ *        - ApiKeyAuth: []
  *      tags: [Spotify]
  *      summary: Gets top genres for the particular user
- *      parameters:
- *        - in: path
- *          name: id
- *          schema:
- *            type: string
- *          required: true
- *          description: spotify id of user
  *      responses:
  *        "200":
  *          description: An array of genres in rankings from highest to lowest
@@ -108,8 +110,10 @@ router.get("/top/", (req, res) => {
  *                $ref: '#/components/schemas/Genres'
  */
 router.get("/top/genres", (req, res) => {
+    req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     const { authorization } = req.headers;
-
+    console.log(authorization);
+    console.log(req.headers);
     const timeFrame = "medium_term";
 
     // Retrieve the user in the database
@@ -135,17 +139,13 @@ router.get("/top/genres", (req, res) => {
 /**
  * @swagger
  * path:
- *  /spotify/recommendations/{id}:
+ *  /spotify/recommendations:
  *    get:
+ *      security:
+ *        - ApiKeyAuth: []
  *      tags: [Spotify]
  *      summary: Get recommended tracks based on seeds
  *      parameters:
- *        - in: path
- *          name: id
- *          schema:
- *            type: string
- *          required: true
- *          description: spotify id of user
  *        - in: query
  *          name: seed_artist
  *          schema:
@@ -168,7 +168,7 @@ router.get("/top/genres", (req, res) => {
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
  */
-router.get("/recommendations/", (req, res) => {
+router.get("/recommendations", (req, res) => {
     const seedArtist = req.query.seed_artist || "";
     const seedTracks = req.query.seed_tracks || "";
     const seedGenres = req.query.seed_genres || "";
@@ -197,17 +197,12 @@ router.get("/recommendations/", (req, res) => {
 /**
  * @swagger
  * path:
- *  /spotify/playlist/create/{id}:
+ *  /spotify/playlist/create:
  *    post:
+ *      security:
+ *        - ApiKeyAuth: []
  *      tags: [Spotify]
  *      summary: Get recommended tracks based on seeds
- *      parameters:
- *        - in: path
- *          name: id
- *          schema:
- *            type: string
- *          required: true
- *          description: spotify id of user
  *      requestBody:
  *        required: true
  *        description: A JSON array of the Spotify track URIs to add.
@@ -219,7 +214,7 @@ router.get("/recommendations/", (req, res) => {
  *        "200":
  *          description: A snapshot that shows the added tracks to playlist  ref= https://developer.spotify.com/documentation/web-api/reference/playlists/add-tracks-to-playlist/
  */
-router.post("/playlist/create/", (req, res) => {
+router.post("/playlist/create", (req, res) => {
     const { authorization } = req.headers;
     const songURIList = req.body.uris || "";
     // Retrieve the user in the database
@@ -229,7 +224,7 @@ router.post("/playlist/create/", (req, res) => {
             res.status(400).json({ msg: "error" });
         } else {
             const authToken = user.accessToken;
-            const data = await spotify.fetchMakePlaylist(songURIList, req.params.id, authToken);
+            const data = await spotify.fetchMakePlaylist(songURIList, authorization, authToken);
             if (data.error) {
                 LOGGER.error(data.error);
                 res.status(400).json(data.error);
