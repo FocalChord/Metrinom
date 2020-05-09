@@ -78,6 +78,7 @@ const fetchMakePlaylist = async (songURIList, spotifyUserId, authToken) => {
             }),
         });
         const playlistResponseJson = await createdplaylistResponse.json();
+        console.log(spotifyUserId);
         const playlistId = playlistResponseJson.id;
 
         const addTrackBody = {

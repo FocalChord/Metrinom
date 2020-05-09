@@ -7,8 +7,8 @@ const setUpSwagger = (app) => {
         swaggerDefinition: {
             openapi: "3.0.0",
             info: {
-                title: "Metrinom API Documentation",
-                description: "API definitions for Metrinom",
+                title: "Metronom API Documentation",
+                description: "API definitions for Metronom",
             },
             contact: {
                 name: "Swagger",

@@ -7,17 +7,12 @@ const LOGGER = require("../common/logger");
 /**
  * @swagger
  * path:
- *  /notification/{id}:
+ *  /notification/:
  *    get:
+ *      security:
+ *        - ApiKeyAuth: []
  *      tags: [Notification]
  *      summary: Get all notifications for a user
- *      parameters:
- *        - in: path
- *          name: id
- *          schema:
- *            type: string
- *          required: true
- *          description: Id of the user
  *      responses:
  *        "200":
  *          description: An array of notification objects
@@ -27,8 +22,9 @@ const LOGGER = require("../common/logger");
  *                $ref: '#/components/schemas/Notification'
  *
  */
-router.get("/:id", (req, res) => {
-    User.findOne({ spotifyUserId: req.params.id }, (err, user) => {
+router.get("/", (req, res) => {
+    const { authorization } = req.headers;
+    User.findOne({ spotifyUserId: authorization }, (err, user) => {
         if (err || user == null) {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
@@ -52,6 +48,8 @@ router.get("/:id", (req, res) => {
  * path:
  *  /notification/{id}:
  *    post:
+ *      security:
+ *        - ApiKeyAuth: []
  *      tags: [Notification]
  *      summary: Creates a new notification for the specific userId
  *      parameters:
@@ -60,7 +58,7 @@ router.get("/:id", (req, res) => {
  *          schema:
  *            type: string
  *          required: true
- *          description: Id of the user
+ *          description: Spotify Id of the person the notification is for
  *      requestBody:
  *        required: true
  *        content:
@@ -76,12 +74,14 @@ router.get("/:id", (req, res) => {
  *                $ref: '#/components/schemas/Notification'
  */
 router.post("/:id", (req, res) => {
+    const { authorization } = req.headers;
+    req.body.fromUser = authorization;
     Notification.create(req.body, (err, notification) => {
         if (err) {
-            LOGGER.log(err);
+            LOGGER.error(err);
             res.status(400).json({ msg: "couldnt create notification" });
         } else {
-            LOGGER.log(notification);
+            LOGGER.info(notification);
             User.findOne({ spotifyUserId: req.params.id }, (err, user) => {
                 user.notification.push(notification);
                 if (err || user == null) {
@@ -91,7 +91,7 @@ router.post("/:id", (req, res) => {
                     LOGGER.info(user);
                     User.updateOne({ spotifyUserId: user.spotifyUserId }, user, { upsert: "false" }, (err, user) => {
                         if (err) {
-                            LOGGER.log(err);
+                            LOGGER.error(err);
                             res.status(400).json({ msg: "couldnt add notification to user" });
                         } else {
                             LOGGER.info("POST Request Suceeded for /notification/{id}");
@@ -109,6 +109,8 @@ router.post("/:id", (req, res) => {
  * path:
  *  /notification/{id}:
  *    delete:
+ *      security:
+ *        - ApiKeyAuth: []
  *      tags: [Notification]
  *      summary: Deletes a notification
  *      parameters:
@@ -128,14 +130,41 @@ router.post("/:id", (req, res) => {
  *
  */
 router.delete("/:id", (req, res) => {
-    Notification.findOneAndRemove({ _id: req.params.id }, (err, notifications) => {
-        if (err) {
+    const { authorization } = req.headers;
+    User.findOne({ spotifyUserId: authorization }, (err, user) => {
+        if (err || user == null || user == undefined) {
             LOGGER.error(err);
             res.status(400).json({ msg: "error" });
         } else {
+<<<<<<< HEAD
             LOGGER.info("DELETE Request Suceeded for /notification/{id}");
             LOGGER.info(notifications);
             res.status(200).json(notifications);
+=======
+>>>>>>> 816defdadd3467f5b10ad80ea06c33f7522beea1
+            for (let i = 0; i < user.notification.length; i++) {
+                if (user.notification[i].equals(req.params.id)) {
+                    console.log(req.params.id);
+                    user.notification.splice(i, 1);
+                    console.log(user.notification);
+                }
+            }
+            user.notification;
+            User.updateOne({ spotifyUserId: authorization }, user, { upsert: "false" }, (err, user) => {
+                if (err) {
+                    LOGGER.error(err);
+                    res.status(400).json({ msg: "couldnt add notification to user" });
+                }
+            });
+            Notification.findOneAndRemove({ _id: req.params.id }, (err, notifications) => {
+                if (err) {
+                    LOGGER.error(err);
+                    res.status(400).json({ msg: "error" });
+                } else {
+                    LOGGER.info(notifications);
+                    res.status(200).json(notifications);
+                }
+            });
         }
     });
 });
