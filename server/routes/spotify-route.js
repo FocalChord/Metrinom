@@ -1,8 +1,36 @@
 const express = require("express");
+const fetch = require("node-fetch");
 const router = express.Router();
 const User = require("../models/user");
 const LOGGER = require("../common/logger");
 const spotify = require("../spotify-service");
+
+const ensureAuthenticated = async (req, res, next) => {
+    const { authorization } = req.headers;
+    const user = await User.findOne({ spotifyUserId: authorization });
+    const authToken = user.accessToken;
+    const timeFrame = "medium_term";
+
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+
+    const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
+
+    const response = await fetch(spotifyTopUrl + `/artists?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers });
+    const statusCode = await response.status;
+
+    if (statusCode === 401) {
+        res.status(401).json({
+            error: new Error("Unauthenticated"),
+        });
+        return;
+    }
+
+    next();
+};
 
 /**
  * @swagger
@@ -69,7 +97,7 @@ const spotify = require("../spotify-service");
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
  */
-router.get("/top", (req, res) => {
+router.get("/top", ensureAuthenticated, (req, res) => {
     const { authorization } = req.headers;
     const timeFrame = req.query.timeFrame || "medium_term";
     const { type } = req.query;
@@ -109,11 +137,9 @@ router.get("/top", (req, res) => {
  *              schema:
  *                $ref: '#/components/schemas/Genres'
  */
-router.get("/top/genres", (req, res) => {
+router.get("/top/genres", ensureAuthenticated, (req, res) => {
     req.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     const { authorization } = req.headers;
-    console.log(authorization);
-    console.log(req.headers);
     const timeFrame = "medium_term";
 
     // Retrieve the user in the database
@@ -168,7 +194,7 @@ router.get("/top/genres", (req, res) => {
  *        "200":
  *          description: An array items that contains artists or tracks ref= https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/
  */
-router.get("/recommendations", (req, res) => {
+router.get("/recommendations", ensureAuthenticated, (req, res) => {
     const seedArtist = req.query.seed_artist || "";
     const seedTracks = req.query.seed_tracks || "";
     const seedGenres = req.query.seed_genres || "";
@@ -214,7 +240,7 @@ router.get("/recommendations", (req, res) => {
  *        "200":
  *          description: A snapshot that shows the added tracks to playlist  ref= https://developer.spotify.com/documentation/web-api/reference/playlists/add-tracks-to-playlist/
  */
-router.post("/playlist/create", (req, res) => {
+router.post("/playlist/create", ensureAuthenticated, (req, res) => {
     const { authorization } = req.headers;
     const songURIList = req.body.uris || "";
     // Retrieve the user in the database

@@ -26,6 +26,11 @@ const ApiClient = (endpoint, { body, ...customConfig } = {}) => {
     console.log(url);
 
     return window.fetch(`${METRINOME_BACKEND_URL}/${endpoint}`, config).then(async (res) => {
+        if (res.status === 401) {
+            logout();
+            window.location.assign(window.location);
+            return Promise.reject({ message: "Please re-authenticate" });
+        }
         const data = await res.json();
         if (res.ok) {
             return data;
@@ -33,6 +38,10 @@ const ApiClient = (endpoint, { body, ...customConfig } = {}) => {
             return Promise.reject(data);
         }
     });
+};
+
+const logout = () => {
+    CookieManager.removeUserToken();
 };
 
 export default ApiClient;

@@ -2,10 +2,6 @@ const router = require("express").Router();
 const passport = require("passport");
 const spotifyAuthScope = require("../configs/spotify-auth-scopes");
 
-router.get("/login", (req, res) => {
-    res.send("Hello Worldsss");
-});
-
 router.get(
     "/spotify",
     passport.authenticate("spotify", {
