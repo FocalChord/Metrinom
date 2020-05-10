@@ -18,6 +18,7 @@
     "plugins": ["react"],
     "rules": {
         "no-undef": "off",
-        "react-hooks/exhaustive-deps": "off"
+        "react-hooks/exhaustive-deps": "off",
+        "react/prop-types": "off"
     }
 }

@@ -1,14 +1,27 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
+import { Route } from "react-router-dom";
+import Border from "../../components/border/Border";
 import LoginPage from "../../components/LoginPage";
 import CookieManager from "../CookieManager";
-import { Route } from "react-router-dom";
 
-const PrivateRoute = ({ component, ...options }) => {
+const PrivateRoute = ({ component: Component, ...options }) => {
     const token = CookieManager.getUserToken();
-    const finalComponent = token ? component : LoginPage;
 
-    return <Route {...options} component={finalComponent} />;
+    return (
+        <Route
+            {...options}
+            render={(props) =>
+                token ? (
+                    <Border>
+                        <Component {...props} />
+                    </Border>
+                ) : (
+                    <LoginPage />
+                )
+            }
+        />
+    );
 };
 
 PrivateRoute.propTypes = {
