@@ -115,6 +115,7 @@ router.get("/top", ensureAuthenticated, (req, res) => {
                 res.status(400).json(data.error);
             } else {
                 LOGGER.info("GET Request Suceeded for /spotify/top/{id}");
+                // LOGGER.info(data);
                 res.status(200).json(data);
             }
         }

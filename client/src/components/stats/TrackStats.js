@@ -1,34 +1,114 @@
 import React, { useContext, useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Avatar, Box, List, Divider, ListItem, ListItemText, ListItemAvatar, Tabs, Tab, Grid } from "@material-ui/core";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
 import LoaderWrapper from "../LoaderWrapper";
 
+const useStyles = makeStyles((theme) => ({
+    list: {
+        width: "100%",
+    },
+    header: {
+        marginBottom: theme.spacing(1),
+    },
+    title: {
+        fontWeight: "bold",
+    },
+    tabs: {
+        "&:active": {
+            outline: "none",
+        },
+        backgroundColor: "#1DB954",
+    },
+    hoverTab: {
+        fontWeight: "bold",
+        "&.Mui-selected": {
+            outline: "none",
+        },
+        "&:hover": {
+            outline: "none",
+            color: "#1DB954",
+            opacity: 1,
+        },
+    },
+    buttons: {
+        marginTop: theme.spacing(3),
+    },
+}));
+
 const TrackStats = () => {
+    const classes = useStyles();
     const [tracks, setTracks] = useState([]);
     const { setIsLoading } = useContext(MetrinomContext);
+    const [timeFrame, setTimeframe] = useState("long_term");
 
     useEffect(() => {
-        SpotifyClient.getTopTracks().then((r) => {
-            setTracks(r.genres);
+        SpotifyClient.getTopTracks("tracks", timeFrame).then((r) => {
+            console.log(r.items);
+            setTracks(r.items);
             setIsLoading(false);
         });
-    }, []);
+    }, [timeFrame]);
+
+    const handleChange = (_, newValue) => {
+        setTimeframe(newValue);
+    };
 
     return (
         <LoaderWrapper>
             <div className="text-center">
-                <h1>Your top Tracks are</h1>
+                <Box className={classes.header}>
+                    <Grid container direction="row" alignItems="flex-start" justify="space-between">
+                        <Grid item>
+                            <Typography variant="h4" className={classes.title}>
+                                Your Top Tracks
+                            </Typography>
+                        </Grid>
+                        <Tabs
+                            indicatorColor="primary"
+                            color="primary"
+                            value={timeFrame}
+                            onChange={handleChange}
+                            aria-label="tabs"
+                            classes={{ indicator: classes.tabs }}
+                            variant="fullWidth"
+                        >
+                            <Tab className={classes.hoverTab} label="All Time" value="long_term" />
+                            <Tab className={classes.hoverTab} label="Last 6 months" value="medium_term" />
+                            <Tab className={classes.hoverTab} label="Last 4 weeks" value="short_term" />
+                        </Tabs>
+                    </Grid>
+                </Box>
                 <ul>
-                    {tracks ? (
-                        tracks.map((x, idx) => (
-                            <li key={idx}>
-                                {" "}
-                                {x[0]} {x[1]}
-                            </li>
-                        ))
-                    ) : (
-                        <li>No Track data available :(</li>
-                    )}
+                    <List classes={classes.list}>
+                        {tracks ? (
+                            tracks.map((x, idx) => (
+                                <Box key={x.id}>
+                                    <ListItem button>
+                                        <ListItemAvatar>
+                                            <Avatar style={{ borderRadius: 0, width: 65, height: 65 }} src={x.album.images[0].url}></Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            style={{ paddingLeft: 20 }}
+                                            primary={x.name}
+                                            secondary={
+                                                <React.Fragment>
+                                                    Artist - {x.album.artists[0].name}
+                                                    <p></p>
+                                                    Album - {x.album.name}
+                                                </React.Fragment>
+                                            }
+                                        />
+                                        <div style={{ fontSize: 25 }}>{idx + 1}</div>
+                                    </ListItem>
+                                    <Divider variant="inset" />
+                                </Box>
+                            ))
+                        ) : (
+                            <li>No Track data available :(</li>
+                        )}
+                    </List>
                 </ul>
             </div>
         </LoaderWrapper>
