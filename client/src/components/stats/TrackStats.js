@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
+import MusicLoader from "../loaders/MusicLoader";
 import LoaderWrapper from "../LoaderWrapper";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
     buttons: {
         marginTop: theme.spacing(3),
     },
+    internalLoader: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "80vh",
+    },
 }));
 
 const TrackStats = () => {
@@ -42,17 +49,18 @@ const TrackStats = () => {
     const [tracks, setTracks] = useState([]);
     const { setIsLoading } = useContext(MetrinomContext);
     const [timeFrame, setTimeframe] = useState("long_term");
+    const [internalLoading, setInternalLoading] = useState(false);
 
     useEffect(() => {
         SpotifyClient.getTopTracks("tracks", timeFrame).then((r) => {
-            console.log(r.items);
             setTracks(r.items);
             setIsLoading(false);
+            setInternalLoading(false);
         });
     }, [timeFrame]);
 
     const handleChange = (_, newValue) => {
-        setIsLoading(true);
+        setInternalLoading(true);
         setTimeframe(newValue);
     };
 
@@ -81,36 +89,44 @@ const TrackStats = () => {
                         </Tabs>
                     </Grid>
                 </Box>
-                <ul>
-                    <List classes={classes.list}>
-                        {tracks ? (
-                            tracks.map((x, idx) => (
-                                <Box key={x.id}>
-                                    <ListItem button>
-                                        <ListItemAvatar>
-                                            <Avatar style={{ borderRadius: 0, width: 65, height: 65 }} src={x.album.images[0].url}></Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            style={{ paddingLeft: 20 }}
-                                            primary={x.name}
-                                            secondary={
-                                                <React.Fragment>
-                                                    Artist - {x.album.artists[0].name}
-                                                    <p></p>
-                                                    Album - {x.album.name}
-                                                </React.Fragment>
-                                            }
-                                        />
-                                        <div style={{ fontSize: 25 }}>{idx + 1}</div>
-                                    </ListItem>
-                                    <Divider variant="inset" />
-                                </Box>
-                            ))
-                        ) : (
-                            <li>No Track data available :(</li>
-                        )}
-                    </List>
-                </ul>
+
+                {internalLoading && <MusicLoader internal={true} />}
+
+                {!internalLoading && (
+                    <ul>
+                        <List classes={classes.list}>
+                            {tracks ? (
+                                tracks.map((x, idx) => (
+                                    <Box key={x.id}>
+                                        <ListItem button>
+                                            <ListItemAvatar>
+                                                <Avatar
+                                                    style={{ borderRadius: 0, width: 65, height: 65 }}
+                                                    src={x.album.images[0].url}
+                                                ></Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                style={{ paddingLeft: 20 }}
+                                                primary={x.name}
+                                                secondary={
+                                                    <React.Fragment>
+                                                        Artist - {x.album.artists[0].name}
+                                                        <p></p>
+                                                        Album - {x.album.name}
+                                                    </React.Fragment>
+                                                }
+                                            />
+                                            <div style={{ fontSize: 25 }}>{idx + 1}</div>
+                                        </ListItem>
+                                        <Divider variant="inset" />
+                                    </Box>
+                                ))
+                            ) : (
+                                <li>No Track data available :(</li>
+                            )}
+                        </List>
+                    </ul>
+                )}
             </div>
         </LoaderWrapper>
     );

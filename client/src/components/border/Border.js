@@ -4,8 +4,8 @@ import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useLastLocation } from "react-router-last-location";
 import { MetrinomContext } from "../../context/MetrinomContext";
+import MusicLoader from "../loaders/MusicLoader";
 import HeaderBar from "./HeaderBar";
-import Loader from "./Loader";
 import SideDrawer from "./SideDrawer";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +46,7 @@ const Border = (props) => {
                 <div className={classes.toolbar} />
                 {isLoading && (
                     <Box className={classes.loader}>
-                        <Loader />
+                        <MusicLoader />
                     </Box>
                 )}
                 {props.children}
