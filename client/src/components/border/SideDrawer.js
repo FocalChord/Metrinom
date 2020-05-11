@@ -1,17 +1,18 @@
 import { Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+
 import HistoryIcon from "@material-ui/icons/History";
+import { Link } from "react-router-dom";
 import MicIcon from "@material-ui/icons/Mic";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import React from "react";
-import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 const routes = [
     { name: "Home", path: "/", icon: <MicIcon /> },
     { name: "Top Genres", path: "/genres", icon: <MusicNoteIcon /> },
     { name: "Top Artists", path: "/artists", icon: <MusicNoteIcon /> },
     { name: "Top Tracks", path: "/tracks", icon: <MusicNoteIcon /> },
-    { name: "Recently Played", path: "/genres", icon: <MusicNoteIcon /> },
+    { name: "Recently Played", path: "/recent", icon: <HistoryIcon /> },
     { name: "Profile", path: "/profile/:user", icon: <HistoryIcon /> },
 ];
 
