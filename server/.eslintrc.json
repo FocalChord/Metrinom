@@ -23,6 +23,7 @@
         "no-use-before-define": "off",
         "prefer-template": "off",
         "no-unused-expressions": "off",
-        "node/no-unsupported-features/es-syntax": "off"
+        "node/no-unsupported-features/es-syntax": "off",
+        "consistent-return": "off"
     }
 }
