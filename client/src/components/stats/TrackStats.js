@@ -94,7 +94,7 @@ const TrackStats = () => {
 
                 {!internalLoading && (
                     <ul>
-                        <List classes={classes.list}>
+                        <List className={classes.list}>
                             {tracks ? (
                                 tracks.map((x, idx) => (
                                     <Box key={x.id}>
@@ -111,7 +111,7 @@ const TrackStats = () => {
                                                 secondary={
                                                     <React.Fragment>
                                                         Artist - {x.album.artists[0].name}
-                                                        <p></p>
+                                                        <br />
                                                         Album - {x.album.name}
                                                     </React.Fragment>
                                                 }
