@@ -14,10 +14,15 @@ const getTopGenres = () => {
     return ApiClient(`${spotifyEndpoint}/top/genres`);
 };
 
+const getRecentTracks = () => {
+    return ApiClient(`${spotifyEndpoint}/recent-played`);
+};
+
 const SpotifyClient = {
     getTopArtists,
     getTopTracks,
     getTopGenres,
+    getRecentTracks,
 };
 
 export default SpotifyClient;
