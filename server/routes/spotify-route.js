@@ -19,7 +19,7 @@ const ensureAuthenticated = async (req, res, next) => {
 
     const spotifyTopUrl = "https://api.spotify.com/v1/me/top";
 
-    const response = await fetch(spotifyTopUrl + `/artists?time_range=${timeFrame}&limit=50`, { method: "GET", headers: headers });
+    const response = await fetch(spotifyTopUrl + `/artists?time_range=${timeFrame}&limit=50`, { method: "GET", headers });
     const statusCode = await response.status;
 
     if (statusCode === 401) {
@@ -251,6 +251,25 @@ router.post("/playlist/create", ensureAuthenticated, (req, res) => {
         } else {
             const authToken = user.accessToken;
             const data = await spotify.fetchMakePlaylist(songURIList, authorization, authToken);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(200).json(data);
+            }
+        }
+    });
+});
+
+router.get("/recent-played", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.fetchRecentTracks(authToken);
             if (data.error) {
                 LOGGER.error(data.error);
                 res.status(400).json(data.error);
