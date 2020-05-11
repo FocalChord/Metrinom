@@ -36,15 +36,24 @@ const useStyles = makeStyles((theme) => ({
     buttons: {
         marginTop: theme.spacing(3),
     },
-    internalLoader: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "80vh",
-    },
 }));
 
-const TrackStats = () => {
+const mapTracks = (response) => {
+    console.log(response);
+    return response.items.map((item) => {
+        const { album, name, id } = item;
+
+        return {
+            artistName: album.artists[0].name,
+            albumName: album.name,
+            trackImage: album.images[0].url,
+            trackName: name,
+            trackId: id,
+        };
+    });
+};
+
+const TrackStats = ({ history }) => {
     const classes = useStyles();
     const [tracks, setTracks] = useState([]);
     const { setIsLoading } = useContext(MetrinomContext);
@@ -52,8 +61,8 @@ const TrackStats = () => {
     const [internalLoading, setInternalLoading] = useState(false);
 
     useEffect(() => {
-        SpotifyClient.getTopTracks("tracks", timeFrame).then((r) => {
-            setTracks(r.items);
+        SpotifyClient.getTopTracks("tracks", timeFrame).then((response) => {
+            setTracks(mapTracks(response));
             setIsLoading(false);
             setInternalLoading(false);
         });
@@ -79,7 +88,6 @@ const TrackStats = () => {
                             color="primary"
                             value={timeFrame}
                             onChange={handleChange}
-                            aria-label="tabs"
                             classes={{ indicator: classes.tabs }}
                             variant="fullWidth"
                         >
@@ -96,23 +104,20 @@ const TrackStats = () => {
                     <ul>
                         <List className={classes.list}>
                             {tracks ? (
-                                tracks.map((x, idx) => (
-                                    <Box key={x.id}>
-                                        <ListItem button>
+                                tracks.map((track, idx) => (
+                                    <Box key={track.trackId}>
+                                        <ListItem button onClick={() => history.push(`/track/${track.trackId}`)}>
                                             <ListItemAvatar>
-                                                <Avatar
-                                                    style={{ borderRadius: 0, width: 65, height: 65 }}
-                                                    src={x.album.images[0].url}
-                                                ></Avatar>
+                                                <Avatar style={{ borderRadius: 0, width: 65, height: 65 }} src={track.trackImage}></Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
                                                 style={{ paddingLeft: 20 }}
-                                                primary={x.name}
+                                                primary={track.trackName}
                                                 secondary={
                                                     <React.Fragment>
-                                                        Artist - {x.album.artists[0].name}
+                                                        Artist - {track.artistName}
                                                         <br />
-                                                        Album - {x.album.name}
+                                                        Album - {track.albumName}
                                                     </React.Fragment>
                                                 }
                                             />
