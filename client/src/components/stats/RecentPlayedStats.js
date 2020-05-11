@@ -45,7 +45,7 @@ const mapRecentlyPlayedTracks = (response) => {
 
         let dateString = "";
 
-        if (minutes === 0 && hours === 0 && day == 0) {
+        if (minutes === 0 && hours === 0 && day === 0) {
             dateString = `Played ${seconds} seconds ago`;
         } else if (hours === 0 && day === 0) {
             dateString = `Played ${minutes} minutes ago`;
