@@ -1,10 +1,25 @@
+import "./styles/main.css";
+
+import * as serviceWorker from "./serviceWorker";
+
+import { ThemeProvider, createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
+
+import App from "./App";
+import { CssBaseline } from "@material-ui/core";
+import { LastLocationProvider } from "react-router-last-location";
+import { MetrinomProvider } from "./context/MetrinomContext";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import "./styles/main.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 import logger from "./log/logger";
+
+const darkTheme = responsiveFontSizes(
+    createMuiTheme({
+        palette: {
+            type: "dark",
+        },
+    }),
+);
 
 // Configuration options
 const opt = {
@@ -15,9 +30,16 @@ logger.setLogLevel(opt.LOG_LEVEL);
 
 ReactDOM.render(
     <React.StrictMode>
-        <Router>
-            <App />
-        </Router>
+        <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <MetrinomProvider>
+                <Router>
+                    <LastLocationProvider>
+                        <App />
+                    </LastLocationProvider>
+                </Router>
+            </MetrinomProvider>
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById("root"),
 );
