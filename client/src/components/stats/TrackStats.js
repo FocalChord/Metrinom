@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Avatar, Box, List, Divider, ListItem, ListItemText, ListItemAvatar, Tabs, Tab, Grid } from "@material-ui/core";
+import React, { useContext, useEffect, useState } from "react";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
 import LoaderWrapper from "../LoaderWrapper";
@@ -52,6 +52,7 @@ const TrackStats = () => {
     }, [timeFrame]);
 
     const handleChange = (_, newValue) => {
+        setIsLoading(true);
         setTimeframe(newValue);
     };
 
