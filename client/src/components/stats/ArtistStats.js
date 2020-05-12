@@ -1,12 +1,11 @@
+import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Tab, Tabs, Typography } from "@material-ui/core";
+import { createMuiTheme, makeStyles, MuiThemeProvider } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
-import { Card, CardMedia, CardContent, Typography, Grid, CardActionArea, Tab, Tabs, Box } from "@material-ui/core";
-import { MuiThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core/styles";
-
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
 import MusicLoader from "../loaders/MusicLoader";
-
 import LoaderWrapper from "../LoaderWrapper";
+
 const useStyles = makeStyles(() => ({
     title: {
         fontWeight: "bold",
@@ -30,7 +29,7 @@ const useStyles = makeStyles(() => ({
         },
     },
 }));
-const ArtistStats = () => {
+const ArtistStats = ({ history }) => {
     const classes = useStyles();
     const [artists, setArtists] = useState([]);
     const [timeFrame, setTimeframe] = useState("long_term");
@@ -47,6 +46,7 @@ const ArtistStats = () => {
 
     const muiBaseTheme = createMuiTheme();
     const handleChange = (_, newValue) => {
+        if (newValue === timeFrame) return;
         setInternalLoading(true);
         setTimeframe(newValue);
     };
@@ -143,7 +143,7 @@ const ArtistStats = () => {
                         <Grid style={{ paddingTop: 30 }} container spacing={3}>
                             {artists ? (
                                 artists.map((artist, idx) => (
-                                    <Grid item key={artist.id} xs={12} sm={6} md={4}>
+                                    <Grid onClick={() => history.push(`/artist/${artist.id}`)} item key={artist.id} xs={12} sm={6} md={4}>
                                         <MuiThemeProvider
                                             theme={createMuiTheme({
                                                 typography: {
