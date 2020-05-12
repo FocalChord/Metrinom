@@ -10,6 +10,7 @@ import LoaderWrapper from "../LoaderWrapper";
 const useStyles = makeStyles(() => ({
     title: {
         fontWeight: "bold",
+        color: "#1DB954",
     },
     tabs: {
         "&:active": {
@@ -119,7 +120,7 @@ const ArtistStats = () => {
                     <Grid container direction="row" alignItems="flex-start" justify="space-between">
                         <Grid item>
                             <Typography variant="h4" className={classes.title}>
-                                Your Top Artist
+                                Your Top Artists
                             </Typography>
                         </Grid>
                         <Tabs
