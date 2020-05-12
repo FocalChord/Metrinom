@@ -320,5 +320,44 @@ router.get("/artist", ensureAuthenticated, (req, res) => {
         }
     });
 });
+/**
+ * @swagger
+ * path:
+ *  /spotify/relatedArtist:
+ *    get:
+ *      security:
+ *        - ApiKeyAuth: []
+ *      tags: [Spotify]
+ *      summary: Get similar artists
+ *      parameters:
+ *        - in: query
+ *          name: artistId
+ *          schema:
+ *            type: string
+ *          required: false
+ *          description: The spotify id of the artist
+ *      responses:
+ *        "200":
+ *          description: An array of artist items
+ */
+router.get("/relatedArtist", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    const artistID = req.query.artistId;
 
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.fetchRelatedArtist(authToken, artistID);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(200).json(data);
+            }
+        }
+    });
+});
 module.exports = router;

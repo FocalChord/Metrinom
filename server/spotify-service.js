@@ -127,5 +127,27 @@ const fetchArtist = async (authToken, artistID) => {
         LOGGER.error(error);
     }
 };
+const fetchRelatedArtist = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyArtistUrl + `/${artistID}/related-artists`, { method: "GET", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
 
-module.exports = { fetchTopArtistOrTracks, fetchRecomendations, fetchTopGenres, fetchMakePlaylist, fetchRecentTracks, fetchArtist };
+module.exports = {
+    fetchTopArtistOrTracks,
+    fetchRecomendations,
+    fetchTopGenres,
+    fetchMakePlaylist,
+    fetchRecentTracks,
+    fetchArtist,
+    fetchRelatedArtist,
+};
