@@ -58,15 +58,16 @@ const ArtistStats = () => {
                     transition: "0.3s",
                     boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
                     background: "#424242",
-                    marginLeft: "auto",
+                    marginLeft: "15%",
                     paddingTop: "20",
                     overflow: "initial",
                     width: "100%",
-                    maxWidth: 300,
+                    maxWidth: 420,
                     padding: `${muiBaseTheme.spacing.unit * 2}px 0`,
                     "&:hover": {
                         transform: "translateY(-7px)",
                         boxShadow: "0 4px 20px 0 #1DB954",
+                        color: "#1DB954",
                     },
 
                     "& .MuiCardMedia-root": {
@@ -92,6 +93,13 @@ const ArtistStats = () => {
                     "& .MuiTypography--subheading": {
                         marginBottom: muiBaseTheme.spacing.unit * 2,
                         color: "grey",
+                    },
+                    "& .MuiTypography--indexNumb": {
+                        marginBottom: muiBaseTheme.spacing.unit * 2,
+                        color: "white",
+                        display: "flex",
+                        "justify-content": "flex-end",
+                        position: "absolute",
                     },
                     "& .MuiCardContent--actionarea": {
                         display: "flex",
@@ -134,7 +142,7 @@ const ArtistStats = () => {
                         <Grid style={{ paddingTop: 30 }} container spacing={3}>
                             {artists ? (
                                 artists.map((artist, idx) => (
-                                    <Grid item key={artist.id} xs={12} sm={10} md={3}>
+                                    <Grid item key={artist.id} xs={12} sm={6} md={4}>
                                         <MuiThemeProvider
                                             theme={createMuiTheme({
                                                 typography: {
@@ -151,7 +159,7 @@ const ArtistStats = () => {
                                                             {artist.name}
                                                         </Typography>
                                                         <Typography className={"MuiTypography--subheading"}>{artist.genres[0]}</Typography>
-                                                        <Typography className={"MuiTypography--subheading"}>#{idx + 1}</Typography>
+                                                        <Typography className={"MuiTypography--indexNumb"}>#{idx + 1}</Typography>
                                                     </CardContent>
                                                 </CardActionArea>
                                             </Card>
