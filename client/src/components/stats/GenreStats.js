@@ -7,6 +7,7 @@ import LoaderWrapper from "../LoaderWrapper";
 import PieChart from "./PieChart";
 import MusicLoader from "../loaders/MusicLoader";
 import CheckIcon from "@material-ui/icons/Check";
+import GeneratePlaylistModal from "./generate-playlist/GeneratePlaylistModal";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -86,6 +87,7 @@ const GenreStats = () => {
     const { setIsLoading } = useContext(MetrinomContext);
     const [view, setView] = useState("pie");
     const [internalLoading, setInternalLoading] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         (genres.length == 0 &&
@@ -116,6 +118,15 @@ const GenreStats = () => {
         }
     };
 
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        console.log("CLOSING!!");
+        setModalOpen(false);
+    };
+
     return (
         <LoaderWrapper>
             <div className="text-center">
@@ -127,7 +138,7 @@ const GenreStats = () => {
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Button variant="outlined" className={classes.button}>
+                            <Button variant="outlined" className={classes.button} onClick={openModal}>
                                 Generate Playlist
                             </Button>
                         </Grid>
@@ -190,6 +201,8 @@ const GenreStats = () => {
                     </div>
                 )}
             </div>
+
+            {modalOpen && <GeneratePlaylistModal open={modalOpen} close={closeModal} genres={genres} />}
         </LoaderWrapper>
     );
 };
