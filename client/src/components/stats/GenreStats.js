@@ -75,6 +75,7 @@ const mapGenres = (resp) => {
             name: g[0],
             nameUppercase: nameUpper,
             number: g[1],
+            selected: false,
         };
     });
 };
@@ -85,7 +86,6 @@ const GenreStats = () => {
     const { setIsLoading } = useContext(MetrinomContext);
     const [view, setView] = useState("pie");
     const [internalLoading, setInternalLoading] = useState(false);
-    const [selectedGenres, setSelectedGenres] = useState([]);
 
     useEffect(() => {
         (genres.length == 0 &&
@@ -96,27 +96,24 @@ const GenreStats = () => {
             })) ||
             setIsLoading(false);
         setInternalLoading(false);
-    }, [view, selectedGenres]);
+    }, [view, genres]);
 
     const handleChange = (_, newValue) => {
         setInternalLoading(true);
         setView(newValue);
     };
 
-    const selectGenre = (genre) => {
-        let arr = selectedGenres;
+    const selectGenre = (rank) => {
+        const copy = [...genres];
+        const alreadySelected = copy.filter((g) => g.selected).map((g) => g.rank);
 
-        if (arr.includes(genre)) {
-            // Unselect
-            arr = arr.filter((g) => g !== genre);
-        } else if (arr.length < 5) {
-            // Select
-            arr.push(genre);
+        if (alreadySelected.includes(rank)) {
+            copy[rank].selected = false;
+            setGenres(copy);
+        } else if (alreadySelected.length < 5) {
+            copy[rank].selected = true;
+            setGenres(copy);
         }
-
-        console.log(arr);
-
-        setSelectedGenres(arr);
     };
 
     return (
@@ -162,9 +159,9 @@ const GenreStats = () => {
                                     <List>
                                         {genres.map((g) => (
                                             <Box key={g.rank}>
-                                                <ListItem button onClick={() => selectGenre(g.name)}>
+                                                <ListItem button onClick={() => selectGenre(g.rank)}>
                                                     <ListItemAvatar>
-                                                        {!selectedGenres.includes(g.name) ? (
+                                                        {!g.selected ? (
                                                             <Avatar
                                                                 style={{ borderRadius: 0, width: 65, height: 65 }}
                                                                 alt={g.nameUppercase}
