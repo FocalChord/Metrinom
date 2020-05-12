@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs, Typography } from "@material-ui/core";
+import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { MetrinomContext } from "../../context/MetrinomContext";
@@ -6,6 +6,7 @@ import SpotifyClient from "../../utils/SpotifyClient";
 import LoaderWrapper from "../LoaderWrapper";
 import PieChart from "./PieChart";
 import MusicLoader from "../loaders/MusicLoader";
+import CheckIcon from "@material-ui/icons/Check";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -34,15 +35,23 @@ const useStyles = makeStyles((theme) => ({
             opacity: 1,
         },
     },
-    buttons: {
-        marginTop: theme.spacing(3),
+    button: {
+        marginTop: theme.spacing(0.6),
+        borderColor: "#1DB954",
+        "&:hover": { transform: "scale(1.05, 1.05)" },
     },
-    // container: {
-    //     height: "100%",
-    // },
-    // toggleContainer: {
-    //     margin: theme.spacing(2, 0),
-    // },
+    container: {
+        height: "100%",
+    },
+    toggleContainer: {
+        margin: theme.spacing(2, 0),
+    },
+    checkIcon: {
+        borderRadius: 0,
+        width: 65,
+        height: 65,
+        color: "#1DB954",
+    },
 }));
 
 const mapDataToPieChart = (genres) => {
@@ -76,18 +85,38 @@ const GenreStats = () => {
     const { setIsLoading } = useContext(MetrinomContext);
     const [view, setView] = useState("pie");
     const [internalLoading, setInternalLoading] = useState(false);
+    const [selectedGenres, setSelectedGenres] = useState([]);
 
     useEffect(() => {
-        SpotifyClient.getTopGenres().then((resp) => {
-            setGenres(mapGenres(resp));
+        (genres.length == 0 &&
+            SpotifyClient.getTopGenres().then((resp) => {
+                setGenres(mapGenres(resp));
+                setIsLoading(false);
+                setInternalLoading(false);
+            })) ||
             setIsLoading(false);
-            setInternalLoading(false);
-        });
-    }, [view]);
+        setInternalLoading(false);
+    }, [view, selectedGenres]);
 
     const handleChange = (_, newValue) => {
         setInternalLoading(true);
         setView(newValue);
+    };
+
+    const selectGenre = (genre) => {
+        let arr = selectedGenres;
+
+        if (arr.includes(genre)) {
+            // Unselect
+            arr = arr.filter((g) => g !== genre);
+        } else if (arr.length < 5) {
+            // Select
+            arr.push(genre);
+        }
+
+        console.log(arr);
+
+        setSelectedGenres(arr);
     };
 
     return (
@@ -99,6 +128,11 @@ const GenreStats = () => {
                             <Typography variant="h4" gutterBottom className={classes.title}>
                                 Your Top Genres
                             </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="outlined" className={classes.button}>
+                                Generate Playlist
+                            </Button>
                         </Grid>
                         <Tabs
                             indicatorColor="primary"
@@ -128,9 +162,17 @@ const GenreStats = () => {
                                     <List>
                                         {genres.map((g) => (
                                             <Box key={g.rank}>
-                                                <ListItem button onClick={() => window.alert("TEMP")}>
+                                                <ListItem button onClick={() => selectGenre(g.name)}>
                                                     <ListItemAvatar>
-                                                        <Avatar style={{ borderRadius: 0, width: 65, height: 65 }} src={g.rank}></Avatar>
+                                                        {!selectedGenres.includes(g.name) ? (
+                                                            <Avatar
+                                                                style={{ borderRadius: 0, width: 65, height: 65 }}
+                                                                alt={g.nameUppercase}
+                                                                src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-1553287693.jpg"
+                                                            ></Avatar>
+                                                        ) : (
+                                                            <CheckIcon className={classes.checkIcon} />
+                                                        )}
                                                     </ListItemAvatar>
                                                     <ListItemText
                                                         style={{ paddingLeft: 20 }}
