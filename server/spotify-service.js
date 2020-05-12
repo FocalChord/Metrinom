@@ -7,6 +7,7 @@ const spotifyRecommendationUrl = "https://api.spotify.com/v1/recommendations";
 const spotifyUserUrl = "https://api.spotify.com/v1/users";
 const spotifyPlaylistUrl = "https://api.spotify.com/v1/playlists";
 const spotifyRecentTracksUrl = " https://api.spotify.com/v1/me/player/recently-played?limit=50";
+const spotifyArtistUrl = "https://api.spotify.com/v1/artists";
 
 const fetchTopArtistOrTracks = async (type, timeFrame, authToken) => {
     const headers = {
@@ -112,5 +113,19 @@ const fetchRecentTracks = async (authToken) => {
         LOGGER.error(error);
     }
 };
+const fetchArtist = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyArtistUrl + `/${artistID}`, { method: "GET", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
 
-module.exports = { fetchTopArtistOrTracks, fetchRecomendations, fetchTopGenres, fetchMakePlaylist, fetchRecentTracks };
+module.exports = { fetchTopArtistOrTracks, fetchRecomendations, fetchTopGenres, fetchMakePlaylist, fetchRecentTracks, fetchArtist };
