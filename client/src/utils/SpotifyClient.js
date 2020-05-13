@@ -17,12 +17,20 @@ const getTopGenres = () => {
 const getRecentTracks = () => {
     return ApiClient(`${spotifyEndpoint}/recent-played`);
 };
+const getArtist = (artistId) => {
+    return ApiClient(`${spotifyEndpoint}/artist?artistId=${encodeURIComponent(artistId)}`);
+};
+const getRelatedArtist = (artistId) => {
+    return ApiClient(`${spotifyEndpoint}/relatedArtist?artistId=${artistId}`);
+};
 
 const SpotifyClient = {
     getTopArtists,
     getTopTracks,
     getTopGenres,
     getRecentTracks,
+    getArtist,
+    getRelatedArtist,
 };
 
 export default SpotifyClient;
