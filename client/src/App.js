@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
+import ArtistPage from "./components/ArtistPage";
 import HomePage from "./components/HomePage";
 import ProfilePage from "./components/ProfilePage";
 import RedirectPage from "./components/RedirectPage";
@@ -18,6 +19,8 @@ const App = () => {
                 <PrivateRoute exact path="/tracks" component={TrackStats} />
                 <PrivateRoute exact path="/recent" component={RecentlyPlayedStats} />
                 <PrivateRoute exact path="/profile/:user" component={ProfilePage} />
+                <PrivateRoute path="/artist/:artistId" component={ArtistPage} />
+                <PrivateRoute path="/track/:trackId" component={HomePage} />
             </Switch>
         </div>
     );

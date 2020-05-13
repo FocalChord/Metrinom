@@ -78,8 +78,6 @@ const RecentlyPlayedStats = ({ history }) => {
         });
     }, []);
 
-    console.log(tracks);
-
     return (
         <React.Fragment>
             {!isLoading && (

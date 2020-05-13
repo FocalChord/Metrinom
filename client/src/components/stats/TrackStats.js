@@ -33,13 +33,9 @@ const useStyles = makeStyles((theme) => ({
             opacity: 1,
         },
     },
-    buttons: {
-        marginTop: theme.spacing(3),
-    },
 }));
 
 const mapTracks = (response) => {
-    console.log(response);
     return response.items.map((item) => {
         const { album, name, id } = item;
 
