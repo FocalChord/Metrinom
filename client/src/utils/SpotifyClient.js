@@ -21,7 +21,7 @@ const getArtist = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/artist?artistId=${encodeURIComponent(artistId)}`);
 };
 const getRelatedArtist = (artistId) => {
-    return ApiClient(`${spotifyEndpoint}/relatedArtist?artistId=${artistId}`);
+    return ApiClient(`${spotifyEndpoint}/relatedArtist?artistId=${encodeURIComponent(artistId)}`);
 };
 
 const SpotifyClient = {
