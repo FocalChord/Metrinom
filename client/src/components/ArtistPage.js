@@ -6,7 +6,6 @@ const HomePage = () => {
     const { setIsLoading } = useContext(MetrinomContext);
     const params = useParams();
     const { artistId } = params;
-    console.log(artistId);
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);

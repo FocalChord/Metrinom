@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const mapTracks = (response) => {
-    console.log(response);
     return response.items.map((item) => {
         const { album, name, id } = item;
 
