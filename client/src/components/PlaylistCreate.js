@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import {
     Tooltip,
     Fab,
@@ -13,8 +12,8 @@ import {
     Snackbar,
     Fade,
     SnackbarContent,
+    Typography,
 } from "@material-ui/core";
-import blue from "@material-ui/core/colors/blue";
 import SpotifyClient from "../utils/SpotifyClient";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
         position: "fixed",
         bottom: theme.spacing(2),
         right: theme.spacing(2),
+        outline: "none",
+        backgroundColor: "#1DB954",
     },
     title: {
         fontWeight: "bold",
@@ -36,11 +37,12 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down("xs")]: {
             bottom: 90,
         },
+        backgroundColor: "#1DB954",
     },
     snackbarContent: {
-        backgroundColor: blue[600],
         color: "inherit",
         textAlign: "center",
+        backgroundColor: "#1DB954",
     },
 }));
 
@@ -65,24 +67,32 @@ const PlaylistCreate = (props) => {
 
     return (
         <React.Fragment>
-            <Tooltip title="Create playlist" placement="left-start" aria-label="add">
-                <Fab color="secondary" className={classes.fab} onClick={() => setDialog(true)}>
-                    <PlaylistAddIcon />
+            <Tooltip
+                style={{ outline: "none", backgroundColor: "#1DB954" }}
+                title="Create playlist"
+                placement="left-start"
+                aria-label="add"
+            >
+                <Fab variant="extended" className={classes.fab} onClick={() => setDialog(true)}>
+                    <Typography variant="h10" style={{ color: "white" }}>
+                        Create playlist
+                    </Typography>
                 </Fab>
             </Tooltip>
-            <Dialog open={dialog} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-                <DialogTitle id="alert-dialog-title">Create Playlist</DialogTitle>
+            <Dialog color="primary" open={dialog}>
+                <DialogTitle>Create Playlist</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">Create playlist for your Top tracks?</DialogContentText>
+                    <DialogContentText>Create playlist for your Top tracks?</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setDialog(false)}>Cancel</Button>
-                    <Button onClick={() => createPlaylist()} autoFocus>
+                    <Button style={{ outline: "none" }} onClick={() => setDialog(false)}>
+                        Cancel
+                    </Button>
+                    <Button style={{ outline: "none", backgroundColor: "#1DB954" }} onClick={() => createPlaylist()} autoFocus>
                         Create
                     </Button>
                 </DialogActions>
             </Dialog>
-
             <Snackbar
                 anchorOrigin={{
                     vertical: "bottom",
