@@ -31,7 +31,8 @@ const ApiClient = (endpoint, { body, ...customConfig } = {}) => {
             window.location.assign(window.location);
             return Promise.reject({ message: "Please re-authenticate" });
         }
-        const data = await res.json();
+        const text = await res.text();
+        const data = text.length ? JSON.parse(text) : {};
         if (res.ok) {
             return data;
         } else {

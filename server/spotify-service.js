@@ -8,6 +8,7 @@ const spotifyUserUrl = "https://api.spotify.com/v1/users";
 const spotifyPlaylistUrl = "https://api.spotify.com/v1/playlists";
 const spotifyRecentTracksUrl = " https://api.spotify.com/v1/me/player/recently-played?limit=50";
 const spotifyArtistUrl = "https://api.spotify.com/v1/artists";
+const spotifyFollowUrl = "https://api.spotify.com/v1/me/following";
 
 const fetchTopArtistOrTracks = async (type, timeFrame, authToken) => {
     const headers = {
@@ -74,8 +75,8 @@ const fetchMakePlaylist = async (songURIList, spotifyUserId, authToken) => {
             method: "POST",
             headers,
             body: JSON.stringify({
-                name: "New Playlist from Metronom",
-                description: "New playlist created by Metronom",
+                name: `Playlist by Metrinom - ${new Date().toLocaleString("default")}`,
+                description: "New playlist created by Metrinom",
                 public: false,
             }),
         });
@@ -141,6 +142,48 @@ const fetchRelatedArtist = async (authToken, artistID) => {
         LOGGER.error(error);
     }
 };
+const followArtist = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "PUT", headers });
+        return;
+    } catch (error) {
+        LOGGER.error(error);
+        return error;
+    }
+};
+const unFollowArtist = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "DELETE", headers });
+        return;
+    } catch (error) {
+        LOGGER.error(error);
+        return error;
+    }
+};
+const checkFollowing = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyFollowUrl + `/contains?type=artist&ids=${artistID}`, { method: "GET", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
 
 module.exports = {
     fetchTopArtistOrTracks,
@@ -150,4 +193,7 @@ module.exports = {
     fetchRecentTracks,
     fetchArtist,
     fetchRelatedArtist,
+    followArtist,
+    unFollowArtist,
+    checkFollowing,
 };
