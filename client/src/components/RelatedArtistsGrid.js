@@ -26,7 +26,8 @@ const useStyles = makeStyles(() => ({
         },
     },
     tile: {
-        minHeight: "30vh",
+        maxHeight: "25vh",
+        maxWidth: "25vh",
     },
 }));
 
