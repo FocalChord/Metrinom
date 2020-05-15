@@ -17,25 +17,31 @@ const getTopGenres = () => {
 const getRecentTracks = () => {
     return ApiClient(`${spotifyEndpoint}/recent-played`);
 };
+
 const getArtist = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/artist?artistId=${encodeURIComponent(artistId)}`);
 };
+
 const getRelatedArtist = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/relatedArtist?artistId=${encodeURIComponent(artistId)}`);
 };
+
 const followArtist = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/artist/follow?artistId=${encodeURIComponent(artistId)}`, {
         method: "PUT",
     });
 };
+
 const unfollowArtist = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/artist/unfollow?artistId=${encodeURIComponent(artistId)}`, {
         method: "DELETE",
     });
 };
+
 const checkFollowing = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/isFollowing?artistId=${encodeURIComponent(artistId)}`);
 };
+
 const makePlaylist = (songUriList) => {
     return ApiClient(`${spotifyEndpoint}/playlist/create`, {
         method: "POST",
