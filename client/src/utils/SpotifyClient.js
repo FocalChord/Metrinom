@@ -36,7 +36,14 @@ const unfollowArtist = (artistId) => {
 const checkFollowing = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/isFollowing?artistId=${encodeURIComponent(artistId)}`);
 };
-
+const makePlaylist = (songUriList) => {
+    return ApiClient(`${spotifyEndpoint}/playlist/create`, {
+        method: "POST",
+        body: {
+            uris: songUriList,
+        },
+    });
+};
 const SpotifyClient = {
     getTopArtists,
     getTopTracks,
@@ -47,6 +54,7 @@ const SpotifyClient = {
     followArtist,
     unfollowArtist,
     checkFollowing,
+    makePlaylist,
 };
 
 export default SpotifyClient;

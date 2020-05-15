@@ -75,8 +75,8 @@ const fetchMakePlaylist = async (songURIList, spotifyUserId, authToken) => {
             method: "POST",
             headers,
             body: JSON.stringify({
-                name: "New Playlist from Metronom",
-                description: "New playlist created by Metronom",
+                name: `Playlist by Metrinom - ${new Date().toLocaleString("default")}`,
+                description: "New playlist created by Metrinom",
                 public: false,
             }),
         });
@@ -149,11 +149,11 @@ const followArtist = async (authToken, artistID) => {
         "Content-Type": "application/json",
     };
     try {
-        const response = await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "PUT", headers });
-        const json = await response.json();
-        return json;
+        await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "PUT", headers });
+        return;
     } catch (error) {
         LOGGER.error(error);
+        return error;
     }
 };
 const unFollowArtist = async (authToken, artistID) => {
@@ -163,11 +163,11 @@ const unFollowArtist = async (authToken, artistID) => {
         "Content-Type": "application/json",
     };
     try {
-        const response = await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "DELETE", headers });
-        const json = await response.json();
-        return json;
+        await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "DELETE", headers });
+        return;
     } catch (error) {
         LOGGER.error(error);
+        return error;
     }
 };
 const checkFollowing = async (authToken, artistID) => {
@@ -177,7 +177,7 @@ const checkFollowing = async (authToken, artistID) => {
         "Content-Type": "application/json",
     };
     try {
-        const response = await fetch(spotifyFollowUrl + `/contains?type=artist&ids=${artistID}`, { method: "DELETE", headers });
+        const response = await fetch(spotifyFollowUrl + `/contains?type=artist&ids=${artistID}`, { method: "GET", headers });
         const json = await response.json();
         return json;
     } catch (error) {

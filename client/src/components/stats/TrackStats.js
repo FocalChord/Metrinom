@@ -5,6 +5,7 @@ import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
 import MusicLoader from "../loaders/MusicLoader";
 import LoaderWrapper from "../LoaderWrapper";
+import PlaylistCreate from "../PlaylistCreate";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const mapTracks = (response) => {
     return response.items.map((item) => {
-        const { album, name, id } = item;
+        const { album, name, id, uri } = item;
 
         return {
             artistName: album.artists[0].name,
@@ -45,6 +46,7 @@ const mapTracks = (response) => {
             trackImage: album.images[0].url,
             trackName: name,
             trackId: id,
+            uri: uri,
         };
     });
 };
@@ -129,6 +131,7 @@ const TrackStats = ({ history }) => {
                     </ul>
                 )}
             </div>
+            <PlaylistCreate trackUris={tracks.map((track) => track.uri)} />
         </LoaderWrapper>
     );
 };

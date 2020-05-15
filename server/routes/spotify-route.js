@@ -389,12 +389,13 @@ router.put("/artist/follow", ensureAuthenticated, (req, res) => {
             res.status(400).json({ msg: "error" });
         } else {
             const authToken = user.accessToken;
-            const data = await spotify.followArtist(authToken);
-            if (data.error) {
-                LOGGER.error(data.error);
-                res.status(400).json(data.error);
+            const response = await spotify.followArtist(authToken, artistID);
+            console.log(response);
+            if (response != null || response != undefined) {
+                LOGGER.error(response);
+                res.status(400).json(response);
             } else {
-                res.status(204).json(data);
+                res.status(204).json();
             }
         }
     });
@@ -428,12 +429,12 @@ router.delete("/artist/unfollow", ensureAuthenticated, (req, res) => {
             res.status(400).json({ msg: "error" });
         } else {
             const authToken = user.accessToken;
-            const data = await spotify.unFollowArtist(authToken);
-            if (data.error) {
-                LOGGER.error(data.error);
-                res.status(400).json(data.error);
+            const response = await spotify.unFollowArtist(authToken, artistID);
+            if (response != null || response != undefined) {
+                LOGGER.error(response);
+                res.status(400).json(response);
             } else {
-                res.status(204).json(data);
+                res.status(204).json();
             }
         }
     });
@@ -467,7 +468,7 @@ router.get("/isFollowing", ensureAuthenticated, (req, res) => {
             res.status(400).json({ msg: "error" });
         } else {
             const authToken = user.accessToken;
-            const data = await spotify.checkFollowing(authToken);
+            const data = await spotify.checkFollowing(authToken, artistID);
             if (data.error) {
                 LOGGER.error(data.error);
                 res.status(400).json(data.error);
