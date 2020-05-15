@@ -8,6 +8,7 @@ const spotifyUserUrl = "https://api.spotify.com/v1/users";
 const spotifyPlaylistUrl = "https://api.spotify.com/v1/playlists";
 const spotifyRecentTracksUrl = " https://api.spotify.com/v1/me/player/recently-played?limit=50";
 const spotifyArtistUrl = "https://api.spotify.com/v1/artists";
+const spotifyFollowUrl = "https://api.spotify.com/v1/me/following";
 
 const fetchTopArtistOrTracks = async (type, timeFrame, authToken) => {
     const headers = {
@@ -141,6 +142,48 @@ const fetchRelatedArtist = async (authToken, artistID) => {
         LOGGER.error(error);
     }
 };
+const followArtist = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "PUT", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
+const unFollowArtist = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyFollowUrl + `?type=artist&ids=${artistID}`, { method: "DELETE", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
+const checkFollowing = async (authToken, artistID) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyFollowUrl + `/contains?type=artist&ids=${artistID}`, { method: "DELETE", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
 
 module.exports = {
     fetchTopArtistOrTracks,
@@ -150,4 +193,7 @@ module.exports = {
     fetchRecentTracks,
     fetchArtist,
     fetchRelatedArtist,
+    followArtist,
+    unFollowArtist,
+    checkFollowing,
 };

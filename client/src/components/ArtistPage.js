@@ -78,22 +78,35 @@ const ArtistPage = () => {
     });
     const [relatedArtists, setRelatedArtists] = useState([]);
     const classes = useStyles();
-    const [isFollowing, setFollowing] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
         SpotifyClient.getArtist(artistId).then((r) => {
-            // console.log(artistId);
-            // console.log(r);
             setArtist(r);
         });
         SpotifyClient.getRelatedArtist(artistId).then((r) => {
             setRelatedArtists(r.artists);
             setIsLoading(false);
         });
+        SpotifyClient.checkFollowing(artistId).then((r) => {
+            setIsFollowing(r);
+        });
     }, []);
+
     const toggleFollow = async () => {
-        setFollowing(true);
+        try {
+            if (!isFollowing) {
+                await SpotifyClient.followArtist(artistId);
+                setIsFollowing(true);
+            } else {
+                await SpotifyClient.unfollowArtist(artistId);
+                setIsFollowing(false);
+            }
+        } catch (e) {
+            setIsFollowing(false);
+        }
     };
+
     return (
         <LoaderWrapper>
             <div className="text-center">

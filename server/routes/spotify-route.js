@@ -360,4 +360,121 @@ router.get("/relatedArtist", ensureAuthenticated, (req, res) => {
         }
     });
 });
+/**
+ * @swagger
+ * path:
+ *  /spotify/artist/follow:
+ *    put:
+ *      security:
+ *        - ApiKeyAuth: []
+ *      tags: [Spotify]
+ *      summary: follows artist
+ *      parameters:
+ *        - in: query
+ *          name: artistId
+ *          schema:
+ *            type: string
+ *          required: false
+ *          description: The spotify id of the artist
+ *      responses:
+ *        "204":
+ *          description: no content
+ */
+router.put("/artist/follow", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    const artistID = req.query.artistId;
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.followArtist(authToken);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(204).json(data);
+            }
+        }
+    });
+});
+/**
+ * @swagger
+ * path:
+ *  /spotify/artist/unfollow:
+ *    delete:
+ *      security:
+ *        - ApiKeyAuth: []
+ *      tags: [Spotify]
+ *      summary: unfollows artist
+ *      parameters:
+ *        - in: query
+ *          name: artistId
+ *          schema:
+ *            type: string
+ *          required: false
+ *          description: The spotify id of the artist
+ *      responses:
+ *        "204":
+ *          description: no content
+ */
+router.delete("/artist/unfollow", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    const artistID = req.query.artistId;
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.unFollowArtist(authToken);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(204).json(data);
+            }
+        }
+    });
+});
+/**
+ * @swagger
+ * path:
+ *  /spotify/isFollowing:
+ *    get:
+ *      security:
+ *        - ApiKeyAuth: []
+ *      tags: [Spotify]
+ *      summary: check if user is following artist
+ *      parameters:
+ *        - in: query
+ *          name: artistId
+ *          schema:
+ *            type: string
+ *          required: false
+ *          description: The spotify id of the artist
+ *      responses:
+ *        "204":
+ *          description: no content
+ */
+router.get("/isFollowing", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    const artistID = req.query.artistId;
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.checkFollowing(authToken);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(200).json(data);
+            }
+        }
+    });
+});
 module.exports = router;
