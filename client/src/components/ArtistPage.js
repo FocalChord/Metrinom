@@ -86,24 +86,25 @@ const ArtistPage = () => {
         });
         SpotifyClient.getRelatedArtist(artistId).then((r) => {
             setRelatedArtists(r.artists);
-            setIsLoading(false);
         });
         SpotifyClient.checkFollowing(artistId).then((r) => {
-            setIsFollowing(r);
+            console.log(r);
+            setIsFollowing(r[0]);
+            setIsLoading(false);
         });
     }, []);
 
     const toggleFollow = async () => {
         try {
             if (!isFollowing) {
-                await SpotifyClient.followArtist(artistId);
                 setIsFollowing(true);
+                await SpotifyClient.followArtist(artistId);
             } else {
-                await SpotifyClient.unfollowArtist(artistId);
                 setIsFollowing(false);
+                await SpotifyClient.unfollowArtist(artistId);
             }
         } catch (e) {
-            setIsFollowing(false);
+            setIsFollowing(isFollowing);
         }
     };
 
