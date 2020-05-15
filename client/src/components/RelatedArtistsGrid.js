@@ -35,7 +35,7 @@ const RelatedArtistsGrid = ({ data, history }) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Typography variant="h5" className={classes.stat}>
+            <Typography style={{ marginBottom: 10 }} variant="h5" className={classes.stat}>
                 Related Artists
             </Typography>
             <GridList cellHeight={200} className={classes.gridList} cols={4} spacing={0}>
