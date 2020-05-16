@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Container, Typography, Avatar, Grid, Button, Box } from "@material-ui/core";
+import { Avatar, Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import grey from "@material-ui/core/colors/grey";
+import { makeStyles } from "@material-ui/core/styles";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-// import AudioFeaturesChart from "../components/AudioFeaturesChart";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { MetrinomContext } from "../context/MetrinomContext";
 import SpotifyClient from "../utils/SpotifyClient";
-import { useParams } from "react-router-dom";
 import LoaderWrapper from "./LoaderWrapper";
-import AudioFeaturesChart from "./AudioFeaturesChart";
+import TrackFeaturesChart from "./TrackFeaturesChart";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -100,7 +99,7 @@ const TrackPage = () => {
                         <Typography variant="h5" gutterBottom>
                             Audio Features
                         </Typography>
-                        {features && <AudioFeaturesChart features={features} />}
+                        {features && <TrackFeaturesChart features={features} />}
                     </Grid>
                 </Grid>
             </Container>

@@ -1,6 +1,6 @@
+import { Box, makeStyles } from "@material-ui/core";
 import React from "react";
 import { HorizontalBar } from "react-chartjs-2";
-import { Box, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -47,7 +47,7 @@ const getData = (props) => {
     return data;
 };
 
-const AudioFeaturesChart = (props) => {
+const TrackFeaturesChart = (props) => {
     const classes = useStyles();
 
     return (
@@ -66,4 +66,4 @@ const AudioFeaturesChart = (props) => {
     );
 };
 
-export default AudioFeaturesChart;
+export default TrackFeaturesChart;
