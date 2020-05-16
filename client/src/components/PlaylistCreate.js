@@ -14,6 +14,8 @@ import {
     SnackbarContent,
     Typography,
     Grid,
+    Slider,
+    Divider,
 } from "@material-ui/core";
 import SpotifyClient from "../utils/SpotifyClient";
 import logger from "../log/logger";
@@ -47,6 +49,21 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         backgroundColor: "#1DB954",
     },
+    danceability: {
+        color: "rgba(255, 99, 132, 0.7)",
+    },
+    energy: {
+        color: "rgba(255, 159, 64, 0.7)",
+    },
+    liveness: {
+        color: "rgba(104, 132, 245, 0.7)",
+    },
+    popularity: {
+        color: "rgba(54, 162, 235, 0.7)",
+    },
+    valence: {
+        color: "rgba(153, 102, 255, 0.7)",
+    },
 }));
 
 const PlaylistCreate = (props) => {
@@ -54,6 +71,11 @@ const PlaylistCreate = (props) => {
     const [snackbar, setSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [dialog, setDialog] = useState(false);
+    const [danceability, setDanceability] = useState(0.5);
+    const [energy, setEnergy] = useState(0.5);
+    const [liveness, setLiveness] = useState(0.5);
+    const [popularity, setPopularity] = useState(50);
+    const [valence, setValence] = useState(0.5);
 
     const { from, data } = props;
 
@@ -69,7 +91,38 @@ const PlaylistCreate = (props) => {
                 logger.error(e);
             }
         } else if (from === "genres") {
+            try {
+                const genres = data.map((g) => g.name);
+                const metrics = { danceability, energy, liveness, popularity, valence };
+
+                await SpotifyClient.makePlaylistFromGenres(genres, metrics);
+                // setSnackbarMessage("Playlist has been created");
+                // setSnackbar(true);
+                // setDialog(false);
+            } catch (e) {
+                logger.error(e);
+            }
         }
+    };
+
+    const updateDanceability = (_, newValue) => {
+        setDanceability(newValue);
+    };
+
+    const updateEnergy = (_, newValue) => {
+        setEnergy(newValue);
+    };
+
+    const updateLiveness = (_, newValue) => {
+        setLiveness(newValue);
+    };
+
+    const updatePopularity = (_, newValue) => {
+        setPopularity(newValue);
+    };
+
+    const updateValence = (_, newValue) => {
+        setValence(newValue);
     };
 
     return (
@@ -100,7 +153,7 @@ const PlaylistCreate = (props) => {
                     <React.Fragment>
                         <DialogContent>
                             <DialogContentText>Create playlist from these {data.length} Genres:</DialogContentText>
-                            <Grid container direction="row" alignItems="flex-start" justify="space-between">
+                            <Grid container direction="row" alignItems="flex-start" justify="left">
                                 {data.map((g) => (
                                     <Typography
                                         key={g.rank}
@@ -116,6 +169,69 @@ const PlaylistCreate = (props) => {
                                         {g.nameUppercase}
                                     </Typography>
                                 ))}
+                            </Grid>
+                            <Divider style={{ margin: "10px" }} variant="middle" />
+                            <Grid container direction="column">
+                                <Grid item>
+                                    <Typography>Danceability</Typography>
+                                    <Slider
+                                        className={classes.danceability}
+                                        value={danceability}
+                                        min={0}
+                                        max={1}
+                                        step={0.1}
+                                        valueLabelDisplay="auto"
+                                        onChange={updateDanceability}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Typography>Energy</Typography>
+                                    <Slider
+                                        className={classes.energy}
+                                        value={energy}
+                                        min={0}
+                                        max={1}
+                                        step={0.1}
+                                        valueLabelDisplay="auto"
+                                        onChange={updateEnergy}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Typography>Liveness</Typography>
+                                    <Slider
+                                        className={classes.liveness}
+                                        value={liveness}
+                                        min={0}
+                                        max={1}
+                                        step={0.1}
+                                        valueLabelDisplay="auto"
+                                        onChange={updateLiveness}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Typography>Popularity</Typography>
+                                    <Slider
+                                        className={classes.popularity}
+                                        value={popularity}
+                                        min={0}
+                                        max={100}
+                                        step={1}
+                                        valueLabelDisplay="auto"
+                                        onChange={updatePopularity}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <Typography>Valence</Typography>
+                                    <Slider
+                                        className={classes.valence}
+                                        value={valence}
+                                        min={0}
+                                        max={1}
+                                        step={0.1}
+                                        valueLabelDisplay="auto"
+                                        onChange={updateValence}
+                                    />
+                                </Grid>
                             </Grid>
                         </DialogContent>
                     </React.Fragment>
