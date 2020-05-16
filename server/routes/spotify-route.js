@@ -391,7 +391,7 @@ router.put("/artist/follow", ensureAuthenticated, (req, res) => {
             const authToken = user.accessToken;
             const response = await spotify.followArtist(authToken, artistID);
             console.log(response);
-            if (response != null || response != undefined) {
+            if (response != null || response !== undefined) {
                 LOGGER.error(response);
                 res.status(400).json(response);
             } else {
@@ -430,7 +430,7 @@ router.delete("/artist/unfollow", ensureAuthenticated, (req, res) => {
         } else {
             const authToken = user.accessToken;
             const response = await spotify.unFollowArtist(authToken, artistID);
-            if (response != null || response != undefined) {
+            if (response != null || response !== undefined) {
                 LOGGER.error(response);
                 res.status(400).json(response);
             } else {
@@ -478,4 +478,47 @@ router.get("/isFollowing", ensureAuthenticated, (req, res) => {
         }
     });
 });
+
+router.get("/track", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    const { trackId } = req.query;
+
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.fetchTrack(authToken, trackId);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(200).json(data);
+            }
+        }
+    });
+});
+
+router.get("/audio-features", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    const { trackId } = req.query;
+
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.fetchAudioFeatures(authToken, trackId);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(200).json(data);
+            }
+        }
+    });
+});
+
 module.exports = router;

@@ -68,14 +68,15 @@ const ArtistPage = ({ history }) => {
     const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
-        SpotifyClient.getArtist(artistId).then((r) => {
-            setArtist(r);
-        });
-        SpotifyClient.getRelatedArtist(artistId).then((r) => {
-            setRelatedArtists(r.artists);
-        });
-        SpotifyClient.checkFollowing(artistId).then((r) => {
-            setIsFollowing(r[0]);
+        Promise.all([
+            SpotifyClient.getArtist(artistId),
+            SpotifyClient.getRelatedArtist(artistId),
+            SpotifyClient.checkFollowing(artistId),
+        ]).then((values) => {
+            const [artistRes, relatedArtistsRes, followingRes] = values;
+            setArtist(artistRes);
+            setRelatedArtists(relatedArtistsRes.artists);
+            setIsFollowing(followingRes[0]);
             setIsLoading(false);
         });
     }, [artistId]);
