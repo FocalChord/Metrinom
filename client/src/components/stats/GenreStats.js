@@ -90,13 +90,12 @@ const GenreStats = () => {
     const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
-        (genres.length == 0 &&
+        genres.length == 0 &&
             SpotifyClient.getTopGenres().then((resp) => {
                 setGenres(mapGenres(resp));
-                setIsLoading(false);
-                setInternalLoading(false);
-            })) ||
-            setIsLoading(false);
+            });
+            
+        setIsLoading(false);
         setInternalLoading(false);
     }, [view, genres]);
 
