@@ -50,6 +50,15 @@ const makePlaylist = (songUriList) => {
         },
     });
 };
+
+const getTrack = (trackId) => {
+    return ApiClient(`${spotifyEndpoint}/track?trackId=${encodeURIComponent(trackId)}`);
+};
+
+const getAudioFeatures = (trackId) => {
+    return ApiClient(`${spotifyEndpoint}/audio-features?trackId=${encodeURIComponent(trackId)}`);
+};
+
 const SpotifyClient = {
     getTopArtists,
     getTopTracks,
@@ -57,6 +66,8 @@ const SpotifyClient = {
     getRecentTracks,
     getArtist,
     getRelatedArtist,
+    getTrack,
+    getAudioFeatures,
     followArtist,
     unfollowArtist,
     checkFollowing,
