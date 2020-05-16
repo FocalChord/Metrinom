@@ -13,8 +13,10 @@ import {
     Fade,
     SnackbarContent,
     Typography,
+    Grid,
 } from "@material-ui/core";
 import SpotifyClient from "../utils/SpotifyClient";
+import logger from "../log/logger";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: theme.spacing(2),
         right: theme.spacing(2),
         outline: "none",
+        color: "white",
         backgroundColor: "#1DB954",
     },
     title: {
@@ -48,20 +51,24 @@ const useStyles = makeStyles((theme) => ({
 
 const PlaylistCreate = (props) => {
     const classes = useStyles();
-    const { trackUris } = props;
     const [snackbar, setSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [dialog, setDialog] = useState(false);
 
+    const { from, data } = props;
+
     const createPlaylist = async () => {
-        try {
-            console.log(trackUris);
-            await SpotifyClient.makePlaylist(trackUris);
-            setSnackbarMessage("Playlist has been created");
-            setSnackbar(true);
-            setDialog(false);
-        } catch (e) {
-            console.error(e);
+        if (from === "tracks") {
+            try {
+                logger.debug(data);
+                await SpotifyClient.makePlaylist(data);
+                setSnackbarMessage("Playlist has been created");
+                setSnackbar(true);
+                setDialog(false);
+            } catch (e) {
+                logger.error(e);
+            }
+        } else if (from === "genres") {
         }
     };
 
@@ -69,21 +76,51 @@ const PlaylistCreate = (props) => {
         <React.Fragment>
             <Tooltip
                 style={{ outline: "none", backgroundColor: "#1DB954" }}
-                title="Create playlist"
+                title={from === "tracks" ? "Create Playlist from your Top Tracks" : "Create Playlist from up to 5 Selected Genres"}
                 placement="left-start"
                 aria-label="add"
             >
-                <Fab variant="extended" className={classes.fab} onClick={() => setDialog(true)}>
-                    <Typography variant="h10" style={{ color: "white" }}>
-                        Create playlist
-                    </Typography>
+                <Fab disabled={props.disabled} variant="extended" className={classes.fab} onClick={() => setDialog(true)}>
+                    Create playlist
                 </Fab>
             </Tooltip>
+
             <Dialog color="primary" open={dialog}>
                 <DialogTitle>Create Playlist</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>Create playlist for your Top tracks?</DialogContentText>
-                </DialogContent>
+
+                {from === "tracks" && (
+                    <React.Fragment>
+                        <DialogContent>
+                            <DialogContentText>Create Playlist for your Top tracks?</DialogContentText>
+                        </DialogContent>
+                    </React.Fragment>
+                )}
+
+                {from === "genres" && (
+                    <React.Fragment>
+                        <DialogContent>
+                            <DialogContentText>Create playlist from these {data.length} Genres:</DialogContentText>
+                            <Grid container direction="row" alignItems="flex-start" justify="space-between">
+                                {data.map((g) => (
+                                    <Typography
+                                        key={g.rank}
+                                        style={{
+                                            borderStyle: "solid",
+                                            borderWidth: "1px",
+                                            borderRadius: "10px",
+                                            borderColor: "#1DB954",
+                                            margin: "4px",
+                                            padding: "4px",
+                                        }}
+                                    >
+                                        {g.nameUppercase}
+                                    </Typography>
+                                ))}
+                            </Grid>
+                        </DialogContent>
+                    </React.Fragment>
+                )}
+
                 <DialogActions>
                     <Button style={{ outline: "none" }} onClick={() => setDialog(false)}>
                         Cancel
@@ -93,6 +130,7 @@ const PlaylistCreate = (props) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
             <Snackbar
                 anchorOrigin={{
                     vertical: "bottom",

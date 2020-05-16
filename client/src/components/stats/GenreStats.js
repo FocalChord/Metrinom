@@ -7,7 +7,9 @@ import LoaderWrapper from "../LoaderWrapper";
 import PieChart from "./PieChart";
 import MusicLoader from "../loaders/MusicLoader";
 import CheckIcon from "@material-ui/icons/Check";
-import GeneratePlaylistModal from "./generate-playlist/GeneratePlaylistModal";
+import PieChartIcon from "@material-ui/icons/PieChart";
+import ListIcon from "@material-ui/icons/List";
+import PlaylistCreate from "../PlaylistCreate";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -87,14 +89,13 @@ const GenreStats = () => {
     const { setIsLoading } = useContext(MetrinomContext);
     const [view, setView] = useState("pie");
     const [internalLoading, setInternalLoading] = useState(false);
-    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
-        genres.length == 0 &&
+        genres.length === 0 &&
             SpotifyClient.getTopGenres().then((resp) => {
                 setGenres(mapGenres(resp));
             });
-            
+
         setIsLoading(false);
         setInternalLoading(false);
     }, [view, genres]);
@@ -117,15 +118,6 @@ const GenreStats = () => {
         }
     };
 
-    const openModal = () => {
-        setModalOpen(true);
-    };
-
-    const closeModal = () => {
-        console.log("CLOSING!!");
-        setModalOpen(false);
-    };
-
     return (
         <LoaderWrapper>
             <div className="text-center">
@@ -136,11 +128,6 @@ const GenreStats = () => {
                                 Your Top Genres
                             </Typography>
                         </Grid>
-                        <Grid item>
-                            <Button variant="outlined" className={classes.button} onClick={openModal}>
-                                Generate Playlist
-                            </Button>
-                        </Grid>
                         <Tabs
                             indicatorColor="primary"
                             color="primary"
@@ -149,8 +136,8 @@ const GenreStats = () => {
                             classes={{ indicator: classes.tabs }}
                             variant="fullWidth"
                         >
-                            <Tab className={classes.hoverTab} label="Pie Chart" value="pie" />
-                            <Tab className={classes.hoverTab} label="List" value="list" />
+                            <Tab className={classes.hoverTab} icon={<PieChartIcon />} value="pie"></Tab>
+                            <Tab className={classes.hoverTab} icon={<ListIcon />} value="list"></Tab>
                         </Tabs>
                     </Grid>
                 </Box>
@@ -161,7 +148,7 @@ const GenreStats = () => {
                     <div>
                         {genres ? (
                             <div>
-                                {view == "pie" ? (
+                                {view === "pie" ? (
                                     <div style={{ height: 1000 }}>
                                         <PieChart data={mapDataToPieChart(genres)} />
                                     </div>
@@ -186,7 +173,7 @@ const GenreStats = () => {
                                                         primary={g.nameUppercase}
                                                         secondary={<React.Fragment>Number of Tracks - {g.number}</React.Fragment>}
                                                     />
-                                                    <div style={{ fontSize: 25, color: "#1DB954" }}>{g.rank + 1}</div>
+                                                    <div style={{ fontSize: 25 }}>{g.rank + 1}</div>
                                                 </ListItem>
                                                 <Divider variant="inset" />
                                             </Box>
@@ -200,8 +187,13 @@ const GenreStats = () => {
                     </div>
                 )}
             </div>
-
-            {modalOpen && <GeneratePlaylistModal open={modalOpen} close={closeModal} genres={genres} />}
+            {view === "list" && (
+                <PlaylistCreate
+                    disabled={genres.filter((g) => g.selected).length === 0}
+                    from="genres"
+                    data={genres.filter((g) => g.selected)}
+                />
+            )}
         </LoaderWrapper>
     );
 };

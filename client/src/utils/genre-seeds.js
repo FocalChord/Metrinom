@@ -1,7 +1,9 @@
+
+
 /**
  * https://developer.spotify.com/console/get-available-genre-seeds/
  */
-[
+genre_seeds = [
     "acoustic",
     "afrobeat",
     "alt-rock",
