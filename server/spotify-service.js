@@ -9,6 +9,8 @@ const spotifyPlaylistUrl = "https://api.spotify.com/v1/playlists";
 const spotifyRecentTracksUrl = " https://api.spotify.com/v1/me/player/recently-played?limit=50";
 const spotifyArtistUrl = "https://api.spotify.com/v1/artists";
 const spotifyFollowUrl = "https://api.spotify.com/v1/me/following";
+const spotifyTrackUrl = "https://api.spotify.com/v1/tracks";
+const spotifyAudioFeaturesUrl = "https://api.spotify.com/v1/audio-features";
 
 const fetchTopArtistOrTracks = async (type, timeFrame, authToken) => {
     const headers = {
@@ -114,6 +116,7 @@ const fetchRecentTracks = async (authToken) => {
         LOGGER.error(error);
     }
 };
+
 const fetchArtist = async (authToken, artistID) => {
     const headers = {
         Authorization: "Bearer " + authToken,
@@ -128,6 +131,7 @@ const fetchArtist = async (authToken, artistID) => {
         LOGGER.error(error);
     }
 };
+
 const fetchRelatedArtist = async (authToken, artistID) => {
     const headers = {
         Authorization: "Bearer " + authToken,
@@ -142,6 +146,7 @@ const fetchRelatedArtist = async (authToken, artistID) => {
         LOGGER.error(error);
     }
 };
+
 const followArtist = async (authToken, artistID) => {
     const headers = {
         Authorization: "Bearer " + authToken,
@@ -156,6 +161,7 @@ const followArtist = async (authToken, artistID) => {
         return error;
     }
 };
+
 const unFollowArtist = async (authToken, artistID) => {
     const headers = {
         Authorization: "Bearer " + authToken,
@@ -170,6 +176,7 @@ const unFollowArtist = async (authToken, artistID) => {
         return error;
     }
 };
+
 const checkFollowing = async (authToken, artistID) => {
     const headers = {
         Authorization: "Bearer " + authToken,
@@ -185,8 +192,39 @@ const checkFollowing = async (authToken, artistID) => {
     }
 };
 
+const fetchTrack = async (authToken, trackId) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyTrackUrl + `/${trackId}`, { method: "GET", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
+
+const fetchAudioFeatures = async (authToken, trackId) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+    try {
+        const response = await fetch(spotifyAudioFeaturesUrl + `/${trackId}`, { method: "GET", headers });
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
+
 module.exports = {
     fetchTopArtistOrTracks,
+    fetchAudioFeatures,
     fetchRecomendations,
     fetchTopGenres,
     fetchMakePlaylist,
@@ -196,4 +234,5 @@ module.exports = {
     followArtist,
     unFollowArtist,
     checkFollowing,
+    fetchTrack,
 };
