@@ -154,7 +154,7 @@ const PlaylistCreate = (props) => {
                 {from === "tracks" && (
                     <React.Fragment>
                         <DialogContent>
-                            <DialogContentText>Create Playlist for your Top tracks?</DialogContentText>
+                            <DialogContentText>Create a Playlist for your Top Tracks?</DialogContentText>
                         </DialogContent>
                     </React.Fragment>
                 )}
@@ -162,7 +162,10 @@ const PlaylistCreate = (props) => {
                 {from === "genres" && (
                     <React.Fragment>
                         <DialogContent>
-                            <DialogContentText>Create playlist from these {data.length} Genres:</DialogContentText>
+                            <DialogContentText>
+                                Create a Playlist based on {data.length > 1 ? "these " + data.length : "this single"} Genre
+                                {data.length > 1 ? "s" : ""}:
+                            </DialogContentText>
                             <Grid container direction="row" alignItems="flex-start">
                                 {data.map((g) => (
                                     <Typography

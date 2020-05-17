@@ -235,7 +235,7 @@ const GenreStats = () => {
                 onClose={() => setSnackbar(false)}
             >
                 <MuiAlert elevation={6} variant="filled" severity="error">
-                    You can only select a maximum of 5 genres
+                    A maximum of 5 Genres can be selected
                 </MuiAlert>
             </Snackbar>
         </LoaderWrapper>
