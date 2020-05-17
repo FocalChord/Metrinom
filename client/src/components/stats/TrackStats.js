@@ -131,7 +131,7 @@ const TrackStats = ({ history }) => {
                     </ul>
                 )}
             </div>
-            <PlaylistCreate trackUris={tracks.map((track) => track.uri)} />
+            <PlaylistCreate from="tracks" data={tracks.map((track) => track.uri)} />
         </LoaderWrapper>
     );
 };

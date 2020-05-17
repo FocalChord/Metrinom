@@ -8,12 +8,15 @@ import {
     ListItemSecondaryAction,
     ListItemText,
     Typography,
+    Divider,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
+import LoaderWrapper from "../LoaderWrapper";
+import MusicLoader from "../loaders/MusicLoader";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -46,13 +49,13 @@ const mapRecentlyPlayedTracks = (response) => {
         let dateString = "";
 
         if (minutes === 0 && hours === 0 && day === 0) {
-            dateString = `Played ${seconds} seconds ago`;
+            dateString = `${seconds} seconds ago`;
         } else if (hours === 0 && day === 0) {
-            dateString = `Played ${minutes} minutes ago`;
+            dateString = `${minutes} minutes ago`;
         } else if (day === 0) {
-            dateString = `Played ${hours} hours ago`;
+            dateString = `${hours} hours ago`;
         } else {
-            dateString = `Played ${day} day ago`;
+            dateString = `${day} day ago`;
         }
 
         return {
@@ -69,50 +72,62 @@ const mapRecentlyPlayedTracks = (response) => {
 const RecentlyPlayedStats = ({ history }) => {
     const classes = useStyles();
     const [tracks, setTracks] = useState([]);
-    const { isLoading, setIsLoading } = useContext(MetrinomContext);
+    const { setIsLoading } = useContext(MetrinomContext);
+    const [internalLoading, setInternalLoading] = useState(false);
 
     useEffect(() => {
         SpotifyClient.getRecentTracks().then((response) => {
             setTracks(mapRecentlyPlayedTracks(response));
             setIsLoading(false);
+            setInternalLoading(false);
         });
     }, []);
 
     return (
-        <React.Fragment>
-            {!isLoading && (
-                <Container maxWidth="lg">
-                    <Box className={classes.header}>
-                        <Typography variant="h4" gutterBottom className={classes.title}>
-                            Recently Played
-                        </Typography>
-                    </Box>
+        <LoaderWrapper>
+            <div maxWidth="text-center">
+                <Box className={classes.header}>
+                    <Typography variant="h4" gutterBottom className={classes.title}>
+                        Recently Played
+                    </Typography>
+                </Box>
 
-                    <List className={classes.root}>
-                        {tracks.map((track, idx) => {
-                            return (
-                                <Box key={idx}>
-                                    <ListItem alignItems="flex-start" onClick={() => history.push(`/track/${track.trackId}`)} button>
-                                        <ListItemAvatar>
-                                            <Avatar alt="Remy Sharp" src={track.albumArt} />
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary={track.trackName}
-                                            secondary={
-                                                <React.Fragment>
-                                                    {track.artistName} · {track.albumName}
-                                                </React.Fragment>
-                                            }
-                                        />
-                                        <ListItemSecondaryAction>{track.dateString}</ListItemSecondaryAction>
-                                    </ListItem>
-                                </Box>
-                            );
-                        })}
-                    </List>
-                </Container>
-            )}
-        </React.Fragment>
+                {internalLoading && <MusicLoader internal={true} />}
+
+                {!internalLoading && (
+                    <div>
+                        {tracks ? (
+                            <List>
+                                {tracks.map((track, idx) => (
+                                    <Box key={idx}>
+                                        <ListItem onClick={() => history.push(`/track/${track.trackId}`)} button>
+                                            <ListItemAvatar>
+                                                <Avatar style={{ borderRadius: 0, width: 65, height: 65 }} src={track.albumArt} />
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                style={{ paddingLeft: 20 }}
+                                                primary={track.trackName}
+                                                secondary={
+                                                    <React.Fragment>
+                                                        {track.artistName}
+                                                        <br />
+                                                        {track.albumName}
+                                                    </React.Fragment>
+                                                }
+                                            />
+                                            <ListItemSecondaryAction>{track.dateString}</ListItemSecondaryAction>
+                                        </ListItem>
+                                        <Divider variant="inset" />
+                                    </Box>
+                                ))}
+                            </List>
+                        ) : (
+                            <h1>No Recently Played data available :(</h1>
+                        )}
+                    </div>
+                )}
+            </div>
+        </LoaderWrapper>
     );
 };
 

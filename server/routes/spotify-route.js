@@ -262,6 +262,44 @@ router.post("/playlist/create", ensureAuthenticated, (req, res) => {
     });
 });
 
+/**
+ *
+ */
+router.post("/playlist/createFromGenres", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+    const { genre_seeds, target_danceability, target_energy, target_liveness, target_popularity, target_valence } = req.body;
+
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+
+            // Get recommended track URIs
+            const trackUris = await spotify.fetchTrackRecommendationsFromGenresAndMetrics(
+                genre_seeds,
+                target_danceability,
+                target_energy,
+                target_liveness,
+                target_popularity,
+                target_valence,
+                authToken,
+            );
+
+            // Create a playlist from the recommended tracks
+            const playlist = await spotify.fetchMakePlaylist(trackUris, authorization, authToken);
+
+            if (playlist.error) {
+                LOGGER.error(playlist.error);
+                res.status(400).json(playlist.error);
+            } else {
+                res.status(200).json(playlist);
+            }
+        }
+    });
+});
+
 router.get("/recent-played", ensureAuthenticated, (req, res) => {
     const { authorization } = req.headers;
     User.findOne({ spotifyUserId: authorization }, async (err, user) => {

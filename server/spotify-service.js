@@ -47,6 +47,27 @@ const fetchRecomendations = async (seedArtist, seedTracks, seedGenres, authToken
     }
 };
 
+const fetchTrackRecommendationsFromGenresAndMetrics = async (seedGenres, d, e, l, p, v, authToken) => {
+    const headers = {
+        Authorization: "Bearer " + authToken,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
+
+    try {
+        const response = await fetch(
+            spotifyRecommendationUrl +
+                `?limit=20&seed_genres=${seedGenres}&target_danceability=${d}&target_energy=${e}&target_liveness=${l}&target_popularity=${p}&target_valence=${v}`,
+            { method: "GET", headers },
+        );
+        const json = await response.json();
+
+        return json.tracks.map((t) => t.uri);
+    } catch (error) {
+        LOGGER.error(error);
+    }
+};
+
 const fetchTopGenres = async (timeFrame, authToken) => {
     const headers = {
         Authorization: "Bearer " + authToken,
@@ -226,6 +247,7 @@ module.exports = {
     fetchTopArtistOrTracks,
     fetchAudioFeatures,
     fetchRecomendations,
+    fetchTrackRecommendationsFromGenresAndMetrics,
     fetchTopGenres,
     fetchMakePlaylist,
     fetchRecentTracks,

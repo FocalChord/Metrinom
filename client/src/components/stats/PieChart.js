@@ -4,9 +4,9 @@ import { ResponsivePie } from "@nivo/pie";
 const Chart = ({ data }) => (
     <ResponsivePie
         data={data}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+        margin={{ top: 50, right: 100, bottom: 100, left: 100 }}
         innerRadius={0.5}
-        padAngle={0.7}
+        padAngle={1}
         cornerRadius={3}
         colors={{ scheme: "nivo" }}
         borderWidth={1}
@@ -15,8 +15,8 @@ const Chart = ({ data }) => (
         radialLabelsTextXOffset={6}
         radialLabelsTextColor="#FFFFFF"
         radialLabelsLinkOffset={0}
-        radialLabelsLinkDiagonalLength={16}
-        radialLabelsLinkHorizontalLength={24}
+        radialLabelsLinkDiagonalLength={24}
+        radialLabelsLinkHorizontalLength={20}
         radialLabelsLinkStrokeWidth={1}
         radialLabelsLinkColor={{ from: "color" }}
         slicesLabelsSkipAngle={4}
@@ -53,6 +53,7 @@ const Chart = ({ data }) => (
             tooltip: {
                 container: {
                     background: "#333",
+                    color: "#1DB954",
                 },
             },
             labels: {

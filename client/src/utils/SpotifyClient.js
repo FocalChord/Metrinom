@@ -51,6 +51,16 @@ const makePlaylist = (songUriList) => {
     });
 };
 
+const makePlaylistFromGenres = (genreSeeds, metrics) => {
+    return ApiClient(`${spotifyEndpoint}/playlist/createFromGenres`, {
+        method: "POST",
+        body: {
+            genre_seeds: genreSeeds.join(","),
+            ...metrics,
+        },
+    });
+};
+
 const getTrack = (trackId) => {
     return ApiClient(`${spotifyEndpoint}/track?trackId=${encodeURIComponent(trackId)}`);
 };
@@ -72,6 +82,7 @@ const SpotifyClient = {
     unfollowArtist,
     checkFollowing,
     makePlaylist,
+    makePlaylistFromGenres,
 };
 
 export default SpotifyClient;
