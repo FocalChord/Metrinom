@@ -1,9 +1,24 @@
+const stringSimilarity = require("string-similarity");
 
+const getGenreSeed = (genre) => {
+    let genreToCompare = genre;
+
+    // Attempt to make the string matching more semantic, rather than just syntactic
+    genreToCompare = genre.includes(" pop") || genre.includes("pop ") ? "pop" : genreToCompare;
+    genreToCompare = genre.includes("rap") ? "hip-hop" : genreToCompare;
+
+    return stringSimilarity.findBestMatch(genreToCompare, GENRE_SEEDS).bestMatch.target;
+};
+
+const GenreSeeds = { getGenreSeed };
+
+export default GenreSeeds;
 
 /**
+ * Possible genre seeds provided by spotify
  * https://developer.spotify.com/console/get-available-genre-seeds/
  */
-genre_seeds = [
+const GENRE_SEEDS = [
     "acoustic",
     "afrobeat",
     "alt-rock",

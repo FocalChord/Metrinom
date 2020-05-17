@@ -171,7 +171,11 @@ const GenreStats = () => {
                                                     <ListItemText
                                                         style={{ paddingLeft: 20 }}
                                                         primary={g.nameUppercase}
-                                                        secondary={<React.Fragment>Number of Tracks - {g.number}</React.Fragment>}
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                {g.number} Artist{g.number > 1 ? "s" : ""}
+                                                            </React.Fragment>
+                                                        }
                                                     />
                                                     <div style={{ fontSize: 25 }}>{g.rank + 1}</div>
                                                 </ListItem>

@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 import SpotifyClient from "../utils/SpotifyClient";
 import logger from "../log/logger";
+import GenreSeeds from "../utils/GenreSeeds";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -95,7 +96,10 @@ const PlaylistCreate = (props) => {
                 const genres = data.map((g) => g.name);
                 const metrics = { danceability, energy, liveness, popularity, valence };
 
-                await SpotifyClient.makePlaylistFromGenres(genres, metrics);
+                // Get unique genre seeds
+                const genreSeeds = [...new Set(genres.map((g) => GenreSeeds.getGenreSeed(g)))];
+
+                await SpotifyClient.makePlaylistFromGenres(genreSeeds, metrics);
                 // setSnackbarMessage("Playlist has been created");
                 // setSnackbar(true);
                 // setDialog(false);
@@ -153,7 +157,7 @@ const PlaylistCreate = (props) => {
                     <React.Fragment>
                         <DialogContent>
                             <DialogContentText>Create playlist from these {data.length} Genres:</DialogContentText>
-                            <Grid container direction="row" alignItems="flex-start" justify="left">
+                            <Grid container direction="row" alignItems="flex-start">
                                 {data.map((g) => (
                                     <Typography
                                         key={g.rank}

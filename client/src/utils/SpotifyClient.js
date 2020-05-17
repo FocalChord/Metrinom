@@ -51,13 +51,10 @@ const makePlaylist = (songUriList) => {
     });
 };
 
-const makePlaylistFromGenres = (genres, metrics) => {
-    console.log(genres);
-    console.log("d: " + metrics.danceability);
-    console.log("e: " + metrics.energy);
-    console.log("l: " + metrics.liveness);
-    console.log("p: " + metrics.popularity);
-    console.log("v: " + metrics.valence);
+const makePlaylistFromGenres = (genreSeeds, metrics) => {
+    console.log(genreSeeds);
+    console.log(metrics);
+    console.log("............");
 };
 
 const getTrack = (trackId) => {
