@@ -1,4 +1,19 @@
-import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs, Typography } from "@material-ui/core";
+import {
+    Avatar,
+    Box,
+    Divider,
+    Grid,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Tab,
+    Tabs,
+    Typography,
+    Snackbar,
+    Fade,
+} from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { MetrinomContext } from "../../context/MetrinomContext";
@@ -89,15 +104,19 @@ const GenreStats = () => {
     const { setIsLoading } = useContext(MetrinomContext);
     const [view, setView] = useState("pie");
     const [internalLoading, setInternalLoading] = useState(false);
+    const [snackbar, setSnackbar] = useState(false);
 
     useEffect(() => {
-        genres.length === 0 &&
+        if (genres.length === 0) {
             SpotifyClient.getTopGenres().then((resp) => {
                 setGenres(mapGenres(resp));
+                setIsLoading(false);
+                setInternalLoading(false);
             });
-
-        setIsLoading(false);
-        setInternalLoading(false);
+        } else {
+            setIsLoading(false);
+            setInternalLoading(false);
+        }
     }, [view, genres]);
 
     const handleChange = (_, newValue) => {
@@ -115,6 +134,8 @@ const GenreStats = () => {
         } else if (alreadySelected.length < 5) {
             copy[rank].selected = true;
             setGenres(copy);
+        } else if (alreadySelected.length === 5) {
+            setSnackbar(true);
         }
     };
 
@@ -158,15 +179,17 @@ const GenreStats = () => {
                                             <Box key={g.rank}>
                                                 <ListItem button onClick={() => selectGenre(g.rank)}>
                                                     <ListItemAvatar>
-                                                        {!g.selected ? (
-                                                            <Avatar
-                                                                style={{ borderRadius: 0, width: 65, height: 65 }}
-                                                                alt={g.nameUppercase}
-                                                                src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/smartest-dog-breeds-1553287693.jpg"
-                                                            ></Avatar>
-                                                        ) : (
-                                                            <CheckIcon className={classes.checkIcon} />
-                                                        )}
+                                                        <Avatar
+                                                            style={{
+                                                                borderRadius: 0,
+                                                                width: 65,
+                                                                height: 65,
+                                                                color: "#1DB954",
+                                                                backgroundColor: "rgba(0, 0, 0, 0)",
+                                                            }}
+                                                        >
+                                                            {g.rank + 1}
+                                                        </Avatar>
                                                     </ListItemAvatar>
                                                     <ListItemText
                                                         style={{ paddingLeft: 20 }}
@@ -177,7 +200,7 @@ const GenreStats = () => {
                                                             </React.Fragment>
                                                         }
                                                     />
-                                                    <div style={{ fontSize: 25 }}>{g.rank + 1}</div>
+                                                    {g.selected && <CheckIcon className={classes.checkIcon} />}
                                                 </ListItem>
                                                 <Divider variant="inset" />
                                             </Box>
@@ -191,6 +214,7 @@ const GenreStats = () => {
                     </div>
                 )}
             </div>
+
             {view === "list" && (
                 <PlaylistCreate
                     disabled={genres.filter((g) => g.selected).length === 0}
@@ -198,6 +222,22 @@ const GenreStats = () => {
                     data={genres.filter((g) => g.selected)}
                 />
             )}
+
+            <Snackbar
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "center",
+                }}
+                open={snackbar}
+                autoHideDuration={3500}
+                // className={classes.snackbar}
+                TransitionComponent={Fade}
+                onClose={() => setSnackbar(false)}
+            >
+                <MuiAlert elevation={6} variant="filled" severity="error">
+                    You can only select a maximum of 5 genres
+                </MuiAlert>
+            </Snackbar>
         </LoaderWrapper>
     );
 };
