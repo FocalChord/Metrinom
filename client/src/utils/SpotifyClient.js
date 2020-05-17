@@ -52,9 +52,13 @@ const makePlaylist = (songUriList) => {
 };
 
 const makePlaylistFromGenres = (genreSeeds, metrics) => {
-    console.log(genreSeeds);
-    console.log(metrics);
-    console.log("............");
+    return ApiClient(`${spotifyEndpoint}/playlist/createFromGenres`, {
+        method: "POST",
+        body: {
+            genre_seeds: genreSeeds.join(","),
+            ...metrics,
+        },
+    });
 };
 
 const getTrack = (trackId) => {

@@ -94,15 +94,21 @@ const PlaylistCreate = (props) => {
         } else if (from === "genres") {
             try {
                 const genres = data.map((g) => g.name);
-                const metrics = { danceability, energy, liveness, popularity, valence };
+                const metrics = {
+                    target_danceability: danceability,
+                    target_energy: energy,
+                    target_liveness: liveness,
+                    target_popularity: popularity,
+                    target_valence: valence,
+                };
 
                 // Get unique genre seeds
                 const genreSeeds = [...new Set(genres.map((g) => GenreSeeds.getGenreSeed(g)))];
 
                 await SpotifyClient.makePlaylistFromGenres(genreSeeds, metrics);
-                // setSnackbarMessage("Playlist has been created");
-                // setSnackbar(true);
-                // setDialog(false);
+                setSnackbarMessage("Playlist has been created");
+                setSnackbar(true);
+                setDialog(false);
             } catch (e) {
                 logger.error(e);
             }
