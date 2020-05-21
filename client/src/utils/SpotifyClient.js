@@ -50,7 +50,9 @@ const makePlaylist = (songUriList) => {
         },
     });
 };
-
+const getRecommendedSongsFromArtists = (artistId) => {
+    return ApiClient(`${spotifyEndpoint}/recommendations?seed_artist=${encodeURIComponent(artistId)}`);
+};
 const makePlaylistFromGenres = (genreSeeds, metrics) => {
     return ApiClient(`${spotifyEndpoint}/playlist/createFromGenres`, {
         method: "POST",
@@ -83,6 +85,7 @@ const SpotifyClient = {
     checkFollowing,
     makePlaylist,
     makePlaylistFromGenres,
+    getRecommendedSongsFromArtists,
 };
 
 export default SpotifyClient;

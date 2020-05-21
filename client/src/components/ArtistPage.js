@@ -7,6 +7,7 @@ import { MetrinomContext } from "../context/MetrinomContext";
 import SpotifyClient from "../utils/SpotifyClient";
 import RelatedArtistsGrid from "./RelatedArtistsGrid";
 import LoaderWrapper from "./LoaderWrapper";
+import PlaylistCreate from "./PlaylistCreate";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -65,6 +66,7 @@ const ArtistPage = ({ history }) => {
         id: "",
     });
     const [relatedArtists, setRelatedArtists] = useState([]);
+    const [recommendedSongs, setRecommendedSongs] = useState([]);
     const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
@@ -72,11 +74,13 @@ const ArtistPage = ({ history }) => {
             SpotifyClient.getArtist(artistId),
             SpotifyClient.getRelatedArtist(artistId),
             SpotifyClient.checkFollowing(artistId),
+            SpotifyClient.getRecommendedSongsFromArtists(artistId),
         ]).then((values) => {
-            const [artistRes, relatedArtistsRes, followingRes] = values;
+            const [artistRes, relatedArtistsRes, followingRes, recommendedSongsRes] = values;
             setArtist(artistRes);
             setRelatedArtists(relatedArtistsRes.artists);
             setIsFollowing(followingRes[0]);
+            setRecommendedSongs(recommendedSongsRes.tracks);
             setIsLoading(false);
         });
     }, [artistId]);
@@ -129,6 +133,7 @@ const ArtistPage = ({ history }) => {
                     </Grid>
                 </Grid>
             </div>
+            <PlaylistCreate from="artists" data={recommendedSongs.map((recommendedSongs) => recommendedSongs.uri)} />
         </LoaderWrapper>
     );
 };

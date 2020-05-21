@@ -36,7 +36,7 @@ const fetchRecomendations = async (seedArtist, seedTracks, seedGenres, authToken
     try {
         const response = await fetch(
             spotifyRecommendationUrl +
-                `/?limit=20&seed_artist=${seedArtist}&seed_tracks=${seedTracks}&seed_genres=${seedGenres}&min_energy=0.4&min_popularity=50`,
+                `/?limit=20&seed_artists=${seedArtist}&seed_tracks=${seedTracks}&seed_genres=${seedGenres}&min_energy=0.4&min_popularity=50`,
             { method: "GET", headers },
         );
         const json = await response.json();

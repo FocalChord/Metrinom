@@ -112,6 +112,16 @@ const PlaylistCreate = (props) => {
             } catch (e) {
                 logger.error(e);
             }
+        } else if (from === "artists") {
+            try {
+                logger.debug(data);
+                await SpotifyClient.makePlaylist(data);
+                setSnackbarMessage("Playlist has been created");
+                setSnackbar(true);
+                setDialog(false);
+            } catch (e) {
+                logger.error(e);
+            }
         }
     };
 
@@ -139,7 +149,13 @@ const PlaylistCreate = (props) => {
         <React.Fragment>
             <Tooltip
                 style={{ outline: "none", backgroundColor: "#1DB954" }}
-                title={from === "tracks" ? "Create Playlist from your Top Tracks" : "Create Playlist from up to 5 Selected Genres"}
+                title={
+                    from === "tracks"
+                        ? "Create Playlist from your Top Tracks"
+                        : from === "artists"
+                        ? "Create Playlist from this Artist"
+                        : "Create Playlist from up to 5 Selected Genres"
+                }
                 placement="left-start"
                 aria-label="add"
             >
@@ -155,6 +171,13 @@ const PlaylistCreate = (props) => {
                     <React.Fragment>
                         <DialogContent>
                             <DialogContentText>Create a Playlist for your Top Tracks?</DialogContentText>
+                        </DialogContent>
+                    </React.Fragment>
+                )}
+                {from === "artists" && (
+                    <React.Fragment>
+                        <DialogContent>
+                            <DialogContentText>Create a Playlist based on this Artists?</DialogContentText>
                         </DialogContent>
                     </React.Fragment>
                 )}
