@@ -242,3 +242,41 @@ test("unFollowArtist() fetches from Spotify", async () => {
     expect(fetch.mock.calls[0][1].headers.Accept).toBe("application/json");
     expect(fetch.mock.calls[0][1].headers["Content-Type"]).toBe("application/json");
 });
+
+test("checkFollowing() fetches from Spotify", async () => {
+    // Set up dummy input data
+    const authToken = "abc123";
+    const artistID = "eminem";
+
+    const data = await spotify.checkFollowing(authToken, artistID);
+
+    expect(fetch.mock.calls.length).toBe(1);
+
+    expect(fetch.mock.calls[0][0]).toBe(spotifyFollowUrl + `/contains?type=artist&ids=${artistID}`);
+    expect(fetch.mock.calls[0][1].method).toBe("GET");
+    expect(fetch.mock.calls[0][1].headers.Authorization).toBe(`Bearer ${authToken}`);
+    expect(fetch.mock.calls[0][1].headers.Accept).toBe("application/json");
+    expect(fetch.mock.calls[0][1].headers["Content-Type"]).toBe("application/json");
+
+    // Returned data should be that returned by the async call to json()
+    expect(data).toBe(JSON_MOCK_VALUE);
+});
+
+test("fetchTrack() fetches from Spotify", async () => {
+    // Set up dummy input data
+    const authToken = "abc123";
+    const trackId = "Rap God";
+
+    const data = await spotify.fetchTrack(authToken, trackId);
+
+    expect(fetch.mock.calls.length).toBe(1);
+
+    expect(fetch.mock.calls[0][0]).toBe(spotifyTrackUrl + `/${trackId}`);
+    expect(fetch.mock.calls[0][1].method).toBe("GET");
+    expect(fetch.mock.calls[0][1].headers.Authorization).toBe(`Bearer ${authToken}`);
+    expect(fetch.mock.calls[0][1].headers.Accept).toBe("application/json");
+    expect(fetch.mock.calls[0][1].headers["Content-Type"]).toBe("application/json");
+
+    // Returned data should be that returned by the async call to json()
+    expect(data).toBe(JSON_MOCK_VALUE);
+});
