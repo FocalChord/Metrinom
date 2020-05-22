@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon ./src/index.js",
-        "test": "node ./node_modules/mocha/bin/mocha --timeout 5000"
+        "test": "jest"
     },
     "keywords": [],
     "author": "",
@@ -41,6 +41,8 @@
         "eslint-plugin-react": "^7.19.0",
         "eslint-plugin-react-hooks": "^2.5.0",
         "husky": "^4.2.3",
+        "jest": "^26.0.1",
+        "jest-fetch-mock": "^3.0.3",
         "lint-staged": "^10.0.8",
         "prettier": "^2.0.1"
     },
