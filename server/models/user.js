@@ -23,9 +23,6 @@ const findOrCreate = require("mongoose-findorcreate");
  *          profilePic:
  *            type: string
  *            description: link to image of profile picture
- *          notification:
- *            type: Notification[]
- *            description: list of notifications
  *          friends:
  *            type: string[]
  *            description: list of spotifyUserIds
@@ -38,10 +35,9 @@ const findOrCreate = require("mongoose-findorcreate");
  *             type: string
  *        example:
  *           spotifyUserId: 390FGD84JD
- *           displayName: Dinitj
+ *           displayName: Dinith
  *           profilePic: image.png
  *           friends: [Hong, Nisarag]
- *           notification: []
  *           isPrivate: false
  */
 const userSchema = mongoose.Schema({
@@ -61,11 +57,6 @@ const userSchema = mongoose.Schema({
     friends: {
         type: [String],
         required: true,
-        default: null,
-    },
-    notification: {
-        type: [mongoose.Schema.Types.ObjectId],
-        required: false,
         default: null,
     },
     isPrivate: {
