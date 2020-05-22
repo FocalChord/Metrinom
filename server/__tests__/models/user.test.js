@@ -7,13 +7,23 @@ let mongod;
 beforeAll(async () => {
     mongod = new MongoMemoryServer();
     const connString = await mongod.getConnectionString();
-    await mongoose.connect(connString, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
+    await mongoose.connect(connString, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+    });
+});
+
+afterAll(async () => {
+    await mongoose.disconnect();
+    await mongod.stop();
 });
 
 beforeEach(async () => {
-    mongoose.connection.dropCollection("users");
+    const coll = await mongoose.connection.db.createCollection("users");
 
-    const newUser = new User({
+    const newUser = {
         spotifyUserId: "Dinith123",
         displayName: "Dinith",
         profilePic: "image.png",
@@ -22,18 +32,17 @@ beforeEach(async () => {
         isPrivate: true,
         accessToken: "abc123",
         refreshToken: "xyz789",
-    });
+    };
 
-    await newUser.save();
+    await coll.insertOne(newUser);
 });
 
-afterAll(async () => {
-    await mongoose.disconnect();
-    await mongod.stop();
+afterEach(async () => {
+    await mongoose.connection.db.dropCollection("users");
 });
 
 test("Get a specified User successfully", async () => {
-    const fromDb = await mongoose.connection.db.collection("users").find({ spotifyUserId: "Dinith123" });
+    const fromDb = await User.find({ spotifyUserId: "Dinith123" });
 
     expect(fromDb).toBeTruthy();
 });
@@ -64,8 +73,15 @@ test("Create and get a second specified User successfully", async () => {
     expect(fromDb[0].refreshToken).toBe("ghi987");
 });
 
+test("Delete user from the database", async () => {
+    await User.deleteOne({ spotifyUserId: "Dinith123" });
+    const dbResponse = await User.find({ spotifyUserId: "Dinith123" });
+
+    expect(dbResponse[0]).toBe(undefined);
+});
+
 test("Throw an error when trying to create a User with a spotifyUserId that's not unique", async () => {
-    const newUser = new User({
+    const duplicateUser = new User({
         spotifyUserId: "Dinith123",
         displayName: "Dinith",
         profilePic: "image.png",
@@ -76,8 +92,13 @@ test("Throw an error when trying to create a User with a spotifyUserId that's no
         refreshToken: "xyz789",
     });
 
-    await newUser.save((err) => {
-        expect(err.name).toBe("ValidationError");
+    await duplicateUser.save((err) => {
+        if (err) {
+            console.log(err);
+            expect(err.name).toBe("ValidationError");
+            expect(err.errors.spotifyUserId.message).toBe("Error, expected `spotifyUserId` to be unique. Value: `Dinith123`");
+        } else {
+            fail("Should throw an error due to non-unique spotifyUserId");
+        }
     });
 });
-
