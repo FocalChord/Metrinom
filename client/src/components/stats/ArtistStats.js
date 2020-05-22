@@ -1,6 +1,7 @@
 import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Tab, Tabs, Typography } from "@material-ui/core";
 import { createMuiTheme, makeStyles, MuiThemeProvider } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
 import MusicLoader from "../loaders/MusicLoader";
@@ -29,11 +30,15 @@ const useStyles = makeStyles(() => ({
         },
     },
 }));
-const ArtistStats = ({ history }) => {
+
+const ArtistStats = () => {
     const classes = useStyles();
+    const history = useHistory();
+
+    const { setIsLoading } = useContext(MetrinomContext);
+
     const [artists, setArtists] = useState([]);
     const [timeFrame, setTimeframe] = useState("long_term");
-    const { setIsLoading } = useContext(MetrinomContext);
     const [internalLoading, setInternalLoading] = useState(false);
 
     useEffect(() => {

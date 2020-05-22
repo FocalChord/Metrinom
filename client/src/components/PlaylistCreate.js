@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PlaylistCreate = (props) => {
+const PlaylistCreate = ({ from, data, disabled }) => {
     const classes = useStyles();
     const [snackbar, setSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -77,8 +77,6 @@ const PlaylistCreate = (props) => {
     const [liveness, setLiveness] = useState(0.5);
     const [popularity, setPopularity] = useState(50);
     const [valence, setValence] = useState(0.5);
-
-    const { from, data } = props;
 
     const createPlaylist = async () => {
         if (from === "tracks") {
@@ -159,7 +157,7 @@ const PlaylistCreate = (props) => {
                 placement="left-start"
                 aria-label="add"
             >
-                <Fab disabled={props.disabled} variant="extended" className={classes.fab} onClick={() => setDialog(true)}>
+                <Fab disabled={disabled} variant="extended" className={classes.fab} onClick={() => setDialog(true)}>
                     Create playlist
                 </Fab>
             </Tooltip>

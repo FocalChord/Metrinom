@@ -5,7 +5,7 @@ export const MetrinomContext = createContext();
 /**
  * Used for easy checking if a component is being loaded or not
  */
-export const MetrinomProvider = (props) => {
+export const MetrinomProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
@@ -15,7 +15,7 @@ export const MetrinomProvider = (props) => {
                 setIsLoading,
             }}
         >
-            {props.children}
+            {children}
         </MetrinomContext.Provider>
     );
 };

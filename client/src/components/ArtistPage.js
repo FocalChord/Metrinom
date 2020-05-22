@@ -5,9 +5,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MetrinomContext } from "../context/MetrinomContext";
 import SpotifyClient from "../utils/SpotifyClient";
-import RelatedArtistsGrid from "./RelatedArtistsGrid";
 import LoaderWrapper from "./LoaderWrapper";
 import PlaylistCreate from "./PlaylistCreate";
+import RelatedArtistsGrid from "./RelatedArtistsGrid";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ArtistPage = ({ history }) => {
+const ArtistPage = () => {
     const classes = useStyles();
     const { setIsLoading } = useContext(MetrinomContext);
     const { artistId } = useParams();
@@ -129,7 +129,7 @@ const ArtistPage = ({ history }) => {
                     </Grid>
 
                     <Grid item className={classes.artists}>
-                        {relatedArtists && <RelatedArtistsGrid history={history} data={relatedArtists} />}
+                        {relatedArtists && <RelatedArtistsGrid data={relatedArtists} />}
                     </Grid>
                 </Grid>
             </div>

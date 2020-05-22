@@ -215,7 +215,7 @@ const GenreStats = () => {
                 )}
             </div>
 
-            {view === "list" && (
+            {!internalLoading && view === "list" && (
                 <PlaylistCreate
                     disabled={genres.filter((g) => g.selected).length === 0}
                     from="genres"
