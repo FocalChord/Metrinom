@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const getData = (props) => {
+const getData = (features) => {
     const data = {
         labels: ["Danceability", "Energy", "Acousticness", "Speechiness", "Instrumentalness", "Liveness", "Valence"],
         datasets: [
@@ -41,19 +41,19 @@ const getData = (props) => {
 
     data.datasets[0].data = [];
     data.labels.forEach((label) => {
-        data.datasets[0].data.push(props.features[label.toLowerCase()]);
+        data.datasets[0].data.push(features[label.toLowerCase()]);
     });
 
     return data;
 };
 
-const TrackFeaturesChart = (props) => {
+const TrackFeaturesChart = ({ features }) => {
     const classes = useStyles();
 
     return (
         <Box className={classes.root}>
             <HorizontalBar
-                data={getData(props)}
+                data={getData(features)}
                 options={{
                     responsive: true,
                     maintainAspectRatio: false,
