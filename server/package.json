@@ -7,6 +7,10 @@
         "start": "nodemon ./src/index.js",
         "test": "jest"
     },
+    "jest": {
+        "verbose": true,
+        "testEnvironment": "node"
+    },
     "keywords": [],
     "author": "",
     "license": "ISC",
@@ -44,6 +48,7 @@
         "jest": "^26.0.1",
         "jest-fetch-mock": "^3.0.3",
         "lint-staged": "^10.0.8",
+        "mongodb-memory-server": "^6.6.1",
         "prettier": "^2.0.1"
     },
     "husky": {
