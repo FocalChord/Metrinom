@@ -1,11 +1,12 @@
-import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Typography, Divider } from "@material-ui/core";
+import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
-import LoaderWrapper from "../LoaderWrapper";
 import MusicLoader from "../loaders/MusicLoader";
+import LoaderWrapper from "../LoaderWrapper";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -58,8 +59,9 @@ const mapRecentlyPlayedTracks = (response) => {
     });
 };
 
-const RecentlyPlayedStats = ({ history }) => {
+const RecentlyPlayedStats = () => {
     const classes = useStyles();
+    const history = useHistory();
     const [tracks, setTracks] = useState([]);
     const { setIsLoading } = useContext(MetrinomContext);
     const [internalLoading, setInternalLoading] = useState(false);

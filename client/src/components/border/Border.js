@@ -1,5 +1,8 @@
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import HistoryIcon from "@material-ui/icons/History";
+import MicIcon from "@material-ui/icons/Mic";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useLastLocation } from "react-router-last-location";
@@ -25,7 +28,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Border = (props) => {
+const routes = [
+    { name: "Home", path: "/", icon: <MicIcon /> },
+    { name: "Top Genres", path: "/genres", icon: <MusicNoteIcon /> },
+    { name: "Top Artists", path: "/artists", icon: <MusicNoteIcon /> },
+    { name: "Top Tracks", path: "/tracks", icon: <MusicNoteIcon /> },
+    { name: "Recently Played", path: "/recent", icon: <HistoryIcon /> },
+    { name: "Profile", path: "/profile/:user", icon: <HistoryIcon /> },
+];
+
+const Border = ({ children }) => {
     const { isLoading, setIsLoading } = useContext(MetrinomContext);
 
     const location = useLocation();
@@ -40,8 +52,8 @@ const Border = (props) => {
 
     return (
         <div className={classes.root}>
-            <HeaderBar />
-            <SideDrawer />
+            <HeaderBar routes={routes} />
+            <SideDrawer routes={routes} />
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 {isLoading && (
@@ -49,7 +61,7 @@ const Border = (props) => {
                         <MusicLoader />
                     </Box>
                 )}
-                {props.children}
+                {children}
             </main>
         </div>
     );

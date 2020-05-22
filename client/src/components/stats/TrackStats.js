@@ -1,6 +1,7 @@
 import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import SpotifyClient from "../../utils/SpotifyClient";
 import MusicLoader from "../loaders/MusicLoader";
@@ -51,10 +52,11 @@ const mapTracks = (response) => {
     });
 };
 
-const TrackStats = ({ history }) => {
+const TrackStats = () => {
     const classes = useStyles();
-    const [tracks, setTracks] = useState([]);
+    const history = useHistory();
     const { setIsLoading } = useContext(MetrinomContext);
+    const [tracks, setTracks] = useState([]);
     const [timeFrame, setTimeframe] = useState("long_term");
     const [internalLoading, setInternalLoading] = useState(false);
 

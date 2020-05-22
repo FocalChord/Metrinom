@@ -4,6 +4,7 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -31,8 +32,10 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const RelatedArtistsGrid = ({ data, history }) => {
+const RelatedArtistsGrid = ({ data }) => {
     const classes = useStyles();
+    const history = useHistory();
+
     return (
         <div className={classes.root}>
             <Typography style={{ marginBottom: 10 }} variant="h5" className={classes.stat}>
