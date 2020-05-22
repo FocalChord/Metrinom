@@ -28,7 +28,6 @@ beforeEach(async () => {
         displayName: "Dinith",
         profilePic: "image.png",
         friends: ["Hong"],
-        notification: null,
         isPrivate: true,
         accessToken: "abc123",
         refreshToken: "xyz789",
@@ -53,7 +52,6 @@ test("Create and get a second specified User successfully", async () => {
         displayName: "Hong",
         profilePic: "image2.png",
         friends: ["Dinith"],
-        notification: null,
         isPrivate: true,
         accessToken: "def456",
         refreshToken: "ghi987",
@@ -67,7 +65,6 @@ test("Create and get a second specified User successfully", async () => {
     expect(fromDb[0].displayName).toBe("Hong");
     expect(fromDb[0].profilePic).toBe("image2.png");
     expect(fromDb[0].friends).toEqual(expect.arrayContaining(["Dinith"]));
-    expect(fromDb[0].notification).toBe(null);
     expect(fromDb[0].isPrivate).toBe(true);
     expect(fromDb[0].accessToken).toBe("def456");
     expect(fromDb[0].refreshToken).toBe("ghi987");
@@ -86,7 +83,6 @@ test("Throw an error when trying to create a User with a spotifyUserId that's no
         displayName: "Dinith",
         profilePic: "image.png",
         friends: ["Hong"],
-        notification: null,
         isPrivate: true,
         accessToken: "abc123",
         refreshToken: "xyz789",
