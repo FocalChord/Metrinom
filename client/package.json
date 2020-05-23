@@ -12,7 +12,9 @@
         "@testing-library/user-event": "^7.2.1",
         "chart.js": "^2.9.3",
         "js-cookie": "^2.2.1",
+        "material-auto-rotating-carousel": "^3.0.2",
         "moment": "^2.25.3",
+        "pure-react-carousel": "^1.27.1",
         "react": "^16.13.1",
         "react-chartjs-2": "^2.9.0",
         "react-dom": "^16.13.1",
@@ -21,6 +23,7 @@
         "react-router-dom": "^5.1.2",
         "react-router-last-location": "^2.0.1",
         "react-scripts": "3.4.1",
+        "recharts": "^1.8.5",
         "string-similarity": "^4.0.1",
         "yargs-parser": "^18.1.3"
     },

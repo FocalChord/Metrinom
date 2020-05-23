@@ -56,12 +56,12 @@ const TopArtistsPage = () => {
         // eslint-disable-next-line
     }, [timeFrame]);
 
-    const muiBaseTheme = createMuiTheme();
     const handleChange = (_, newValue) => {
         if (newValue === timeFrame) return;
         setInternalLoading(true);
         setTimeframe(newValue);
     };
+    const muiBaseTheme = createMuiTheme();
 
     const getTheme = (muiBaseTheme) => ({
         MuiCard: {
