@@ -25,7 +25,7 @@ const mockFetchMakePlaylist = jest.spyOn(spotify, "fetchMakePlaylist").mockImple
 const mockFetchRecentTracks = jest.spyOn(spotify, "fetchRecentTracks").mockImplementation(() => SPOTIFY_DATA);
 const mockFetchArtist = jest.spyOn(spotify, "fetchArtist").mockImplementation(() => SPOTIFY_DATA);
 const mockFetchRelatedArtist = jest.spyOn(spotify, "fetchRelatedArtist").mockImplementation(() => SPOTIFY_DATA);
-const mockFollowArtist = jest.spyOn(spotify, "followArtist").mockImplementation(() => SPOTIFY_DATA);
+const mockFollowArtist = jest.spyOn(spotify, "followArtist").mockImplementation(() => null);
 const mockUnFollowArtist = jest.spyOn(spotify, "unFollowArtist").mockImplementation(() => SPOTIFY_DATA);
 const mockCheckFollowing = jest.spyOn(spotify, "checkFollowing").mockImplementation(() => SPOTIFY_DATA);
 const mockFetchTrack = jest.spyOn(spotify, "fetchTrack").mockImplementation(() => SPOTIFY_DATA);
@@ -133,4 +133,38 @@ test("GET /spotify/recent-played", async () => {
     expect(resp.status).toBe(200);
     expect(mockFetchRecentTracks).toBeCalledTimes(1);
     expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /spotify/artist", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/artist?artistId=dummy", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchArtist).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /spotify/relatedArtist", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/relatedArtist?artistId=dummy", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchRelatedArtist).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("PUT /spotify/artist/follow", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/artist/follow?artistId=dummy", {
+        method: "PUT",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+
+    expect(resp.status).toBe(204);
+    expect(mockFollowArtist).toBeCalledTimes(1);
 });
