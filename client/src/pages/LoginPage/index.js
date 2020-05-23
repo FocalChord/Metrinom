@@ -39,6 +39,11 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+require("dotenv").config();
+
+const METRINOME_BACKEND_URL = process.env.REACT_APP_URL || "http://localhost:3001";
+const buttonLink = `${METRINOME_BACKEND_URL}/auth/spotify`;
+
 const LoginPage = () => {
     const classes = useStyles();
     return (
@@ -46,7 +51,7 @@ const LoginPage = () => {
             <Container className={classes.containerItems}>
                 <Paper elevation={3} className={classes.paperLayout}>
                     <img style={{ width: 500 }} src={MetrinomLogo} />
-                    <Button href="http://localhost:3001/auth/spotify" className={classes.buttonLogin} variant="contained" color="primary">
+                    <Button href={buttonLink} className={classes.buttonLogin} variant="contained" color="primary">
                         Sign in with Spotify
                     </Button>
                 </Paper>

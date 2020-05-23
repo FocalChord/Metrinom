@@ -30,7 +30,8 @@
         "test": "react-scripts test --passWithNoTests",
         "eject": "react-scripts eject",
         "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
-        "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css"
+        "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
+        "publish-client": "cd ../ && git subtree push --prefix client metrinom master"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -50,6 +51,8 @@
     "devDependencies": {
         "autoprefixer": "^9.7.4",
         "babel-eslint": "^10.1.0",
+        "case-sensitive-paths-webpack-plugin": "^2.3.0",
+        "dotenv": "^8.2.0",
         "eslint": "^6.8.0",
         "eslint-config-prettier": "^6.10.0",
         "eslint-config-react-app": "^5.2.1",
