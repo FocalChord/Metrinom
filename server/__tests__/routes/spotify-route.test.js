@@ -64,8 +64,32 @@ test("GET /spotify/top", async () => {
         headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
     });
     const respJson = await resp.json();
-    
+
     expect(resp.status).toBe(200);
     expect(mockFetchTopArtistOrTracks).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /top/genres", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/top/genres", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchTopGenres).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /spotify/recommendations", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/recommendations", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchRecomendations).toBeCalledTimes(1);
     expect(respJson).toEqual(SPOTIFY_DATA);
 });
