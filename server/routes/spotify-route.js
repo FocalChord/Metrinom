@@ -403,7 +403,7 @@ router.put("/artist/follow", ensureAuthenticated, (req, res) => {
             const authToken = user.accessToken;
             const response = await spotify.followArtist(authToken, artistID);
             console.log(response);
-            if (response != null || response !== undefined) {
+            if (response !== null && response !== undefined) {
                 LOGGER.error(response);
                 res.status(400).json(response);
             } else {
