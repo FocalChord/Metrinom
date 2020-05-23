@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { MetrinomContext } from "../../context/MetrinomContext";
 import { LoaderWrapper } from "../../components";
+import { MetrinomContext } from "../../context/MetrinomContext";
 
 const HomePage = () => {
     const { setIsLoading } = useContext(MetrinomContext);
