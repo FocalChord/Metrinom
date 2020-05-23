@@ -3,10 +3,9 @@ import grey from "@material-ui/core/colors/grey";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MetrinomContext } from "../context/MetrinomContext";
-import SpotifyClient from "../utils/SpotifyClient";
-import LoaderWrapper from "./LoaderWrapper";
-import PlaylistCreate from "./PlaylistCreate";
+import { LoaderWrapper, PlaylistCreate } from "../../components";
+import { MetrinomContext } from "../../context/MetrinomContext";
+import { SpotifyClient } from "../../utils";
 import RelatedArtistsGrid from "./RelatedArtistsGrid";
 
 const useStyles = makeStyles((theme) => ({
@@ -83,6 +82,7 @@ const ArtistPage = () => {
             setRecommendedSongs(recommendedSongsRes.tracks);
             setIsLoading(false);
         });
+        // eslint-disable-next-line
     }, [artistId]);
 
     const toggleFollow = async () => {

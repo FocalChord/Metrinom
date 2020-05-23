@@ -1,25 +1,23 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
-    Tooltip,
-    Fab,
+    Button,
     Dialog,
     DialogActions,
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Button,
-    Snackbar,
+    Divider,
+    Fab,
     Fade,
-    SnackbarContent,
-    Typography,
     Grid,
     Slider,
-    Divider,
+    Snackbar,
+    SnackbarContent,
+    Tooltip,
+    Typography,
 } from "@material-ui/core";
-import SpotifyClient from "../utils/SpotifyClient";
-import logger from "../log/logger";
-import GenreSeeds from "../utils/GenreSeeds";
+import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { GenreSeeds, Logger, SpotifyClient } from "../utils";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -81,13 +79,13 @@ const PlaylistCreate = ({ from, data, disabled }) => {
     const createPlaylist = async () => {
         if (from === "tracks") {
             try {
-                logger.debug(data);
+                Logger.debug(data);
                 await SpotifyClient.makePlaylist(data);
                 setSnackbarMessage("Playlist has been created");
                 setSnackbar(true);
                 setDialog(false);
             } catch (e) {
-                logger.error(e);
+                Logger.error(e);
             }
         } else if (from === "genres") {
             try {
@@ -108,17 +106,17 @@ const PlaylistCreate = ({ from, data, disabled }) => {
                 setSnackbar(true);
                 setDialog(false);
             } catch (e) {
-                logger.error(e);
+                Logger.error(e);
             }
         } else if (from === "artists") {
             try {
-                logger.debug(data);
+                Logger.debug(data);
                 await SpotifyClient.makePlaylist(data);
                 setSnackbarMessage("Playlist has been created");
                 setSnackbar(true);
                 setDialog(false);
             } catch (e) {
-                logger.error(e);
+                Logger.error(e);
             }
         }
     };

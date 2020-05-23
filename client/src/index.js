@@ -11,7 +11,7 @@ import { MetrinomProvider } from "./context/MetrinomContext";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import logger from "./log/logger";
+import { Logger } from "./utils";
 
 const darkTheme = responsiveFontSizes(
     createMuiTheme({
@@ -26,7 +26,7 @@ const opt = {
     LOG_LEVEL: process.env.REACT_ENV_LOG_LEVEL || "DEBUG",
 };
 
-logger.setLogLevel(opt.LOG_LEVEL);
+Logger.setLogLevel(opt.LOG_LEVEL);
 
 ReactDOM.render(
     <React.StrictMode>

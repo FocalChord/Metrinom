@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { Route } from "react-router-dom";
-import Border from "../../components/border/Border";
-import LoginPage from "../../components/LoginPage";
-import CookieManager from "../CookieManager";
+import Border from "./Border";
+import { LoginPage } from "../pages";
+import { CookieManager } from "../utils";
 
 const PrivateRoute = ({ component: Component, ...options }) => {
     const token = CookieManager.getUserToken();
@@ -22,10 +21,6 @@ const PrivateRoute = ({ component: Component, ...options }) => {
             }
         />
     );
-};
-
-PrivateRoute.propTypes = {
-    component: PropTypes.func,
 };
 
 export default PrivateRoute;

@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MetrinomContext } from "../context/MetrinomContext";
-import SpotifyClient from "../utils/SpotifyClient";
-import LoaderWrapper from "./LoaderWrapper";
+import { LoaderWrapper } from "../../components";
+import { MetrinomContext } from "../../context/MetrinomContext";
+import { SpotifyClient } from "../../utils/";
 import TrackFeaturesChart from "./TrackFeaturesChart";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,8 +62,6 @@ const TrackPage = () => {
             setIsLoading(false);
         });
     }, [trackId, setIsLoading]);
-
-    console.log(features);
 
     return (
         <LoaderWrapper>

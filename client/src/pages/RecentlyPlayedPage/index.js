@@ -4,9 +4,8 @@ import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MetrinomContext } from "../../context/MetrinomContext";
-import SpotifyClient from "../../utils/SpotifyClient";
-import MusicLoader from "../loaders/MusicLoader";
-import LoaderWrapper from "../LoaderWrapper";
+import { SpotifyClient } from "../../utils";
+import { MusicLoader, LoaderWrapper } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -59,7 +58,7 @@ const mapRecentlyPlayedTracks = (response) => {
     });
 };
 
-const RecentlyPlayedStats = () => {
+const RecentlyPlayedPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const [tracks, setTracks] = useState([]);
@@ -72,6 +71,7 @@ const RecentlyPlayedStats = () => {
             setIsLoading(false);
             setInternalLoading(false);
         });
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -122,4 +122,4 @@ const RecentlyPlayedStats = () => {
     );
 };
 
-export default RecentlyPlayedStats;
+export default RecentlyPlayedPage;
