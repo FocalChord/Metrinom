@@ -20,9 +20,10 @@ const USER_OBJ = [
 beforeAll(async (done) => {
     mockingoose(User).toReturn(USER_OBJ, "findOne");
     mockingoose(User).toReturn(USER_OBJ, "findOneAndUpdate");
+
     app = express();
-    app.use(bodyParser.json()); // support json encoded bodies
-    app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use("/user", userRoute);
     server = app.listen(3001, () => done());
 });
