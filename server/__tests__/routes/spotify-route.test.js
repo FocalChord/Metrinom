@@ -29,6 +29,7 @@ const mockFollowArtist = jest.spyOn(spotify, "followArtist").mockImplementation(
 const mockUnFollowArtist = jest.spyOn(spotify, "unFollowArtist").mockImplementation(() => null);
 const mockCheckFollowing = jest.spyOn(spotify, "checkFollowing").mockImplementation(() => SPOTIFY_DATA);
 const mockFetchTrack = jest.spyOn(spotify, "fetchTrack").mockImplementation(() => SPOTIFY_DATA);
+const mockFetchGraph = jest.spyOn(spotify, "fetchGraph").mockImplementation(() => SPOTIFY_DATA);
 
 const USER_OBJ = [
     {
@@ -200,5 +201,29 @@ test("GET /spotify/track", async () => {
 
     expect(resp.status).toBe(200);
     expect(mockFetchTrack).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /spotify/audio-features", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/audio-features?trackId=dummy", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchAudioFeatures).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /spotify/artistGraph", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/artistGraph", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchGraph).toBeCalledTimes(1);
     expect(respJson).toEqual(SPOTIFY_DATA);
 });
