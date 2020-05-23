@@ -70,7 +70,7 @@ test("GET /spotify/top", async () => {
     expect(respJson).toEqual(SPOTIFY_DATA);
 });
 
-test("GET /top/genres", async () => {
+test("GET spotify/top/genres", async () => {
     const resp = await fetch("http://localhost:3001/spotify/top/genres", {
         method: "GET",
         headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
