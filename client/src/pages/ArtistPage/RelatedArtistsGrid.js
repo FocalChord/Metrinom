@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     },
     tile: {
         maxHeight: "25vh",
-        maxWidth: "25vh",
+        height: "100% !important",
     },
 }));
 
@@ -41,7 +41,7 @@ const RelatedArtistsGrid = ({ data }) => {
             <Typography style={{ marginBottom: 10 }} variant="h5" className={classes.stat}>
                 Related Artists
             </Typography>
-            <GridList cellHeight={200} className={classes.gridList} cols={4} spacing={0}>
+            <GridList cellHeight={200} className={classes.gridList} cols={5} spacing={0}>
                 {data.map((tile, idx) => (
                     <GridListTile
                         className={classes.tile}

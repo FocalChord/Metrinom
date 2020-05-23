@@ -80,7 +80,7 @@ const ArtistPage = () => {
             if (!isMounted) return;
             const [artistRes, relatedArtistsRes, followingRes, recommendedSongsRes] = values;
             setArtist(artistRes);
-            setRelatedArtists(relatedArtistsRes.artists);
+            setRelatedArtists(relatedArtistsRes.artists.slice(0, 20));
             setIsFollowing(followingRes[0]);
             setRecommendedSongs(recommendedSongsRes.tracks);
             setIsLoading(false);
