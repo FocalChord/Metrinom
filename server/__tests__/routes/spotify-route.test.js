@@ -26,7 +26,7 @@ const mockFetchRecentTracks = jest.spyOn(spotify, "fetchRecentTracks").mockImple
 const mockFetchArtist = jest.spyOn(spotify, "fetchArtist").mockImplementation(() => SPOTIFY_DATA);
 const mockFetchRelatedArtist = jest.spyOn(spotify, "fetchRelatedArtist").mockImplementation(() => SPOTIFY_DATA);
 const mockFollowArtist = jest.spyOn(spotify, "followArtist").mockImplementation(() => null);
-const mockUnFollowArtist = jest.spyOn(spotify, "unFollowArtist").mockImplementation(() => SPOTIFY_DATA);
+const mockUnFollowArtist = jest.spyOn(spotify, "unFollowArtist").mockImplementation(() => null);
 const mockCheckFollowing = jest.spyOn(spotify, "checkFollowing").mockImplementation(() => SPOTIFY_DATA);
 const mockFetchTrack = jest.spyOn(spotify, "fetchTrack").mockImplementation(() => SPOTIFY_DATA);
 
@@ -167,4 +167,38 @@ test("PUT /spotify/artist/follow", async () => {
 
     expect(resp.status).toBe(204);
     expect(mockFollowArtist).toBeCalledTimes(1);
+});
+
+test("DELETE /spotify/artist/unfollow", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/artist/unfollow?artistId=dummy", {
+        method: "DELETE",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+
+    expect(resp.status).toBe(204);
+    expect(mockUnFollowArtist).toBeCalledTimes(1);
+});
+
+test("GET /spotify/isFollowing", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/isFollowing?artistId=dummy", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockCheckFollowing).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /spotify/track", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/track?trackId=dummy", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchTrack).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
 });
