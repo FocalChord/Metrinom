@@ -23,6 +23,7 @@
         "react-router-dom": "^5.1.2",
         "react-router-last-location": "^2.0.1",
         "react-scripts": "3.4.1",
+        "recharts": "^1.8.5",
         "string-similarity": "^4.0.1",
         "yargs-parser": "^18.1.3"
     },
