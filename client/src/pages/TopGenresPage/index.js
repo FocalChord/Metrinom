@@ -119,6 +119,7 @@ const GenreStats = () => {
     }, [view, genres]);
 
     const handleChange = (_, newValue) => {
+        if (newValue === view) return;
         setInternalLoading(true);
         setView(newValue);
     };

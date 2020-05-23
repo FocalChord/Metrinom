@@ -68,6 +68,7 @@ const TopTracksPage = () => {
     }, [timeFrame]);
 
     const handleChange = (_, newValue) => {
+        if (newValue === timeFrame) return;
         setInternalLoading(true);
         setTimeframe(newValue);
     };
