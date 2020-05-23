@@ -442,7 +442,7 @@ router.delete("/artist/unfollow", ensureAuthenticated, (req, res) => {
         } else {
             const authToken = user.accessToken;
             const response = await spotify.unFollowArtist(authToken, artistID);
-            if (response != null || response !== undefined) {
+            if (response !== null && response !== undefined) {
                 LOGGER.error(response);
                 res.status(400).json(response);
             } else {
