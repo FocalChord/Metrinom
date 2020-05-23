@@ -1,10 +1,10 @@
-import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Tab, Tabs, Typography } from "@material-ui/core";
-import { createMuiTheme, makeStyles, MuiThemeProvider } from "@material-ui/core/styles";
+import { Box, Grid, Tab, Tabs, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { LoaderWrapper, MusicLoader } from "../../components";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import { SpotifyClient } from "../../utils";
-import { MusicLoader, LoaderWrapper } from "../../components";
+import ArtistCard from "./ArtistCard";
 
 const useStyles = makeStyles(() => ({
     title: {
@@ -31,7 +31,6 @@ const useStyles = makeStyles(() => ({
 
 const TopArtistsPage = () => {
     const classes = useStyles();
-    const history = useHistory();
 
     const { setIsLoading } = useContext(MetrinomContext);
 
@@ -61,69 +60,6 @@ const TopArtistsPage = () => {
         setInternalLoading(true);
         setTimeframe(newValue);
     };
-    const muiBaseTheme = createMuiTheme();
-
-    const getTheme = (muiBaseTheme) => ({
-        MuiCard: {
-            root: {
-                "&.MuiPostCard--02": {
-                    borderRadius: muiBaseTheme.spacing.unit * 2, // 16px
-                    transition: "0.3s",
-                    boxShadow: "0px 14px 80px rgba(34, 35, 58, 0.2)",
-                    background: "#424242",
-                    marginLeft: "15%",
-                    paddingTop: "20",
-                    overflow: "initial",
-                    width: "100%",
-                    maxWidth: 420,
-                    padding: `${muiBaseTheme.spacing.unit * 2}px 0`,
-                    "&:hover": {
-                        transform: "translateY(-7px)",
-                        boxShadow: "0 4px 20px 0 #1DB954",
-                        color: "#1DB954",
-                    },
-
-                    "& .MuiCardMedia-root": {
-                        flexShrink: 0,
-                        width: "55%",
-                        height: "55%",
-                        paddingTop: "55%",
-                        transform: "translateX(-24%)",
-                        borderRadius: muiBaseTheme.spacing.unit * 2, // 16
-                        overflow: "hidden",
-                    },
-                    "& .MuiCardContent-root": {
-                        textAlign: "left",
-                        "text-overflow": "ellipsis",
-                        "white-space": "nowrap",
-                        overflow: "hidden",
-                        paddingLeft: 0,
-                        padding: muiBaseTheme.spacing.unit * 2,
-                    },
-                    "& .MuiTypography--heading": {
-                        color: "white",
-                    },
-                    "& .MuiTypography--subheading": {
-                        marginBottom: muiBaseTheme.spacing.unit * 2,
-                        color: "grey",
-                    },
-                    "& .MuiTypography--indexNumb": {
-                        marginBottom: muiBaseTheme.spacing.unit * 2,
-                        color: "white",
-                        display: "flex",
-                        "justify-content": "flex-end",
-                        position: "absolute",
-                    },
-                    "& .MuiCardContent--actionarea": {
-                        display: "flex",
-                        "justify-content": "flex-start",
-
-                        outline: "none",
-                    },
-                },
-            },
-        },
-    });
 
     return (
         <LoaderWrapper>
@@ -155,29 +91,14 @@ const TopArtistsPage = () => {
                         <Grid style={{ paddingTop: 30 }} container spacing={3}>
                             {artists ? (
                                 artists.map((artist, idx) => (
-                                    <Grid onClick={() => history.push(`/artist/${artist.id}`)} item key={artist.id} xs={12} sm={6} md={4}>
-                                        <MuiThemeProvider
-                                            theme={createMuiTheme({
-                                                typography: {
-                                                    useNextVariants: true,
-                                                },
-                                                overrides: getTheme(muiBaseTheme),
-                                            })}
-                                        >
-                                            <Card className={"MuiPostCard--02"}>
-                                                <CardActionArea className={"MuiCardContent--actionarea"}>
-                                                    <CardMedia className={"MuiCardMedia-root"} image={artist.images[0].url} />
-                                                    <CardContent className={"MuiCardContent-root"}>
-                                                        <Typography className={"MuiTypography--heading"} variant={"h6"} gutterBottom>
-                                                            {artist.name}
-                                                        </Typography>
-                                                        <Typography className={"MuiTypography--subheading"}>{artist.genres[0]}</Typography>
-                                                        <Typography className={"MuiTypography--indexNumb"}>#{idx + 1}</Typography>
-                                                    </CardContent>
-                                                </CardActionArea>
-                                            </Card>
-                                        </MuiThemeProvider>
-                                    </Grid>
+                                    <ArtistCard
+                                        key={idx}
+                                        artistId={artist.id}
+                                        artistImage={artist.images[0].url}
+                                        artistName={artist.name}
+                                        genre={artist.genres[0]}
+                                        idx={idx}
+                                    />
                                 ))
                             ) : (
                                 <li>No Artist data available :(</li>

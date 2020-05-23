@@ -8,6 +8,7 @@ import { SpotifyClient } from "../../utils";
 import { CarouselProvider, Slider, Slide } from "pure-react-carousel";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import "pure-react-carousel/dist/react-carousel.es.css";
+
 const mapTracks = (item) => {
     const { album, name, id, uri } = item;
     return {
@@ -89,7 +90,6 @@ const HomePage = () => {
                             color: "#ffffff",
                             fontWeight: 900,
                             "font-size": 30,
-                            paddingLeft: 40,
                             letterSpacing: 1,
                             "text-align": "right",
                             "white-space": "nowrap",
@@ -163,7 +163,7 @@ const HomePage = () => {
                                     <CardActionArea style={{ outline: "none" }} onClick={() => history.push(`/track/${track.trackId}`)}>
                                         <CardHeader
                                             className={"MuiCardHeader-root-1"}
-                                            title={"asd fs asdasdasdasd"}
+                                            title={track.trackName}
                                             classes={{
                                                 title: "MuiCardHeader-title",
                                             }}
