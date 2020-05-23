@@ -3,10 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MetrinomContext } from "../../context/MetrinomContext";
-import SpotifyClient from "../../utils/SpotifyClient";
-import MusicLoader from "../loaders/MusicLoader";
-import LoaderWrapper from "../LoaderWrapper";
-import PlaylistCreate from "../PlaylistCreate";
+import { SpotifyClient } from "../../utils/";
+import { MusicLoader, LoaderWrapper, PlaylistCreate } from "../../components";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -52,7 +50,7 @@ const mapTracks = (response) => {
     });
 };
 
-const TrackStats = () => {
+const TopTracksPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { setIsLoading } = useContext(MetrinomContext);
@@ -66,9 +64,11 @@ const TrackStats = () => {
             setIsLoading(false);
             setInternalLoading(false);
         });
+        // eslint-disable-next-line
     }, [timeFrame]);
 
     const handleChange = (_, newValue) => {
+        if (newValue === timeFrame) return;
         setInternalLoading(true);
         setTimeframe(newValue);
     };
@@ -138,4 +138,4 @@ const TrackStats = () => {
     );
 };
 
-export default TrackStats;
+export default TopTracksPage;

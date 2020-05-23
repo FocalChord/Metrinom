@@ -2,29 +2,27 @@ import {
     Avatar,
     Box,
     Divider,
+    Fade,
     Grid,
     List,
     ListItem,
     ListItemAvatar,
     ListItemText,
+    Snackbar,
     Tab,
     Tabs,
     Typography,
-    Snackbar,
-    Fade,
 } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useContext, useEffect, useState } from "react";
-import { MetrinomContext } from "../../context/MetrinomContext";
-import SpotifyClient from "../../utils/SpotifyClient";
-import LoaderWrapper from "../LoaderWrapper";
-import PieChart from "./PieChart";
-import MusicLoader from "../loaders/MusicLoader";
 import CheckIcon from "@material-ui/icons/Check";
-import PieChartIcon from "@material-ui/icons/PieChart";
 import ListIcon from "@material-ui/icons/List";
-import PlaylistCreate from "../PlaylistCreate";
+import PieChartIcon from "@material-ui/icons/PieChart";
+import MuiAlert from "@material-ui/lab/Alert";
+import React, { useContext, useEffect, useState } from "react";
+import { LoaderWrapper, MusicLoader, PlaylistCreate } from "../../components";
+import { MetrinomContext } from "../../context/MetrinomContext";
+import { SpotifyClient } from "../../utils";
+import PieChart from "./PieChart";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -117,9 +115,11 @@ const GenreStats = () => {
             setIsLoading(false);
             setInternalLoading(false);
         }
+        // eslint-disable-next-line
     }, [view, genres]);
 
     const handleChange = (_, newValue) => {
+        if (newValue === view) return;
         setInternalLoading(true);
         setView(newValue);
     };

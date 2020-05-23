@@ -3,9 +3,8 @@ import { createMuiTheme, makeStyles, MuiThemeProvider } from "@material-ui/core/
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MetrinomContext } from "../../context/MetrinomContext";
-import SpotifyClient from "../../utils/SpotifyClient";
-import MusicLoader from "../loaders/MusicLoader";
-import LoaderWrapper from "../LoaderWrapper";
+import { SpotifyClient } from "../../utils";
+import { MusicLoader, LoaderWrapper } from "../../components";
 
 const useStyles = makeStyles(() => ({
     title: {
@@ -31,7 +30,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ArtistStats = () => {
+const TopArtistsPage = () => {
     const classes = useStyles();
     const history = useHistory();
 
@@ -47,6 +46,7 @@ const ArtistStats = () => {
             setIsLoading(false);
             setInternalLoading(false);
         });
+        // eslint-disable-next-line
     }, [timeFrame]);
 
     const muiBaseTheme = createMuiTheme();
@@ -183,4 +183,4 @@ const ArtistStats = () => {
     );
 };
 
-export default ArtistStats;
+export default TopArtistsPage;

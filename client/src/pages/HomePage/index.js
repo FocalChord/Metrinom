@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import { MetrinomContext } from "../context/MetrinomContext";
-import LoaderWrapper from "./LoaderWrapper";
+import { MetrinomContext } from "../../context/MetrinomContext";
+import { LoaderWrapper } from "../../components";
+
 const HomePage = () => {
     const { setIsLoading } = useContext(MetrinomContext);
 
@@ -8,6 +9,7 @@ const HomePage = () => {
         setTimeout(() => {
             setIsLoading(false);
         }, 1000);
+        // eslint-disable-next-line
     }, []);
 
     return (

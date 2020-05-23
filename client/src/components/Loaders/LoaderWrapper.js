@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { MetrinomContext } from "../context/MetrinomContext";
+import { MetrinomContext } from "../../context/MetrinomContext";
 
 const LoaderWrapper = ({ children }) => {
     const { isLoading } = useContext(MetrinomContext);

@@ -4,7 +4,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import CookieManager from "../../utils/CookieManager";
+import { CookieManager } from "../../../utils";
 
 const drawerWidth = 260;
 

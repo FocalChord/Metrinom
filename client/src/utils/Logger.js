@@ -26,26 +26,26 @@ let logLevel = LOG_LEVEL.DEBUG;
 /** USAGE INFO
  *  ----------
  * 1. Import:
- *      > import logger from "./log/logger";
+ *      > import Logger from "./log/Logger";
  *
  * 2. Set log level:
- *      > logger.setLogLevel(<lvl>);
+ *      > Logger.setLogLevel(<lvl>);
  *
  * 3. Get log level:
- *      > logger.getLogLevel();
+ *      > Logger.getLogLevel();
  *
  * 4. Logging:
- *      > logger.info(<msg>);
+ *      > Logger.info(<msg>);
  *          Use this for general messages about the system
- *      > logger.debug(<msg>);
+ *      > Logger.debug(<msg>);
  *          Use this for more detailed messages that might be needed for debugging
- *      > logger.warn(<msg>);
+ *      > Logger.warn(<msg>);
  *          Use this for warnings
- *      > logger.error(<msg>);
+ *      > Logger.error(<msg>);
  *          Use this for errors, e.g. after catching an error. Although, ideally caught errors should be handled gracefully
  *
  */
-const logger = {
+const Logger = {
     /**
      * Sets the log level. The log level should only be set once at the start of the program, e.g. in index.js.
      *
@@ -53,7 +53,7 @@ const logger = {
      */
     setLogLevel: (lvl) => {
         logLevel = SETTABLE_LOG_LEVELS.includes(lvl) ? lvl : invalidLogLevel(lvl);
-        logger.info(`Log level set to: ${logLevel}`);
+        Logger.info(`Log level set to: ${logLevel}`);
     },
 
     getLogLevel: () => {
@@ -78,7 +78,7 @@ const logger = {
 };
 
 const invalidLogLevel = (lvl) => {
-    logger.info(`Invalid log level: ${lvl} - it should be one of ${SETTABLE_LOG_LEVELS.join(", ")}`);
+    Logger.info(`Invalid log level: ${lvl} - it should be one of ${SETTABLE_LOG_LEVELS.join(", ")}`);
 
     // Set the log level to the most detailed one
     return LOG_LEVEL.DEBUG;
@@ -89,10 +89,10 @@ const log = (msg, lvl) => {
     const now = "[" + new Date().toISOString() + "]";
 
     // Format the log level nicely
-    const lvlFormatted = " [" + (lvl.length === 4 ? " " : "") + lvl + "] ";
+    const lvlFormatted = "[" + (lvl.length === 4 ? " " : "") + lvl + "] ";
 
     // Log the message
     !IS_PRODUCTION && CONSOLE_LOG[lvl](now + lvlFormatted + msg);
 };
 
-export default logger;
+export default Logger;
