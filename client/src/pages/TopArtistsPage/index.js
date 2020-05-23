@@ -9,7 +9,6 @@ import { MusicLoader, LoaderWrapper } from "../../components";
 const useStyles = makeStyles(() => ({
     title: {
         fontWeight: "bold",
-        color: "#1DB954",
     },
     tabs: {
         "&:active": {

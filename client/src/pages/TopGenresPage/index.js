@@ -1,28 +1,11 @@
-import {
-    Avatar,
-    Box,
-    Divider,
-    Fade,
-    Grid,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    Snackbar,
-    Tab,
-    Tabs,
-    Typography,
-} from "@material-ui/core";
+import { Avatar, Box, Divider, Fade, Grid, List, ListItem, ListItemAvatar, ListItemText, Snackbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import CheckIcon from "@material-ui/icons/Check";
-import ListIcon from "@material-ui/icons/List";
-import PieChartIcon from "@material-ui/icons/PieChart";
 import MuiAlert from "@material-ui/lab/Alert";
 import React, { useContext, useEffect, useState } from "react";
-import { LoaderWrapper, MusicLoader, PlaylistCreate } from "../../components";
+import { LoaderWrapper, PlaylistCreate } from "../../components";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import { SpotifyClient } from "../../utils";
-import PieChart from "./PieChart";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -70,16 +53,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const mapDataToPieChart = (genres) => {
-    const randColor = () => `hsl(${Math.round(Math.random() * 360)}, 70%, 50%)`;
-    return genres.slice(0, 10).map((g) => ({
-        id: g.nameUppercase,
-        label: g.nameUppercase,
-        value: g.number,
-        color: randColor(),
-    }));
-};
-
 const mapGenres = (resp) => {
     return resp.genres.map((g, i) => {
         let nameUpper = g[0];
@@ -100,36 +73,22 @@ const GenreStats = () => {
     const classes = useStyles();
     const [genres, setGenres] = useState([]);
     const { setIsLoading } = useContext(MetrinomContext);
-    const [view, setView] = useState("pie");
-    const [internalLoading, setInternalLoading] = useState(false);
     const [snackbar, setSnackbar] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
 
-        if (genres.length === 0) {
-            SpotifyClient.getTopGenres().then((resp) => {
-                if (!isMounted) return;
-                setGenres(mapGenres(resp));
-                setIsLoading(false);
-                setInternalLoading(false);
-            });
-        } else {
+        SpotifyClient.getTopGenres().then((resp) => {
+            if (!isMounted) return;
+            setGenres(mapGenres(resp));
             setIsLoading(false);
-            setInternalLoading(false);
-        }
+        });
 
         return () => {
             isMounted = false;
         };
         // eslint-disable-next-line
-    }, [view, genres]);
-
-    const handleChange = (_, newValue) => {
-        if (newValue === view) return;
-        setInternalLoading(true);
-        setView(newValue);
-    };
+    }, []);
 
     const selectGenre = (rank) => {
         const copy = [...genres];
@@ -148,87 +107,65 @@ const GenreStats = () => {
 
     return (
         <LoaderWrapper>
-            <div className="text-center">
-                <Box className={classes.header}>
-                    <Grid container direction="row" alignItems="flex-start" justify="space-between">
-                        <Grid item>
-                            <Typography variant="h4" gutterBottom className={classes.title}>
-                                Your Top Genres
-                            </Typography>
-                        </Grid>
-                        <Tabs
-                            indicatorColor="primary"
-                            color="primary"
-                            value={view}
-                            onChange={handleChange}
-                            classes={{ indicator: classes.tabs }}
-                            variant="fullWidth"
-                        >
-                            <Tab className={classes.hoverTab} icon={<PieChartIcon />} value="pie"></Tab>
-                            <Tab className={classes.hoverTab} icon={<ListIcon />} value="list"></Tab>
-                        </Tabs>
+            <Box className={classes.header}>
+                <Grid container direction="row" alignItems="flex-start" justify="space-between">
+                    <Grid item>
+                        <Typography variant="h4" gutterBottom className={classes.title}>
+                            Your Top Genres
+                        </Typography>
+                        <Typography subtitle2="title" gutterBottom>
+                            Create a playlist from your top genres by clicking them!
+                        </Typography>
                     </Grid>
-                </Box>
+                </Grid>
+            </Box>
 
-                {internalLoading && <MusicLoader internal={true} />}
-
-                {!internalLoading && (
+            <div>
+                {genres ? (
                     <div>
-                        {genres ? (
-                            <div>
-                                {view === "pie" ? (
-                                    <div style={{ height: 1000 }}>
-                                        <PieChart data={mapDataToPieChart(genres)} />
-                                    </div>
-                                ) : (
-                                    <List>
-                                        {genres.map((g) => (
-                                            <Box key={g.rank}>
-                                                <ListItem button onClick={() => selectGenre(g.rank)}>
-                                                    <ListItemAvatar>
-                                                        <Avatar
-                                                            style={{
-                                                                borderRadius: 0,
-                                                                width: 65,
-                                                                height: 65,
-                                                                color: "#1DB954",
-                                                                backgroundColor: "rgba(0, 0, 0, 0)",
-                                                            }}
-                                                        >
-                                                            {g.rank + 1}
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        style={{ paddingLeft: 20 }}
-                                                        primary={g.nameUppercase}
-                                                        secondary={
-                                                            <React.Fragment>
-                                                                {g.number} Artist{g.number > 1 ? "s" : ""}
-                                                            </React.Fragment>
-                                                        }
-                                                    />
-                                                    {g.selected && <CheckIcon className={classes.checkIcon} />}
-                                                </ListItem>
-                                                <Divider variant="inset" />
-                                            </Box>
-                                        ))}
-                                    </List>
-                                )}
-                            </div>
-                        ) : (
-                            <h1>No Genre data available</h1>
-                        )}
+                        <List>
+                            {genres.map((g) => (
+                                <Box key={g.rank}>
+                                    <ListItem button onClick={() => selectGenre(g.rank)}>
+                                        <ListItemAvatar>
+                                            <Avatar
+                                                style={{
+                                                    borderRadius: 0,
+                                                    width: 65,
+                                                    height: 65,
+                                                    color: "#1DB954",
+                                                    backgroundColor: "rgba(0, 0, 0, 0)",
+                                                }}
+                                            >
+                                                {g.rank + 1}
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            style={{ paddingLeft: 20 }}
+                                            primary={g.nameUppercase}
+                                            secondary={
+                                                <React.Fragment>
+                                                    {g.number} Artist{g.number > 1 ? "s" : ""}
+                                                </React.Fragment>
+                                            }
+                                        />
+                                        {g.selected && <CheckIcon className={classes.checkIcon} />}
+                                    </ListItem>
+                                    <Divider variant="inset" />
+                                </Box>
+                            ))}
+                        </List>
                     </div>
+                ) : (
+                    <h1>No Genre data available</h1>
                 )}
             </div>
 
-            {!internalLoading && view === "list" && (
-                <PlaylistCreate
-                    disabled={genres.filter((g) => g.selected).length === 0}
-                    from="genres"
-                    data={genres.filter((g) => g.selected)}
-                />
-            )}
+            <PlaylistCreate
+                disabled={genres.filter((g) => g.selected).length === 0}
+                from="genres"
+                data={genres.filter((g) => g.selected)}
+            />
 
             <Snackbar
                 anchorOrigin={{
