@@ -7,5 +7,17 @@ import RecentlyPlayedPage from "./RecentlyPlayedPage";
 import TopTracksPage from "./TopTracksPage";
 import TopArtistsPage from "./TopArtistsPage";
 import TopGenresPage from "./TopGenresPage";
+import TopArtistsGraphPage from "./TopArtistsGraphPage";
 
-export { HomePage, RedirectPage, ArtistPage, TrackPage, LoginPage, RecentlyPlayedPage, TopTracksPage, TopArtistsPage, TopGenresPage };
+export {
+    HomePage,
+    RedirectPage,
+    ArtistPage,
+    TrackPage,
+    LoginPage,
+    RecentlyPlayedPage,
+    TopTracksPage,
+    TopArtistsPage,
+    TopGenresPage,
+    TopArtistsGraphPage,
+};

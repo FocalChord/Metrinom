@@ -9,7 +9,6 @@ import { MusicLoader, LoaderWrapper } from "../../components";
 const useStyles = makeStyles(() => ({
     title: {
         fontWeight: "bold",
-        color: "#1DB954",
     },
     tabs: {
         "&:active": {
@@ -41,11 +40,19 @@ const TopArtistsPage = () => {
     const [internalLoading, setInternalLoading] = useState(false);
 
     useEffect(() => {
+        let isMounted = true;
+
         SpotifyClient.getTopArtists("artists", timeFrame).then((r) => {
+            if (!isMounted) return;
             setArtists(r.items);
             setIsLoading(false);
             setInternalLoading(false);
         });
+
+        return () => {
+            isMounted = false;
+        };
+
         // eslint-disable-next-line
     }, [timeFrame]);
 

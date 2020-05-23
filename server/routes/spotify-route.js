@@ -559,4 +559,24 @@ router.get("/audio-features", ensureAuthenticated, (req, res) => {
     });
 });
 
+router.get("/artistGraph", ensureAuthenticated, (req, res) => {
+    const { authorization } = req.headers;
+
+    User.findOne({ spotifyUserId: authorization }, async (err, user) => {
+        if (err || user == null) {
+            LOGGER.error(err);
+            res.status(400).json({ msg: "error" });
+        } else {
+            const authToken = user.accessToken;
+            const data = await spotify.fetchGraph(authToken);
+            if (data.error) {
+                LOGGER.error(data.error);
+                res.status(400).json(data.error);
+            } else {
+                res.status(200).json(data);
+            }
+        }
+    });
+});
+
 module.exports = router;

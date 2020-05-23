@@ -55,12 +55,19 @@ const TrackPage = () => {
     const [features, setFeatures] = useState(null);
 
     useEffect(() => {
+        let isMounted = true;
+
         Promise.all([SpotifyClient.getTrack(trackId), SpotifyClient.getAudioFeatures(trackId)]).then((values) => {
+            if (!isMounted) return;
             const [trackRes, audioFeatureRes] = values;
             setTrack(trackRes);
             setFeatures(audioFeatureRes);
             setIsLoading(false);
         });
+
+        return () => {
+            isMounted = false;
+        };
     }, [trackId, setIsLoading]);
 
     return (

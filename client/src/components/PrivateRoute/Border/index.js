@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import HistoryIcon from "@material-ui/icons/History";
 import MicIcon from "@material-ui/icons/Mic";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import TimelineIcon from "@material-ui/icons/Timeline";
 import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useLastLocation } from "react-router-last-location";
@@ -32,9 +33,9 @@ const routes = [
     { name: "Home", path: "/", icon: <MicIcon /> },
     { name: "Top Genres", path: "/genres", icon: <MusicNoteIcon /> },
     { name: "Top Artists", path: "/artists", icon: <MusicNoteIcon /> },
+    { name: "Top Artists Graph", path: "/artists-graph", icon: <TimelineIcon /> },
     { name: "Top Tracks", path: "/tracks", icon: <MusicNoteIcon /> },
     { name: "Recently Played", path: "/recent", icon: <HistoryIcon /> },
-    { name: "Profile", path: "/profile/:user", icon: <HistoryIcon /> },
 ];
 
 const Border = ({ children }) => {
