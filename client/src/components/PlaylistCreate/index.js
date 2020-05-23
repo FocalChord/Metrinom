@@ -17,7 +17,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
-import { GenreSeeds, Logger, SpotifyClient } from "../utils";
+import { GenreSeeds, Logger, SpotifyClient } from "../../utils";
 
 const useStyles = makeStyles((theme) => ({
     list: {

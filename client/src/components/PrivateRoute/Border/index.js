@@ -6,8 +6,8 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useLastLocation } from "react-router-last-location";
-import { MetrinomContext } from "../../context/MetrinomContext";
-import MusicLoader from "../MusicLoader";
+import { MetrinomContext } from "../../../context/MetrinomContext";
+import MusicLoader from "../../Loaders/MusicLoader";
 import HeaderBar from "./HeaderBar";
 import SideDrawer from "./SideDrawer";
 

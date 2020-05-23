@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import Border from "./Border";
-import { LoginPage } from "../pages";
-import { CookieManager } from "../utils";
+import { LoginPage } from "../../pages";
+import { CookieManager } from "../../utils";
 
 const PrivateRoute = ({ component: Component, ...options }) => {
     const token = CookieManager.getUserToken();
