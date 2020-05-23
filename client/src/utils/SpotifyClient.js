@@ -50,6 +50,7 @@ const makePlaylist = (songUriList) => {
         },
     });
 };
+
 const getRecommendedSongsFromArtists = (artistId) => {
     return ApiClient(`${spotifyEndpoint}/recommendations?seed_artist=${encodeURIComponent(artistId)}`);
 };
@@ -71,6 +72,10 @@ const getAudioFeatures = (trackId) => {
     return ApiClient(`${spotifyEndpoint}/audio-features?trackId=${encodeURIComponent(trackId)}`);
 };
 
+const getArtistGraph = () => {
+    return ApiClient(`${spotifyEndpoint}/artistGraph`);
+};
+
 const SpotifyClient = {
     getTopArtists,
     getTopTracks,
@@ -86,6 +91,7 @@ const SpotifyClient = {
     makePlaylist,
     makePlaylistFromGenres,
     getRecommendedSongsFromArtists,
+    getArtistGraph,
 };
 
 export default SpotifyClient;

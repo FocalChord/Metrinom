@@ -1,6 +1,16 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { ArtistPage, HomePage, RecentlyPlayedPage, RedirectPage, TopArtistsPage, TopGenresPage, TopTracksPage, TrackPage } from "./pages";
+import {
+    ArtistPage,
+    HomePage,
+    RecentlyPlayedPage,
+    RedirectPage,
+    TopArtistsPage,
+    TopGenresPage,
+    TopTracksPage,
+    TrackPage,
+    TopArtistsGraphPage,
+} from "./pages";
 import { PrivateRoute } from "./components";
 
 const App = () => {
@@ -13,7 +23,7 @@ const App = () => {
                 <PrivateRoute exact path="/artists" component={TopArtistsPage} />
                 <PrivateRoute exact path="/tracks" component={TopTracksPage} />
                 <PrivateRoute exact path="/recent" component={RecentlyPlayedPage} />
-                <PrivateRoute exact path="/profile/:user" component={<div />} />
+                <PrivateRoute exact path="/artists-graph" component={TopArtistsGraphPage} />
                 <PrivateRoute path="/artist/:artistId" component={ArtistPage} />
                 <PrivateRoute path="/track/:trackId" component={TrackPage} />
             </Switch>
