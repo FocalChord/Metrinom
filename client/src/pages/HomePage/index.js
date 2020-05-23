@@ -92,6 +92,7 @@ const HomePage = () => {
                             paddingLeft: 40,
                             letterSpacing: 1,
                             "text-align": "right",
+                            "white-space": "nowrap",
                         },
                     },
                     "& .MuiCardHeader-root-2": {
@@ -107,6 +108,7 @@ const HomePage = () => {
                             "font-size": 15,
                             letterSpacing: 1,
                             "text-align": "center",
+                            "white-space": "nowrap",
                         },
                     },
                     "& .MuiCardHeader-root-3": {
@@ -122,6 +124,7 @@ const HomePage = () => {
                             "font-size": 40,
                             letterSpacing: 1,
                             "text-align": "center",
+                            "white-space": "nowrap",
                         },
                     },
                     "& .MuiCardContent-root": {
@@ -160,7 +163,7 @@ const HomePage = () => {
                                     <CardActionArea style={{ outline: "none" }} onClick={() => history.push(`/track/${track.trackId}`)}>
                                         <CardHeader
                                             className={"MuiCardHeader-root-1"}
-                                            title={track.trackName}
+                                            title={"asd fs asdasdasdasd"}
                                             classes={{
                                                 title: "MuiCardHeader-title",
                                             }}
@@ -197,7 +200,7 @@ const HomePage = () => {
                                         />
                                         <CardHeader
                                             className={"MuiCardHeader-root-2"}
-                                            title={artist.genres}
+                                            title={artist.genres[0]}
                                             classes={{
                                                 title: "MuiCardHeader-title",
                                             }}
