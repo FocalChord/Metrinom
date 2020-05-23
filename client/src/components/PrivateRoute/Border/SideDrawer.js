@@ -2,6 +2,7 @@ import { Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { Link } from "react-router-dom";
+import MetrinomNoIcon from "../../../resources/MetrinomNoIcon.png";
 
 const drawerWidth = 260;
 
