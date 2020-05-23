@@ -58,6 +58,10 @@ afterAll((done) => {
     });
 });
 
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+
 test("GET /spotify/top", async () => {
     const resp = await fetch("http://localhost:3001/spotify/top", {
         method: "GET",
@@ -91,5 +95,42 @@ test("GET /spotify/recommendations", async () => {
 
     expect(resp.status).toBe(200);
     expect(mockFetchRecomendations).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("POST /spotify/playlist/create", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/playlist/create", {
+        method: "POST",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchMakePlaylist).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("POST /spotify/playlist/createFromGenres", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/playlist/createFromGenres", {
+        method: "POST",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchTrackRecommendationsFromGenresAndMetrics).toBeCalledTimes(1);
+    expect(mockFetchMakePlaylist).toBeCalledTimes(1);
+    expect(respJson).toEqual(SPOTIFY_DATA);
+});
+
+test("GET /spotify/recent-played", async () => {
+    const resp = await fetch("http://localhost:3001/spotify/recent-played", {
+        method: "GET",
+        headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
+    });
+    const respJson = await resp.json();
+
+    expect(resp.status).toBe(200);
+    expect(mockFetchRecentTracks).toBeCalledTimes(1);
     expect(respJson).toEqual(SPOTIFY_DATA);
 });
