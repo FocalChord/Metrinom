@@ -242,6 +242,52 @@ const fetchAudioFeatures = async (authToken, trackId) => {
     }
 };
 
+const fetchGraph = async (authToken) => {
+    const response = await fetchTopArtistOrTracks("artists", "medium_term", authToken);
+
+    const topArtists = response.items.map((artist) => {
+        let artistImage = "";
+        if (artist && artist.images && artist.images[0] && artist.images[0].url) {
+            artistImage = artist.images[0].url;
+        }
+
+        return {
+            id: artist.id,
+            name: artist.name,
+            genres: artist.genres,
+            profilePicture: artistImage,
+        };
+    });
+
+    const artistGraph = {
+        nodes: [],
+        edges: [],
+    };
+
+    const genreMap = {};
+
+    topArtists.forEach((artist) => {
+        artistGraph.nodes.push({ id: artist.id, label: artist.name, image: artist.profilePicture });
+
+        artist.genres.forEach((genre) => {
+            if (!genreMap[genre]) genreMap[genre] = [artist.id];
+            else {
+                genreMap[genre].forEach((genreArtist) => {
+                    artistGraph.edges.push({
+                        from: genreArtist,
+                        to: artist.id,
+                    });
+                });
+
+                genreMap[genre].push(artist.id);
+            }
+        });
+    });
+
+    console.log(artistGraph);
+    return artistGraph;
+};
+
 module.exports = {
     fetchTopArtistOrTracks,
     fetchAudioFeatures,
@@ -256,4 +302,5 @@ module.exports = {
     unFollowArtist,
     checkFollowing,
     fetchTrack,
+    fetchGraph,
 };
