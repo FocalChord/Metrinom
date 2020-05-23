@@ -32,7 +32,7 @@ const options = {
         },
         length: 500,
     },
-    height: "1100px",
+    height: "900px",
     interaction: { dragView: true, zoomView: true },
     nodes: {
         shape: "circularImage",
@@ -55,17 +55,23 @@ const options = {
 const TopArtistsGraphPage = () => {
     const classes = useStyles();
 
-    const { setIsLoading } = useContext(MetrinomContext);
+    const { isLoading, setIsLoading } = useContext(MetrinomContext);
     const [graph, setGraph] = useState({ nodes: [], edges: [] });
-
     useEffect(() => {
+        let isMounted = true;
+
         SpotifyClient.getArtistGraph().then((res) => {
+            if (!isMounted) return;
             setGraph({
                 nodes: res.nodes.slice(0, 30),
                 edges: res.edges,
             });
             setIsLoading(false);
         });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     return (
@@ -82,9 +88,7 @@ const TopArtistsGraphPage = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <div className="text-center">
-                <Graph graph={graph} options={options} />
-            </div>
+            <div className="text-center">{!isLoading && <Graph graph={graph} options={options} />}</div>
             <Box className={classes.header}>
                 <Grid container direction="row" alignItems="center" justify="center">
                     <Grid item>

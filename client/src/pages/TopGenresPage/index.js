@@ -105,8 +105,11 @@ const GenreStats = () => {
     const [snackbar, setSnackbar] = useState(false);
 
     useEffect(() => {
+        let isMounted = true;
+
         if (genres.length === 0) {
             SpotifyClient.getTopGenres().then((resp) => {
+                if (!isMounted) return;
                 setGenres(mapGenres(resp));
                 setIsLoading(false);
                 setInternalLoading(false);
@@ -115,6 +118,10 @@ const GenreStats = () => {
             setIsLoading(false);
             setInternalLoading(false);
         }
+
+        return () => {
+            isMounted = false;
+        };
         // eslint-disable-next-line
     }, [view, genres]);
 

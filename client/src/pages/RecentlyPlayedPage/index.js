@@ -66,11 +66,19 @@ const RecentlyPlayedPage = () => {
     const [internalLoading, setInternalLoading] = useState(false);
 
     useEffect(() => {
+        let isMounted = true;
+
         SpotifyClient.getRecentTracks().then((response) => {
+            if (!isMounted) return;
             setTracks(mapRecentlyPlayedTracks(response));
             setIsLoading(false);
             setInternalLoading(false);
         });
+
+        return () => {
+            isMounted = false;
+        };
+
         // eslint-disable-next-line
     }, []);
 

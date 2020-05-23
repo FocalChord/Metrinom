@@ -69,12 +69,15 @@ const ArtistPage = () => {
     const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
+        let isMounted = true;
+
         Promise.all([
             SpotifyClient.getArtist(artistId),
             SpotifyClient.getRelatedArtist(artistId),
             SpotifyClient.checkFollowing(artistId),
             SpotifyClient.getRecommendedSongsFromArtists(artistId),
         ]).then((values) => {
+            if (!isMounted) return;
             const [artistRes, relatedArtistsRes, followingRes, recommendedSongsRes] = values;
             setArtist(artistRes);
             setRelatedArtists(relatedArtistsRes.artists);
@@ -82,6 +85,10 @@ const ArtistPage = () => {
             setRecommendedSongs(recommendedSongsRes.tracks);
             setIsLoading(false);
         });
+
+        return () => {
+            isMounted = false;
+        };
         // eslint-disable-next-line
     }, [artistId]);
 

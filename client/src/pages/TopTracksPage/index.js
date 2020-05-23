@@ -59,11 +59,18 @@ const TopTracksPage = () => {
     const [internalLoading, setInternalLoading] = useState(false);
 
     useEffect(() => {
+        let isMounted = true;
+
         SpotifyClient.getTopTracks("tracks", timeFrame).then((response) => {
+            if (!isMounted) return;
             setTracks(mapTracks(response));
             setIsLoading(false);
             setInternalLoading(false);
         });
+
+        return () => {
+            isMounted = false;
+        };
         // eslint-disable-next-line
     }, [timeFrame]);
 
