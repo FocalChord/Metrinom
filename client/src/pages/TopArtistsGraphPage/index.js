@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     sliderRoot: {
         width: 300,
     },
+    bottomHeader: {
+        marginTop: "12px",
+        marginBottom: theme.spacing(1),
+    },
 }));
 
 const options = {
@@ -89,14 +93,16 @@ const TopArtistsGraphPage = () => {
                 </Grid>
             </Box>
             <div className="text-center">{!isLoading && <Graph graph={graph} options={options} />}</div>
-            <Box className={classes.header}>
-                <Grid container direction="row" alignItems="center" justify="center">
-                    <Grid item>
-                        <Typography subtitle2="title" gutterBottom>
-                            Note: zooming into browser will make the graph unresponsive
-                        </Typography>
+            <Box className={classes.bottomHeader}>
+                <div className="mt-10">
+                    <Grid container direction="row" alignItems="center" justify="center">
+                        <Grid item>
+                            <Typography subtitle2="title" gutterBottom>
+                                Note: zooming into browser will make the graph unresponsive
+                            </Typography>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </div>
             </Box>
         </LoaderWrapper>
     );
