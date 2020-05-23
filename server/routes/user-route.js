@@ -89,13 +89,12 @@ router.get("/", (req, res) => {
  *                $ref: '#/components/schemas/User'
  */
 router.put("/", (req, res) => {
-    User.updateOne({ spotifyUserId: req.body.spotifyUserId }, req.body, { upsert: "true" }, (err, user) => {
+    User.findOneAndUpdate({ spotifyUserId: req.body.spotifyUserId }, req.body, { upsert: "true" }, (err, user) => {
         if (err) {
             LOGGER.error(err);
             res.status(400).json({ msg: "User was not found" });
         } else {
             LOGGER.info("PUT Request Suceeded for /user/");
-            LOGGER.info(users);
             res.status(200).json(user);
         }
     });
