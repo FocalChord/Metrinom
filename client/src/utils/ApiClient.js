@@ -1,6 +1,7 @@
 import CookieManager from "./CookieManager";
+require("dotenv").config();
 
-const METRINOME_BACKEND_URL = "http://localhost:3001";
+const METRINOME_BACKEND_URL = process.env.REACT_APP_URL || "http://localhost:3001";
 
 const ApiClient = (endpoint, { body, ...customConfig } = {}) => {
     const token = CookieManager.getUserToken();
