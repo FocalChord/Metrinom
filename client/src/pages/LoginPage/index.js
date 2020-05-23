@@ -50,7 +50,7 @@ const LoginPage = () => {
         <div className={classes.root}>
             <Container className={classes.containerItems}>
                 <Paper elevation={3} className={classes.paperLayout}>
-                    <img style={{ width: 500 }} src={MetrinomLogo} />
+                    <img alt="Metrinom Logo" style={{ width: 500 }} src={MetrinomLogo} />
                     <Button href={buttonLink} className={classes.buttonLogin} variant="contained" color="primary">
                         Sign in with Spotify
                     </Button>
