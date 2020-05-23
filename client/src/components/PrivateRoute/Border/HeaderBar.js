@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: drawerWidth,
         },
     },
+    buttonLogout: {
+        backgroundColor: "#1DB954",
+        "&:hover": {
+            backgroundColor: "#4AC776",
+            color: "#FFF",
+        },
+    },
 }));
 
 const HeaderBar = ({ routes }) => {
@@ -52,6 +59,7 @@ const HeaderBar = ({ routes }) => {
                 </IconButton>
                 <div className={classes.grow} />
                 <Button
+                    className={classes.buttonLogout}
                     color="inherit"
                     onClick={() => {
                         CookieManager.removeUserToken();
