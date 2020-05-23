@@ -83,7 +83,7 @@ const TopArtistsGraphPage = () => {
                 </Grid>
             </Box>
             <div className="text-center">
-                <Graph graph={graph} options={options} getNetwork={(network) => console.log(network.getSeed())} />
+                <Graph graph={graph} options={options} />
             </div>
             <Box className={classes.header}>
                 <Grid container direction="row" alignItems="center" justify="center">
