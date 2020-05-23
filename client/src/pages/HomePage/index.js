@@ -163,7 +163,7 @@ const HomePage = () => {
                                     <CardActionArea style={{ outline: "none" }} onClick={() => history.push(`/track/${track.trackId}`)}>
                                         <CardHeader
                                             className={"MuiCardHeader-root-1"}
-                                            title={"asd fs asdasdasdasd"}
+                                            title={track.trackName}
                                             classes={{
                                                 title: "MuiCardHeader-title",
                                             }}
