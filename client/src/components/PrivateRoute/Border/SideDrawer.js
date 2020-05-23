@@ -1,4 +1,4 @@
-import { Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
+import { Box, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -26,9 +26,7 @@ const SideDrawer = ({ routes }) => {
     const drawerContent = (
         <div>
             <Box style={{ padding: 10, textAlign: "center" }}>
-                <Typography variant="h4" gutterBottom className={classes.title}>
-                    Metrinom
-                </Typography>
+                <img alt={"Metrinom Logo"} src={MetrinomNoIcon} />
             </Box>
             <Divider />
             <List>
