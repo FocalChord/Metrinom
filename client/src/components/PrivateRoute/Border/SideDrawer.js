@@ -27,7 +27,7 @@ const SideDrawer = ({ routes }) => {
     const drawerContent = (
         <div>
             <Box style={{ padding: 10, textAlign: "center" }}>
-                <img src={MetrinomNoIcon} />
+                <img alt={"Metrinom Logo"} src={MetrinomNoIcon} />
             </Box>
             <Divider />
             <List>
