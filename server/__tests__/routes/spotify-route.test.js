@@ -64,9 +64,7 @@ test("GET /spotify/top", async () => {
         headers: { authorization: USER_OBJ.spotifyUserId, "Content-Type": "application/json" },
     });
     const respJson = await resp.json();
-
-    console.log(respJson);
-
+    
     expect(resp.status).toBe(200);
     expect(mockFetchTopArtistOrTracks).toBeCalledTimes(1);
     expect(respJson).toEqual(SPOTIFY_DATA);

@@ -90,7 +90,6 @@ test("Throw an error when trying to create a User with a spotifyUserId that's no
 
     await duplicateUser.save((err) => {
         if (err) {
-            console.log(err);
             expect(err.name).toBe("ValidationError");
             expect(err.errors.spotifyUserId.message).toBe("Error, expected `spotifyUserId` to be unique. Value: `Dinith123`");
         } else {
