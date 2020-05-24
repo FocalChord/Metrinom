@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RelatedArtistsGrid /> 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <h5
+    className="MuiTypography-root makeStyles-stat-3 MuiTypography-h5"
+    style={
+      Object {
+        "marginBottom": 10,
+      }
+    }
+  >
+    Related Artists
+  </h5>
+  <ul
+    className="MuiGridList-root makeStyles-gridList-2"
+    style={
+      Object {
+        "margin": -0,
+      }
+    }
+  />
+</div>
+`;
