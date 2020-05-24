@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
 
 require("dotenv").config();
 
-const METRINOME_BACKEND_URL = process.env.REACT_APP_URL || "http://localhost:3001";
+const METRINOME_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
 const buttonLink = `${METRINOME_BACKEND_URL}/auth/spotify`;
 
 const LoginPage = () => {
