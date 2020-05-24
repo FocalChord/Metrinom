@@ -39,33 +39,6 @@ router.get("/:id", (req, res) => {
     });
 });
 
-/**
- * @swagger
- * path:
- *  /user/:
- *    get:
- *      tags: [Users]
- *      summary: Get all the users
- *      responses:
- *        "200":
- *          description: An array of users object
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/User'
- */
-router.get("/", (req, res) => {
-    User.find({}, (err, users) => {
-        if (err) {
-            LOGGER.error(err);
-            res.status(400).json({ msg: err });
-        } else {
-            LOGGER.info("GET Request Suceeded for /user/");
-            LOGGER.info(users);
-            res.status(200).json(users);
-        }
-    });
-});
 // Updates a users information
 /**
  * @swagger
