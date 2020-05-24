@@ -1,4 +1,6 @@
 import CookieManager from "./CookieManager";
+import Logger from "./Logger";
+
 require("dotenv").config();
 
 const METRINOME_BACKEND_URL = process.env.REACT_APP_URL || "http://localhost:3001";
@@ -24,7 +26,7 @@ const ApiClient = (endpoint, { body, ...customConfig } = {}) => {
 
     const url = `${METRINOME_BACKEND_URL}/${endpoint}`;
 
-    console.log(url);
+    Logger.debug("Making call to: " + url);
 
     return window.fetch(`${METRINOME_BACKEND_URL}/${endpoint}`, config).then(async (res) => {
         if (res.status === 401) {

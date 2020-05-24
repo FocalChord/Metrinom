@@ -1,11 +1,12 @@
-import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Typography } from "@material-ui/core";
+import { Box, List, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { LoaderWrapper, MusicLoader } from "../../components";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import { SpotifyClient } from "../../utils";
-import { MusicLoader, LoaderWrapper } from "../../components";
+import RecentlyPlayedListItem from "./RecentlyPlayedListItem";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -98,26 +99,7 @@ const RecentlyPlayedPage = () => {
                         {tracks ? (
                             <List>
                                 {tracks.map((track, idx) => (
-                                    <Box key={idx}>
-                                        <ListItem onClick={() => history.push(`/track/${track.trackId}`)} button>
-                                            <ListItemAvatar>
-                                                <Avatar style={{ borderRadius: 0, width: 65, height: 65 }} src={track.albumArt} />
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                style={{ paddingLeft: 20 }}
-                                                primary={track.trackName}
-                                                secondary={
-                                                    <React.Fragment>
-                                                        {track.artistName}
-                                                        <br />
-                                                        {track.albumName}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                            <ListItemSecondaryAction>{track.dateString}</ListItemSecondaryAction>
-                                        </ListItem>
-                                        <Divider variant="inset" />
-                                    </Box>
+                                    <RecentlyPlayedListItem key={idx} push={history.push} track={track} />
                                 ))}
                             </List>
                         ) : (

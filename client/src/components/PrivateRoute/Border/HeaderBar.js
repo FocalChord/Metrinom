@@ -1,9 +1,6 @@
-import { AppBar, Button, IconButton, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
 import { CookieManager } from "../../../utils";
 
 const drawerWidth = 260;
@@ -36,33 +33,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const HeaderBar = ({ routes }) => {
+const HeaderBar = () => {
     const classes = useStyles();
-    const history = useHistory();
-    const location = useLocation();
-    const isRootRoute = routes.map((i) => i.path).includes(location.pathname);
-
+    const userName = CookieManager.getUserName();
     return (
         <AppBar className={classes.appBar} position="fixed" color="default">
             <Toolbar>
-                <IconButton
-                    color="inherit"
-                    edge="start"
-                    className={classes.backButton}
-                    onClick={() => history.goBack()}
-                    disabled={isRootRoute}
-                >
-                    <ArrowBackIosIcon />
-                </IconButton>
-                <IconButton color="inherit" edge="start" className={classes.forwardButton} onClick={() => history.goForward()}>
-                    <ArrowForwardIosIcon />
-                </IconButton>
+                {userName && <Typography variant="h6"> Viewing statistics for {userName}!</Typography>}
                 <div className={classes.grow} />
                 <Button
                     className={classes.buttonLogout}
                     color="inherit"
                     onClick={() => {
                         CookieManager.removeUserToken();
+                        CookieManager.removeUserName();
                         window.location.assign(window.location);
                     }}
                 >

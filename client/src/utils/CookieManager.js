@@ -10,6 +10,15 @@ const CookieManager = {
     removeUserToken: () => {
         Cookies.remove("metrinom_token");
     },
+    setUserName: (name) => {
+        Cookies.set("name", name);
+    },
+    getUserName: () => {
+        return Cookies.get("name");
+    },
+    removeUserName: () => {
+        return Cookies.remove("name");
+    },
 };
 
 export default CookieManager;
