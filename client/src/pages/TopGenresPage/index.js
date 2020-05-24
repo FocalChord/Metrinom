@@ -133,12 +133,13 @@ const GenreStats = () => {
                     <h1>No Genre data available</h1>
                 )}
             </div>
-
-            <PlaylistCreate
-                disabled={genres.filter((g) => g.selected).length === 0}
-                from="genres"
-                data={genres.filter((g) => g.selected)}
-            />
+            <span>
+                <PlaylistCreate
+                    disabled={genres.filter((g) => g.selected).length === 0}
+                    from="genres"
+                    data={genres.filter((g) => g.selected)}
+                />
+            </span>
 
             <Snackbar
                 anchorOrigin={{

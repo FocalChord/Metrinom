@@ -85,7 +85,7 @@ const RecentlyPlayedPage = () => {
 
     return (
         <LoaderWrapper>
-            <div maxWidth="text-center">
+            <div>
                 <Box className={classes.header}>
                     <Typography variant="h4" gutterBottom className={classes.title}>
                         Recently Played
