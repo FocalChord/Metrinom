@@ -1,10 +1,11 @@
-import { Avatar, Box, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Tab, Tabs, Typography } from "@material-ui/core";
+import { Box, Grid, List, Tab, Tabs, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { LoaderWrapper, MusicLoader, PlaylistCreate } from "../../components";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import { SpotifyClient } from "../../utils/";
-import { MusicLoader, LoaderWrapper, PlaylistCreate } from "../../components";
+import TrackListItem from "./TrackListItem";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -112,26 +113,7 @@ const TopTracksPage = () => {
                         <List className={classes.list}>
                             {tracks ? (
                                 tracks.map((track, idx) => (
-                                    <Box key={track.trackId}>
-                                        <ListItem button onClick={() => history.push(`/track/${track.trackId}`)}>
-                                            <ListItemAvatar>
-                                                <Avatar style={{ borderRadius: 0, width: 65, height: 65 }} src={track.trackImage}></Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                style={{ paddingLeft: 20 }}
-                                                primary={track.trackName}
-                                                secondary={
-                                                    <React.Fragment>
-                                                        Artist - {track.artistName}
-                                                        <br />
-                                                        Album - {track.albumName}
-                                                    </React.Fragment>
-                                                }
-                                            />
-                                            <div style={{ fontSize: 25 }}>{idx + 1}</div>
-                                        </ListItem>
-                                        <Divider variant="inset" />
-                                    </Box>
+                                    <TrackListItem key={track.trackId} push={history.push} track={track} idx={idx} />
                                 ))
                             ) : (
                                 <li>No Track data available :(</li>
