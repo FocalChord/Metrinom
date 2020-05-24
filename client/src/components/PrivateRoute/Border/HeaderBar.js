@@ -1,4 +1,4 @@
-import { AppBar, Button, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { CookieManager } from "../../../utils";
@@ -35,15 +35,18 @@ const useStyles = makeStyles((theme) => ({
 
 const HeaderBar = () => {
     const classes = useStyles();
+    const userName = CookieManager.getUserName();
     return (
         <AppBar className={classes.appBar} position="fixed" color="default">
             <Toolbar>
+                {userName && <Typography variant="h6"> Viewing statistics for {userName}!</Typography>}
                 <div className={classes.grow} />
                 <Button
                     className={classes.buttonLogout}
                     color="inherit"
                     onClick={() => {
                         CookieManager.removeUserToken();
+                        CookieManager.removeUserName();
                         window.location.assign(window.location);
                     }}
                 >
