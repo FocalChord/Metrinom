@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(0.5),
         fontWeight: "bold",
         color: grey[500],
+        "&:hover": {
+            transform: "translate(1.02px,1.02px)",
+            cursor: "pointer",
+            color: "#1DB954",
+        },
     },
     album: {
         marginTop: theme.spacing(0.5),
@@ -96,7 +101,6 @@ const TrackPage = () => {
                             onClick={() => history.push(`/artist/${track.album.artists[0].id}`)}
                             variant="h5"
                             className={classes.artist}
-                            style={{ color: "#9e9e9e" }}
                         >
                             {track.album.artists.length > 0 ? track.album.artists[0].name : ""}
                         </Typography>
