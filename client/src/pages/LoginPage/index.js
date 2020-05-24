@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, Container, Button, Paper } from "@material-ui/core";
 import MetrinomLogo from "../../resources/MetrinomLogo.png";
+import { ApiClient } from "../../utils";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -46,6 +47,11 @@ const buttonLink = `${METRINOME_BACKEND_URL}/auth/spotify`;
 
 const LoginPage = () => {
     const classes = useStyles();
+
+    useEffect(() => {
+        ApiClient("heartbeat");
+    }, []);
+
     return (
         <div className={classes.root}>
             <Container className={classes.containerItems}>

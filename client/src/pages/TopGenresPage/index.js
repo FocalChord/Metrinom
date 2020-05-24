@@ -1,11 +1,11 @@
-import { Avatar, Box, Divider, Fade, Grid, List, ListItem, ListItemAvatar, ListItemText, Snackbar, Typography } from "@material-ui/core";
+import { Box, Fade, Grid, List, Snackbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import CheckIcon from "@material-ui/icons/Check";
 import MuiAlert from "@material-ui/lab/Alert";
 import React, { useContext, useEffect, useState } from "react";
 import { LoaderWrapper, PlaylistCreate } from "../../components";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import { SpotifyClient } from "../../utils";
+import GenreListItem from "./GenreListItem";
 
 const useStyles = makeStyles((theme) => ({
     list: {
@@ -124,35 +124,8 @@ const GenreStats = () => {
                 {genres ? (
                     <div>
                         <List>
-                            {genres.map((g) => (
-                                <Box key={g.rank}>
-                                    <ListItem button onClick={() => selectGenre(g.rank)}>
-                                        <ListItemAvatar>
-                                            <Avatar
-                                                style={{
-                                                    borderRadius: 0,
-                                                    width: 65,
-                                                    height: 65,
-                                                    color: "#1DB954",
-                                                    backgroundColor: "rgba(0, 0, 0, 0)",
-                                                }}
-                                            >
-                                                {g.rank + 1}
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            style={{ paddingLeft: 20 }}
-                                            primary={g.nameUppercase}
-                                            secondary={
-                                                <React.Fragment>
-                                                    {g.number} Artist{g.number > 1 ? "s" : ""}
-                                                </React.Fragment>
-                                            }
-                                        />
-                                        {g.selected && <CheckIcon className={classes.checkIcon} />}
-                                    </ListItem>
-                                    <Divider variant="inset" />
-                                </Box>
+                            {genres.map((genre) => (
+                                <GenreListItem key={genre.rank} checkIcon={classes.checkIcon} selectGenre={selectGenre} genre={genre} />
                             ))}
                         </List>
                     </div>
@@ -175,7 +148,6 @@ const GenreStats = () => {
                 }}
                 open={snackbar}
                 autoHideDuration={3500}
-                // className={classes.snackbar}
                 TransitionComponent={Fade}
                 onClose={() => setSnackbar(false)}
             >
