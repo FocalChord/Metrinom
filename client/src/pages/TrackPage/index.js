@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { LoaderWrapper } from "../../components";
+import { LoaderWrapper, PlaylistCreate } from "../../components";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import { SpotifyClient } from "../../utils/";
 import TrackFeaturesChart from "./TrackFeaturesChart";
@@ -39,6 +39,8 @@ const TrackPage = () => {
     const classes = useStyles();
     const { setIsLoading } = useContext(MetrinomContext);
     const { trackId } = useParams();
+    const [recommendedSongs, setRecommendedSongs] = useState([]);
+
     const [track, setTrack] = useState({
         album: {
             images: [],
@@ -57,10 +59,16 @@ const TrackPage = () => {
     useEffect(() => {
         let isMounted = true;
 
-        Promise.all([SpotifyClient.getTrack(trackId), SpotifyClient.getAudioFeatures(trackId)]).then((values) => {
+        Promise.all([
+            SpotifyClient.getTrack(trackId),
+            SpotifyClient.getAudioFeatures(trackId),
+            SpotifyClient.getRecommendedSongsFromTracks(trackId),
+        ]).then((values) => {
             if (!isMounted) return;
-            const [trackRes, audioFeatureRes] = values;
+            const [trackRes, audioFeatureRes, recommendedSongsRes] = values;
             setTrack(trackRes);
+            console.log(recommendedSongsRes);
+            setRecommendedSongs(recommendedSongsRes.tracks);
             setFeatures(audioFeatureRes);
             setIsLoading(false);
         });
@@ -108,6 +116,7 @@ const TrackPage = () => {
                     </Grid>
                 </Grid>
             </Container>
+            <PlaylistCreate from="singleTrack" data={recommendedSongs.map((recommendedSongs) => recommendedSongs.uri)} />
         </LoaderWrapper>
     );
 };
