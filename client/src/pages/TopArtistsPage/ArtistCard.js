@@ -20,7 +20,6 @@ const getTheme = (muiBaseTheme) => ({
                 marginLeft: "15%",
                 paddingTop: "20",
                 overflow: "initial",
-                width: "100%",
                 maxWidth: 420,
                 padding: `${muiBaseTheme.spacing(2)}px 0`,
                 "&:hover": {
@@ -48,6 +47,7 @@ const getTheme = (muiBaseTheme) => ({
                 },
                 "& .MuiTypography--heading": {
                     color: "white",
+                    "white-space": "initial",
                 },
                 "& .MuiTypography--subheading": {
                     marginBottom: muiBaseTheme.spacing(2),
@@ -64,7 +64,6 @@ const getTheme = (muiBaseTheme) => ({
                 "& .MuiCardContent--actionarea": {
                     display: "flex",
                     "justify-content": "flex-start",
-
                     outline: "none",
                 },
             },
