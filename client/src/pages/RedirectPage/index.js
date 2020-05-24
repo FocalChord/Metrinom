@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import { CookieManager } from "../../utils/";
+import { CookieManager, ApiClient } from "../../utils/";
 
 const RedirectPage = () => {
     const [redirect, setRedirect] = useState(false);
@@ -9,6 +9,7 @@ const RedirectPage = () => {
     useEffect(() => {
         const { token } = params;
         CookieManager.setUserToken(token);
+        ApiClient(`user/${token}`).then(({ displayName }) => CookieManager.setUserName(displayName));
         setRedirect(true);
         // eslint-disable-next-line
     }, []);
