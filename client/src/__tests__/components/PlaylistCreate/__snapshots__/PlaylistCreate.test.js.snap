@@ -14,7 +14,6 @@ exports[`<PlaylistCreate /> 1`] = `
   style={
     Object {
       "backgroundColor": "#1DB954",
-      "outline": "none",
     }
   }
   title="Created Playlist from this Track"

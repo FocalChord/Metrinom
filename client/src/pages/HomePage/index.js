@@ -47,6 +47,7 @@ const getTheme = () => ({
                 height: 350,
                 overflow: "visible",
                 outline: "none",
+                position: "relative",
                 "& .MuiCardHeader-root-1": {
                     minwidth: 300,
                     backgroundColor: "rgba(29, 185, 84, 1)",
@@ -55,6 +56,7 @@ const getTheme = () => ({
                     marginLeft: 300,
                     marginTop: 150,
                     position: "absolute",
+                    "z-index": "1",
                     "& .MuiCardHeader-title": {
                         color: "#ffffff",
                         fontWeight: 900,
@@ -71,6 +73,7 @@ const getTheme = () => ({
                     marginLeft: 440,
                     marginTop: 210,
                     position: "absolute",
+                    "z-index": "1",
                     "& .MuiCardHeader-title": {
                         color: "#ffffff",
                         fontWeight: 200,
@@ -102,6 +105,7 @@ const getTheme = () => ({
                     width: 370,
                     height: 370,
                     outline: "none",
+                    position: "relative",
                 },
             },
         },

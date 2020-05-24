@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
         outline: "none",
         color: "white",
         backgroundColor: "#1DB954",
+        "&:hover": {
+            backgroundColor: "#4ac776",
+        },
     },
     title: {
         fontWeight: "bold",
@@ -134,7 +137,7 @@ const PlaylistCreate = ({ from, data, disabled }) => {
     return (
         <React.Fragment>
             <Tooltip
-                style={{ outline: "none", backgroundColor: "#1DB954" }}
+                style={{ backgroundColor: "#1DB954" }}
                 title={
                     from === "tracks"
                         ? "Create Playlist from your Top Tracks"
