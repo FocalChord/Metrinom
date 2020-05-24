@@ -77,7 +77,7 @@ const PlaylistCreate = ({ from, data, disabled }) => {
     const [valence, setValence] = useState(0.5);
 
     const createPlaylist = async () => {
-        if (from === "tracks") {
+        if (from === "tracks" || from === "artists" || from === "singleTrack") {
             try {
                 Logger.debug(data);
                 await SpotifyClient.makePlaylist(data);
@@ -102,16 +102,6 @@ const PlaylistCreate = ({ from, data, disabled }) => {
                 const genreSeeds = [...new Set(genres.map((g) => GenreSeeds.getGenreSeed(g)))];
 
                 await SpotifyClient.makePlaylistFromGenres(genreSeeds, metrics);
-                setSnackbarMessage("Playlist has been created");
-                setSnackbar(true);
-                setDialog(false);
-            } catch (e) {
-                Logger.error(e);
-            }
-        } else if (from === "artists") {
-            try {
-                Logger.debug(data);
-                await SpotifyClient.makePlaylist(data);
                 setSnackbarMessage("Playlist has been created");
                 setSnackbar(true);
                 setDialog(false);
@@ -150,7 +140,9 @@ const PlaylistCreate = ({ from, data, disabled }) => {
                         ? "Create Playlist from your Top Tracks"
                         : from === "artists"
                         ? "Create Playlist from this Artist"
-                        : "Create Playlist from up to 5 Selected Genres"
+                        : from === "genres"
+                        ? "Create Playlist from up to 5 Selected Genres"
+                        : "Created Playlist from this Track"
                 }
                 placement="left-start"
                 aria-label="add"
