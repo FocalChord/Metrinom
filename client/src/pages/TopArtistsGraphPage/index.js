@@ -94,7 +94,9 @@ const TopArtistsGraphPage = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <div className="text-center">{!isLoading && <Graph graph={graph} options={options} />}</div>
+            <div style={{ outline: "none" }} className="text-center">
+                {!isLoading && <Graph style={{ outline: "none" }} graph={graph} options={options} />}
+            </div>
             <Box className={classes.bottomHeader}>
                 <div className="mt-10">
                     <Grid container direction="row" alignItems="center" justify="center">
