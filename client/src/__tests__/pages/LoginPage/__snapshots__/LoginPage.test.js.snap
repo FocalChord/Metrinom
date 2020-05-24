@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RelatedArtistsGrid /> 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div
+    className="MuiContainer-root makeStyles-containerItems-2 MuiContainer-maxWidthLg"
+  >
+    <div
+      className="MuiPaper-root makeStyles-paperLayout-3 MuiPaper-elevation3 MuiPaper-rounded"
+    >
+      <img
+        alt="Metrinom Logo"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+        style={
+          Object {
+            "width": 500,
+          }
+        }
+      />
+      <a
+        aria-disabled={false}
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-buttonLogin-4 MuiButton-containedPrimary"
+        href="http://localhost:3001/auth/spotify"
+        onBlur={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+      >
+        <span
+          className="MuiButton-label"
+        >
+          Sign in with Spotify
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,308 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopGenreGraph /> 1`] = `
+<div
+  className="MuiGrid-root MuiGrid-container MuiGrid-item MuiGrid-direction-xs-column MuiGrid-align-items-xs-center MuiGrid-justify-xs-center MuiGrid-grid-xs-12"
+  style={
+    Object {
+      "marginTop": 200,
+    }
+  }
+>
+  <div
+    className="MuiPaper-root MuiCard-root MuiElevatedCard--01 MuiPaper-elevation1 MuiPaper-rounded"
+    style={
+      Object {
+        "height": 400,
+        "width": 700,
+      }
+    }
+  >
+    <div
+      className="MuiCardHeader-root MuiCardHeader-root-3"
+    >
+      <div
+        className="MuiCardHeader-content"
+      >
+        <span
+          className="MuiTypography-root MuiCardHeader-title MuiCardHeader-title MuiTypography-h5 MuiTypography-displayBlock"
+        >
+          Your Top 5 Genres
+        </span>
+      </div>
+    </div>
+    <div
+      className="recharts-wrapper"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onMouseMove={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        Object {
+          "cursor": "default",
+          "height": 350,
+          "margin": 40,
+          "position": "relative",
+          "width": 600,
+        }
+      }
+    >
+      <svg
+        className="recharts-surface"
+        height={350}
+        version="1.1"
+        viewBox="0 0 600 350"
+        width={600}
+      >
+        <defs>
+          <clipPath
+            id="recharts2-clip"
+          >
+            <rect
+              height={310}
+              width={490}
+              x={80}
+              y={5}
+            />
+          </clipPath>
+        </defs>
+        <g
+          className="recharts-cartesian-grid"
+        >
+          <g
+            className="recharts-cartesian-grid-horizontal"
+          >
+            <line
+              fill="none"
+              height={310}
+              stroke="#ccc"
+              strokeDasharray="3 3"
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+              width={490}
+              x={80}
+              x1={80}
+              x2={570}
+              y={5}
+              y1={5}
+              y2={5}
+            />
+            <line
+              fill="none"
+              height={310}
+              stroke="#ccc"
+              strokeDasharray="3 3"
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+              width={490}
+              x={80}
+              x1={80}
+              x2={570}
+              y={5}
+              y1={315}
+              y2={315}
+            />
+          </g>
+          <g
+            className="recharts-cartesian-grid-vertical"
+          >
+            <line
+              fill="none"
+              height={310}
+              stroke="#ccc"
+              strokeDasharray="3 3"
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+              width={490}
+              x={80}
+              x1={325}
+              x2={325}
+              y={5}
+              y1={5}
+              y2={315}
+            />
+            <line
+              fill="none"
+              height={310}
+              stroke="#ccc"
+              strokeDasharray="3 3"
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+              width={490}
+              x={80}
+              x1={80}
+              x2={80}
+              y={5}
+              y1={5}
+              y2={315}
+            />
+            <line
+              fill="none"
+              height={310}
+              stroke="#ccc"
+              strokeDasharray="3 3"
+              style={
+                Object {
+                  "color": "white",
+                }
+              }
+              width={490}
+              x={80}
+              x1={570}
+              x2={570}
+              y={5}
+              y1={5}
+              y2={315}
+            />
+          </g>
+        </g>
+        <g
+          className="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis"
+        >
+          <line
+            className="recharts-cartesian-axis-line"
+            fill="none"
+            height={30}
+            stroke="white"
+            width={490}
+            x={80}
+            x1={80}
+            x2={570}
+            y={315}
+            y1={315}
+            y2={315}
+          />
+          <g
+            className="recharts-cartesian-axis-ticks"
+          >
+            <g
+              className="recharts-layer recharts-cartesian-axis-tick"
+            >
+              <line
+                className="recharts-cartesian-axis-tick-line"
+                fill="none"
+                height={30}
+                stroke="white"
+                width={490}
+                x={80}
+                x1={325}
+                x2={325}
+                y={315}
+                y1={321}
+                y2={315}
+              />
+              <text
+                className="recharts-text recharts-cartesian-axis-tick-value"
+                fill="white"
+                height={30}
+                stroke="none"
+                textAnchor="middle"
+                width={490}
+                x={325}
+                y={323}
+              >
+                <tspan
+                  dy="0.71em"
+                  x={325}
+                >
+                  hip hop
+                </tspan>
+              </text>
+            </g>
+          </g>
+        </g>
+        <g
+          className="recharts-layer recharts-cartesian-axis recharts-yAxis yAxis"
+        >
+          <line
+            className="recharts-cartesian-axis-line"
+            fill="none"
+            height={310}
+            stroke="#666"
+            width={60}
+            x={20}
+            x1={80}
+            x2={80}
+            y={5}
+            y1={5}
+            y2={315}
+          />
+          <g
+            className="recharts-cartesian-axis-ticks"
+          />
+        </g>
+        <g
+          className="recharts-layer recharts-bar"
+        >
+          <g
+            className="recharts-layer recharts-bar-rectangles"
+            clipPath={null}
+          >
+            <g
+              className="recharts-layer"
+            >
+              <g
+                className="recharts-layer recharts-bar-rectangle"
+              />
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div
+        className="recharts-tooltip-wrapper"
+        style={
+          Object {
+            "MozTransform": "translate(undefinedpx, undefinedpx)",
+            "OTransform": "translate(undefinedpx, undefinedpx)",
+            "WebkitTransform": "translate(undefinedpx, undefinedpx)",
+            "msTransform": "translate(undefinedpx, undefinedpx)",
+            "pointerEvents": "none",
+            "position": "absolute",
+            "top": 0,
+            "transform": "translate(undefinedpx, undefinedpx)",
+            "visibility": "hidden",
+          }
+        }
+      >
+        <div
+          className="recharts-default-tooltip"
+          style={
+            Object {
+              "backgroundColor": "#fff",
+              "border": "1px solid #ccc",
+              "margin": 0,
+              "padding": 10,
+              "whiteSpace": "nowrap",
+            }
+          }
+        >
+          <p
+            className="recharts-tooltip-label"
+            style={
+              Object {
+                "margin": 0,
+              }
+            }
+          >
+            
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
