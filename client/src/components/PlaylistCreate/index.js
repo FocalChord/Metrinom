@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
         outline: "none",
         color: "white",
         backgroundColor: "#1DB954",
+        "&:hover": {
+            backgroundColor: "#4ac776",
+        },
     },
     title: {
         fontWeight: "bold",
