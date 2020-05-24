@@ -203,7 +203,19 @@ If this does happen, then refresh the page and it should be fine :)
 </details>
 
 ---
-# Project Questions:
+
+## How do I test the app?
+#### Client
+- `> cd client`
+- `> npm test`
+
+#### Server
+- `> cd server`
+- `> npm test`
+
+---
+
+## Project Questions:
 ### How well have you mastered React, git, and other tools / frameworks introduced in this course?
 - We used Git extensively throughout the project, including features such as branching, merging, rebasing
 - We used `React`, `Express`, `MongoDb`, `Mongoose`, `MaterialUI`, `Jest` and `Enzyme` 
@@ -220,8 +232,8 @@ If this does happen, then refresh the page and it should be fine :)
 - Other best practices were applied throughout the project for other frameworks
 
 ### Has your code been tested? How?
-- The backend was tested extensively; see the [wiki](https://github.com/Dinith1/SOFTENG750-Project/wiki/Backend-Tests)
-- The frontend was tested extensively; see the [wiki](https://github.com/Dinith1/SOFTENG750-Project/wiki/Frontend-Tests)
+- The [backend](https://github.com/Dinith1/SOFTENG750-Project/wiki/Backend-Tests) was tested extensively
+- The [frontend](https://github.com/Dinith1/SOFTENG750-Project/wiki/Frontend-Tests) was tested extensively
 
 ### Is there evidence of good project management, and appropriate contribution from all team members?
 - We used GitHub issues to track tasks
