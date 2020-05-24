@@ -155,9 +155,11 @@ const PlaylistCreate = ({ from, data, disabled }) => {
                 placement="left-start"
                 aria-label="add"
             >
-                <Fab disabled={disabled} variant="extended" className={classes.fab} onClick={() => setDialog(true)}>
-                    Create playlist
-                </Fab>
+                <span>
+                    <Fab disabled={disabled} variant="extended" className={classes.fab} onClick={() => setDialog(true)}>
+                        Create playlist
+                    </Fab>
+                </span>
             </Tooltip>
 
             <Dialog color="primary" open={dialog}>
