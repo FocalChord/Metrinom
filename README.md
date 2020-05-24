@@ -8,7 +8,7 @@ A web app for viewing spotify statistics curated for the user.
 
 We are using the [React framework](https://reactjs.org/) to manage the front-end UI and using a [Node JS](https://nodejs.org/en/) server utilising the [Express framework](https://expressjs.com/) and [MongoDB database](https://www.mongodb.com/what-is-mongodb) for the back-end. The back-end calls the [Spotify API](https://developer.spotify.com/documentation/web-api/) endpoints and returns the relevant information to the frontend.
 
-This app work well when a user has a Spotify account (preferably with a premium subscription) with some listening history.
+This app work well when a user has a Spotify account (preferably with a **premium subscription**) with some listening history.
 
 ## Team Members in Group 13 (Emerald Elephant)
 
@@ -20,7 +20,7 @@ This app work well when a user has a Spotify account (preferably with a premium 
 
 ## How to use this app?
 
-Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing your statistics!.
+Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing your statistics!
 
 ## How do I run this app locally?
 
@@ -56,7 +56,7 @@ SPOTIFY_CLIENT_SECRET=<your secret>
 
 Go to: https://developer.spotify.com/dashboard/applications and create a new application, after the application has been created you will see that a Client Id and a Client Secret has been generated. Paste these into the environment file above.
 
--   A sample file .env will look like this
+-   A sample file `.env` will look like this
 
 ```
 SPOTIFY_CLIENT_ID=asf124asfasf112
@@ -142,10 +142,10 @@ You should see a response as such:
 </p>
 </details>
 
-<details><summary> When trying to login, I get an "Invalid redirect URI" error. How can I fix this?  </summary>
+<details><summary> When trying to login, I get an "Invalid redirect URI" error. How can I fix this? </summary>
 <p>
 
-If you encounter this error
+If you encounter this error:
 
 ![Screen Shot 2020-05-24 at 5 59 53 PM](https://user-images.githubusercontent.com/31643423/82746854-6161e300-9de8-11ea-90f0-fbf782288650.png)
 
@@ -169,7 +169,7 @@ If you encounter this error
 
 ![Screen Shot 2020-05-24 at 6 07 27 PM](https://user-images.githubusercontent.com/31643423/82747005-6ffcca00-9de9-11ea-83f9-1ddfefb44e9c.png)
 
-Ensure that the the `SPOTIFY_CLIENT_ID` and SPOTIFY_CLIENT_SECRET` is set in the .env for the client.
+Ensure that the the `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` is set in the .env for the client.
 
 </p>
 </details>
