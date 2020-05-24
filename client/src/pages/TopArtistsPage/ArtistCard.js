@@ -4,6 +4,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 const capitalizeGenre = (genre) => {
+    if (genre === undefined) return "";
     return genre.replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase()); // Capitalize first letter of each word
 };
 

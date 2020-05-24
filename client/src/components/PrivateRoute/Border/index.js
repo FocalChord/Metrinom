@@ -1,8 +1,10 @@
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HistoryIcon from "@material-ui/icons/History";
-import MicIcon from "@material-ui/icons/Mic";
+import HomeIcon from "@material-ui/icons/Home";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import PersonIcon from "@material-ui/icons/Person";
+import AlbumIcon from "@material-ui/icons/Album";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import React, { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -30,9 +32,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const routes = [
-    { name: "Home", path: "/", icon: <MicIcon /> },
-    { name: "Top Genres", path: "/genres", icon: <MusicNoteIcon /> },
-    { name: "Top Artists", path: "/artists", icon: <MusicNoteIcon /> },
+    { name: "Home", path: "/", icon: <HomeIcon /> },
+    { name: "Top Genres", path: "/genres", icon: <AlbumIcon /> },
+    { name: "Top Artists", path: "/artists", icon: <PersonIcon /> },
     { name: "Top Artists Graph", path: "/artists-graph", icon: <TimelineIcon /> },
     { name: "Top Tracks", path: "/tracks", icon: <MusicNoteIcon /> },
     { name: "Recently Played", path: "/recent", icon: <HistoryIcon /> },

@@ -284,7 +284,6 @@ const fetchGraph = async (authToken) => {
         });
     });
 
-    console.log(artistGraph);
     return artistGraph;
 };
 
