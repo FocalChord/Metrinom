@@ -10,6 +10,7 @@ We are using the [React framework](https://reactjs.org/) to manage the front-end
 
 This app work well when a user has a Spotify account (preferably with a **premium subscription**) with some listening history.
 
+
 ## Team Members in Group 13 (Emerald Elephant)
 
 | Name             | Github Username | UoA Upi |
