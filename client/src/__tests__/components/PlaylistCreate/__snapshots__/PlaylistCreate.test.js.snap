@@ -17,7 +17,7 @@ exports[`<PlaylistCreate /> 1`] = `
       "outline": "none",
     }
   }
-  title="Create Playlist from up to 5 Selected Genres"
+  title="Created Playlist from this Track"
 >
   <button
     className="MuiButtonBase-root MuiFab-root makeStyles-fab-3 MuiFab-extended"
