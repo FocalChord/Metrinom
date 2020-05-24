@@ -134,7 +134,6 @@ const HomePage = () => {
         ]).then((values) => {
             if (!isMounted) return;
             const [artistRes, tracksRes, genresRes] = values;
-            console.log(artistRes, tracksRes, genresRes);
             if (artistRes.items.length > 0) {
                 setArtist(artistRes.items[0]);
             }
