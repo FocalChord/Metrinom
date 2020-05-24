@@ -134,7 +134,7 @@ const PlaylistCreate = ({ from, data, disabled }) => {
     return (
         <React.Fragment>
             <Tooltip
-                style={{ outline: "none", backgroundColor: "#1DB954" }}
+                style={{ backgroundColor: "#1DB954" }}
                 title={
                     from === "tracks"
                         ? "Create Playlist from your Top Tracks"
