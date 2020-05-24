@@ -40,9 +40,10 @@ Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing
 
 #### Server
 
-1. Open your terminal and `cd` into the server directory in server
-2. Run `npm install` inside of the server directory
-3. Create a `.env` file in the ./client folder with the following attributes:
+1. Make sure your MongoDb database is running locally
+2. Open your terminal and `cd` into the server directory in server
+3. Run `npm install` inside of the server directory
+4. Create a `.env` file in the ./client folder with the following attributes:
 
 ```
 SPOTIFY_CLIENT_ID=<your id>
