@@ -8,6 +8,7 @@ import { SpotifyClient } from "../../utils";
 import NumberOneArtistCard from "./NumberOneArtistCard";
 import NumberOneTrackCard from "./NumberOneTrackCard";
 import TopGenreGraph from "./TopGenreGraph";
+import { Typography } from "@material-ui/core";
 
 const mapTracks = (item) => {
     const { album, name, id, uri } = item;
@@ -131,8 +132,15 @@ const HomePage = () => {
         ]).then((values) => {
             if (!isMounted) return;
             const [artistRes, tracksRes, genresRes] = values;
-            setArtist(artistRes.items[0]);
-            setTrack(mapTracks(tracksRes.items[0]));
+            console.log(artistRes, tracksRes, genresRes);
+            if (artistRes.items.length > 0) {
+                setArtist(artistRes.items[0]);
+            }
+
+            if (tracksRes.items.length > 0) {
+                setTrack(mapTracks(tracksRes.items[0]));
+            }
+
             setGenres(mapGenres(genresRes.genres.slice(0, 5)));
             setIsLoading(false);
         });
@@ -154,19 +162,27 @@ const HomePage = () => {
                     overrides: getTheme(muiBaseTheme),
                 })}
             >
-                <CarouselProvider isPlaying interval={3000} infinite naturalSlideWidth={100} naturalSlideHeight={125} totalSlides={3}>
-                    <Slider style={{ maxHeight: 700 }}>
-                        <Slide index={0}>
-                            <NumberOneTrackCard track={track} />
-                        </Slide>
-                        <Slide index={1}>
-                            <NumberOneArtistCard artist={artist} />
-                        </Slide>
-                        <Slide index={2}>
-                            <TopGenreGraph genres={genres} />
-                        </Slide>
-                    </Slider>
-                </CarouselProvider>
+                {artist.name && track.trackName && (
+                    <CarouselProvider isPlaying interval={3000} infinite naturalSlideWidth={100} naturalSlideHeight={125} totalSlides={3}>
+                        <Slider style={{ maxHeight: 700 }}>
+                            <Slide index={0}>
+                                <NumberOneTrackCard track={track} />
+                            </Slide>
+                            <Slide index={1}>
+                                <NumberOneArtistCard artist={artist} />
+                            </Slide>
+                            <Slide index={2}>
+                                <TopGenreGraph genres={genres} />
+                            </Slide>
+                        </Slider>
+                    </CarouselProvider>
+                )}
+
+                {!(artist.name && track.trackName) && (
+                    <div className="flex items-center justify-center h-full w-full fixed">
+                        <Typography variant="h2">No Statistics Available :( </Typography>
+                    </div>
+                )}
             </MuiThemeProvider>
         </LoaderWrapper>
     );
