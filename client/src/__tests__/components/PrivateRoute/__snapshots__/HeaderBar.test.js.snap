@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HeaderBar /> 1`] = `
+<header
+  className="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorDefault makeStyles-appBar-5 mui-fixed MuiPaper-elevation4"
+>
+  <div
+    className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+  >
+    <div
+      className="makeStyles-grow-2"
+    />
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-buttonLogout-6 MuiButton-colorInherit"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Log out
+      </span>
+    </button>
+  </div>
+</header>
+`;
