@@ -8,6 +8,7 @@ import { LoaderWrapper, PlaylistCreate } from "../../components";
 import { MetrinomContext } from "../../context/MetrinomContext";
 import { SpotifyClient } from "../../utils/";
 import TrackFeaturesChart from "./TrackFeaturesChart";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -40,6 +41,7 @@ const TrackPage = () => {
     const { setIsLoading } = useContext(MetrinomContext);
     const { trackId } = useParams();
     const [recommendedSongs, setRecommendedSongs] = useState([]);
+    const history = useHistory();
 
     const [track, setTrack] = useState({
         album: {
@@ -67,7 +69,6 @@ const TrackPage = () => {
             if (!isMounted) return;
             const [trackRes, audioFeatureRes, recommendedSongsRes] = values;
             setTrack(trackRes);
-            console.log(recommendedSongsRes);
             setRecommendedSongs(recommendedSongsRes.tracks);
             setFeatures(audioFeatureRes);
             setIsLoading(false);
@@ -91,7 +92,12 @@ const TrackPage = () => {
                         <Typography variant="h3" className={classes.name}>
                             {track.name}
                         </Typography>
-                        <Typography variant="h5" className={classes.artist} style={{ color: "#9e9e9e" }}>
+                        <Typography
+                            onClick={() => history.push(`/artist/${track.album.artists[0].id}`)}
+                            variant="h5"
+                            className={classes.artist}
+                            style={{ color: "#9e9e9e" }}
+                        >
                             {track.album.artists.length > 0 ? track.album.artists[0].name : ""}
                         </Typography>
                         <Typography variant="body1" className={classes.album} style={{ color: "#9e9e9e" }}>

@@ -24,8 +24,10 @@ const mapTracks = (item) => {
 const mapGenres = (resp) => {
     return resp.map((g) => {
         let nameUpper = g[0];
-        nameUpper = nameUpper.replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase()); // Capitalize first letter of each word
-        nameUpper = nameUpper.replace(/-([a-z])/g, (match) => match.toUpperCase()); // Capitalize every letter after a hyphen
+        if (nameUpper != undefined) {
+            nameUpper = nameUpper.replace(/(^\w{1})|(\s{1}\w{1})/g, (match) => match.toUpperCase()); // Capitalize first letter of each word
+            nameUpper = nameUpper.replace(/-([a-z])/g, (match) => match.toUpperCase()); // Capitalize every letter after a hyphen
+        }
 
         return {
             name: nameUpper,
