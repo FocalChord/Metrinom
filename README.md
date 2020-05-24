@@ -201,3 +201,30 @@ If this does happen, then refresh the page and it should be fine :)
 
 </p>
 </details>
+
+---
+# Project Questions:
+### How well have you mastered React, git, and other tools / frameworks introduced in this course?
+- We used Git extensively throughout the project, including features such as branching, merging, rebasing
+- We used `React`, `Express`, `MongoDb`, `Mongoose`, `MaterialUI`, `Jest` and `Enzyme` 
+
+### Have you shown the ability to carry out further learning beyond the course material to add value to your prototype?
+- We used `MaterialUi`, `mockingoose` and many smaller frameworks for various aspects of the app
+- We added Continuous Integration through `GitHub Actions`
+- We deployed the app using `Heroku`
+
+### Has your code been developed according to best-practices within your applied frameworks? Is it understandable and maintainable?
+- We applied best practices to our React components by abstracting functionality into smaller components
+- We used JS best practices, such as using `const` to enforce immutability
+- We applied best practices to our Express API by minimising URL path branching
+- Other best practices were applied throughout the project for other frameworks
+
+### Has your code been tested? How?
+- The backend was tested extensively; see the [wiki](https://github.com/Dinith1/SOFTENG750-Project/wiki/Backend-Tests)
+- The frontend was tested extensively; see the [wiki](https://github.com/Dinith1/SOFTENG750-Project/wiki/Frontend-Tests)
+
+### Is there evidence of good project management, and appropriate contribution from all team members?
+- We used GitHub issues to track tasks
+- We used merge rules for PRs, meaning code-review had to take place
+- We had regular meetings and information sessions to discuss development; see the [wiki](https://github.com/Dinith1/SOFTENG750-Project/wiki/Meetings) for more info
+- Each team member was fully involved throughout the project's development, and contribution was roughly equal among everyone in terms of coding, management, code-review and research
