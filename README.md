@@ -2,6 +2,8 @@
 
 ![Build](https://github.com/Dinith1/SOFTENG750-Project/workflows/Build/badge.svg?branch=master)
 
+![MetrinomLogo](https://user-images.githubusercontent.com/31643423/82747473-231af280-9ded-11ea-9c33-2c3abd5950bb.png)
+
 A web app for viewing spotify statistics curated for the user.
 
 We are using the [React framework](https://reactjs.org/) to manage the front-end UI and using a [Node JS](https://nodejs.org/en/) server utilising the [Express framework](https://expressjs.com/) and [MongoDB database](https://www.mongodb.com/what-is-mongodb) for the back-end. The back-end calls the [Spotify API](https://developer.spotify.com/documentation/web-api/) endpoints and returns the relevant information to the frontend.
@@ -18,7 +20,7 @@ This app work well when a user has a Spotify account (preferably with a premium 
 
 ## How to use this app?
 
-Open https://metrinom.herokuapp.com/ in google chrome and login.
+Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing your statistics!.
 
 ## How do I run this app locally?
 
