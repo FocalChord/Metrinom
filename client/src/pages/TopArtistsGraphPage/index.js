@@ -76,6 +76,8 @@ const TopArtistsGraphPage = () => {
         return () => {
             isMounted = false;
         };
+
+        // eslint-disable-next-line
     }, []);
 
     return (

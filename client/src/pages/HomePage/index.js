@@ -123,6 +123,7 @@ const HomePage = () => {
 
     useEffect(() => {
         let isMounted = true;
+
         Promise.all([
             SpotifyClient.getTopArtists("artists", "medium_term"),
             SpotifyClient.getTopTracks("tracks", "medium_term"),
@@ -135,9 +136,12 @@ const HomePage = () => {
             setGenres(mapGenres(genresRes.genres.slice(0, 5)));
             setIsLoading(false);
         });
+
         return () => {
             isMounted = false;
         };
+
+        // eslint-disable-next-line
     }, []);
 
     return (
