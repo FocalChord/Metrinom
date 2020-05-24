@@ -2,7 +2,7 @@
 
 ![Build](https://github.com/Dinith1/SOFTENG750-Project/workflows/Build/badge.svg?branch=master)
 
-![MetrinomLogo](https://user-images.githubusercontent.com/31643423/82747473-231af280-9ded-11ea-9c33-2c3abd5950bb.png)
+![MetrinomLogo](https://user-images.githubusercontent.com/34013038/82750926-df81b200-9e07-11ea-873e-412003591e0d.png)
 
 A web app for viewing spotify statistics curated for the user.
 
