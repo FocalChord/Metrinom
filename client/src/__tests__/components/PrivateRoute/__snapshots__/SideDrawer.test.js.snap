@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SideDrawer /> 1`] = `
+<nav
+  className="makeStyles-drawer-1"
+>
+  <div
+    className="MuiDrawer-root MuiDrawer-docked"
+  >
+    <div
+      className="MuiPaper-root MuiDrawer-paper makeStyles-drawerPaper-3 MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft MuiPaper-elevation0"
+    >
+      <div>
+        <div
+          className="MuiBox-root MuiBox-root-45"
+          style={
+            Object {
+              "padding": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          <img
+            alt="Metrinom Logo"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+          />
+        </div>
+        <hr
+          className="MuiDivider-root"
+        />
+        <ul
+          className="MuiList-root MuiList-padding"
+        />
+      </div>
+    </div>
+  </div>
+</nav>
+`;
