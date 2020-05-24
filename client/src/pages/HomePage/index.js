@@ -8,6 +8,7 @@ import { SpotifyClient } from "../../utils";
 import { CarouselProvider, Slider, Slide } from "pure-react-carousel";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import "pure-react-carousel/dist/react-carousel.es.css";
+
 const mapTracks = (item) => {
     const { album, name, id, uri } = item;
     return {
@@ -89,9 +90,9 @@ const HomePage = () => {
                             color: "#ffffff",
                             fontWeight: 900,
                             "font-size": 30,
-                            paddingLeft: 40,
                             letterSpacing: 1,
                             "text-align": "right",
+                            "white-space": "nowrap",
                         },
                     },
                     "& .MuiCardHeader-root-2": {
@@ -107,6 +108,7 @@ const HomePage = () => {
                             "font-size": 15,
                             letterSpacing: 1,
                             "text-align": "center",
+                            "white-space": "nowrap",
                         },
                     },
                     "& .MuiCardHeader-root-3": {
@@ -122,6 +124,7 @@ const HomePage = () => {
                             "font-size": 40,
                             letterSpacing: 1,
                             "text-align": "center",
+                            "white-space": "nowrap",
                         },
                     },
                     "& .MuiCardContent-root": {
@@ -197,7 +200,7 @@ const HomePage = () => {
                                         />
                                         <CardHeader
                                             className={"MuiCardHeader-root-2"}
-                                            title={artist.genres}
+                                            title={artist.genres[0]}
                                             classes={{
                                                 title: "MuiCardHeader-title",
                                             }}
