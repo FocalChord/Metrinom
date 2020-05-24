@@ -40,7 +40,7 @@ Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing
 
 #### Server
 
-1. Make sure your MongoDb database is running locally
+1. Make sure your MongoDb database is running locally by using the `mongod` command
 2. Open your terminal and `cd` into the server directory in server
 3. Run `npm install` inside of the server directory
 4. Create a `.env` file in the ./client folder with the following attributes:
