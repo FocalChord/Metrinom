@@ -53,7 +53,7 @@ const Border = ({ children }) => {
 
     return (
         <div className={classes.root}>
-            <HeaderBar routes={routes} />
+            <HeaderBar />
             <SideDrawer routes={routes} />
             <main className={classes.content}>
                 <div className={classes.toolbar} />
