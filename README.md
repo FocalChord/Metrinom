@@ -10,7 +10,6 @@ We are using the [React framework](https://reactjs.org/) to manage the front-end
 
 This app work well when a user has a Spotify account (preferably with a **premium subscription**) with some listening history.
 
-
 ## Team Members in Group 13 (Emerald Elephant)
 
 | Name             | Github Username | UoA Upi |
@@ -21,7 +20,7 @@ This app work well when a user has a Spotify account (preferably with a **premiu
 
 ## How to use this app?
 
-Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing your statistics!
+Open https://metrinom.herokuapp.com/ in Google Chrome and login to start viewing your statistics!
 
 ## How do I run this app locally?
 
@@ -29,7 +28,7 @@ Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing
 
 -   You have cloned this repository onto your local machine
 
--   [Node.js](https://nodejs.org/en/)
+-   [Node.js](https://nodejs.org/en/) (Make sure your node version is more than `11` or the server might crash, this is because some functions such as `flat()` (which is used in the backend) from ES2019 require node version `11` or higher)
 
 -   [Npm](https://www.npmjs.com/get-npm) (However this does come with Node.js)
 
@@ -41,10 +40,10 @@ Open https://metrinom.herokuapp.com/ in google chrome and login to start viewing
 
 #### Server
 
-1. Make sure your MongoDb database is running locally by using the `mongod` command
-2. Open your terminal and `cd` into the server directory in server
-3. Run `npm install` inside of the server directory
-4. Create a `.env` file in the ./client folder with the following attributes:
+1. Open your terminal and `cd` into the server directory in server
+2. Run `npm install` inside of the server directory
+
+3. Create a `.env` file in the ./client folder with the following attributes:
 
 ```
 SPOTIFY_CLIENT_ID=<your id>
@@ -88,7 +87,19 @@ You will then see this when added:
 
 </details>
 
-5. After the `.env` file has been filled in and the redirect URI has been added. Ensure that `port 3001` is not occupied else you will have to change the redirect URI above accordingly. In the server directory, run `npm start` in terminal to start the server.
+5. Make sure your MongoDB database is running locally by using the relevant commands to your operating system (Note this step is important else the server might crash if Mongo is not running on your computer). See [here](https://docs.mongodb.com/manual/administration/install-community/) for more on details on running MongoDB locally.
+
+<details><summary> Terminal output when database is not running locally and you attempt to start the server    </summary>
+<p>
+
+![Screen Shot 2020-05-24 at 8 00 38 PM](https://user-images.githubusercontent.com/31643423/82748863-42b81800-9df9-11ea-9dd1-164fc84f5d61.png)
+
+To fix this ensure MongoDB is running locally on your computer.
+
+</p>
+</details>
+
+6. After the `.env` file has been filled in and the redirect URI has been added. Ensure that `port 3001` is not occupied else you will have to change the redirect URI above accordingly. In the server directory, run `npm start` in terminal to start the server.
 
 <details closed>
 <summary> Expected terminal output after starting server </summary>
@@ -204,41 +215,60 @@ If this does happen, then refresh the page and it should be fine :)
 </p>
 </details>
 
----
+<details><summary> How do I test the app?   </summary>
+<p>
 
-## How do I test the app?
 #### Client
-- `> cd client`
-- `> npm test`
+
+-   `> cd client`
+-   `> npm test`
 
 #### Server
-- `> cd server`
-- `> npm test`
+
+-   `> cd server`
+-   `> npm test`
+
+</p>
+</details>
+
+<details><summary> Help! something is not working!  </summary>
+<p>
+
+Feel free to contact Nisarag on his university email address (UPI) can be found above.
+
+</p>
+</details>
 
 ---
 
 ## Project Questions:
+
 ### How well have you mastered React, git, and other tools / frameworks introduced in this course?
-- We used Git extensively throughout the project, including features such as branching, merging, rebasing
-- We used `React`, `Express`, `MongoDb`, `Mongoose`, `MaterialUI`, `Jest` and `Enzyme` 
+
+-   We used Git extensively throughout the project, including features such as branching, merging, rebasing
+-   We used `React`, `Express`, `MongoDb`, `Mongoose`, `MaterialUI`, `Jest` and `Enzyme`
 
 ### Have you shown the ability to carry out further learning beyond the course material to add value to your prototype?
-- We used `MaterialUi`, `mockingoose` and many smaller frameworks for various aspects of the app
-- We added Continuous Integration through `GitHub Actions`
-- We deployed the app using `Heroku`
+
+-   We used `MaterialUi`, `mockingoose`, `React Context API` and many smaller frameworks for various aspects of the app
+-   We added Continuous Integration through `GitHub Actions`
+-   We deployed the app using `Heroku`
 
 ### Has your code been developed according to best-practices within your applied frameworks? Is it understandable and maintainable?
-- We applied best practices to our React components by abstracting functionality into smaller components
-- We used JS best practices, such as using `const` to enforce immutability
-- We applied best practices to our Express API by minimising URL path branching
-- Other best practices were applied throughout the project for other frameworks
+
+-   We applied best practices to our React components by abstracting functionality into smaller components
+-   We used JS best practices, such as using `const` to enforce immutability
+-   We applied best practices to our Express API by minimising URL path branching
+-   Other best practices were applied throughout the project for other frameworks
 
 ### Has your code been tested? How?
-- The [backend](https://github.com/Dinith1/SOFTENG750-Project/wiki/Backend-Tests) was tested extensively
-- The [frontend](https://github.com/Dinith1/SOFTENG750-Project/wiki/Frontend-Tests) was tested extensively
+
+-   The [backend](https://github.com/Dinith1/SOFTENG750-Project/wiki/Backend-Tests) was tested extensively
+-   The [frontend](https://github.com/Dinith1/SOFTENG750-Project/wiki/Frontend-Tests) was tested extensively
 
 ### Is there evidence of good project management, and appropriate contribution from all team members?
-- We used GitHub issues to track tasks
-- We used merge rules for PRs, meaning code-review had to take place
-- We had regular meetings and information sessions to discuss development; see the [wiki](https://github.com/Dinith1/SOFTENG750-Project/wiki/Meetings) for more info
-- Each team member was fully involved throughout the project's development, and contribution was roughly equal among everyone in terms of coding, management, code-review and research
+
+-   We used GitHub issues to track tasks
+-   We used merge rules for PRs, meaning code-review had to take place
+-   We had regular meetings and information sessions to discuss development; see the [wiki](https://github.com/Dinith1/SOFTENG750-Project/wiki/Meetings) for more info
+-   Each team member was fully involved throughout the project's development, and contribution was roughly equal among everyone in terms of coding, management, code-review and research
