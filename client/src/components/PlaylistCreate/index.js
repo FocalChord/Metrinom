@@ -164,10 +164,17 @@ const PlaylistCreate = ({ from, data, disabled }) => {
                         </DialogContent>
                     </React.Fragment>
                 )}
+                {from === "singleTrack" && (
+                    <React.Fragment>
+                        <DialogContent>
+                            <DialogContentText>Create a Playlist based on this Track?</DialogContentText>
+                        </DialogContent>
+                    </React.Fragment>
+                )}
                 {from === "artists" && (
                     <React.Fragment>
                         <DialogContent>
-                            <DialogContentText>Create a Playlist based on this Artists?</DialogContentText>
+                            <DialogContentText>Create a Playlist based on this Artist?</DialogContentText>
                         </DialogContent>
                     </React.Fragment>
                 )}
