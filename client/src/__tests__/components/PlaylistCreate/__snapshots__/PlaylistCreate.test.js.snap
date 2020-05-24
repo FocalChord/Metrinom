@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlaylistCreate /> 1`] = `
+<button
+  aria-describedby={null}
+  aria-label="add"
+  className="MuiButtonBase-root MuiFab-root makeStyles-fab-3 MuiFab-extended"
+  disabled={false}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onDragLeave={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+  onTouchEnd={[Function]}
+  onTouchMove={[Function]}
+  onTouchStart={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#1DB954",
+      "outline": "none",
+    }
+  }
+  tabIndex={0}
+  title="Create Playlist from up to 5 Selected Genres"
+  type="button"
+>
+  <span
+    className="MuiFab-label"
+  >
+    Create playlist
+  </span>
+  <span
+    className="MuiTouchRipple-root"
+  />
+</button>
+`;
