@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RedirectPage /> 1`] = `
+<div
+  className="text-center"
+>
+  <header
+    className="min-h-screen flex flex-col items-center justify-center bg-black text-white text-6xl"
+  >
+    Redirect
+  </header>
+</div>
+`;

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ArtistCard /> 1`] = `
+<div
+  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-4"
+  onClick={[Function]}
+>
+  <div
+    className="MuiPaper-root MuiCard-root MuiPostCard--02 MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <button
+      className="MuiButtonBase-root MuiCardActionArea-root MuiCardContent--actionarea"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <div
+        className="MuiCardMedia-root MuiCardMedia-root"
+        style={
+          Object {
+            "backgroundImage": "url(\\"img\\")",
+          }
+        }
+      />
+      <div
+        className="MuiCardContent-root MuiCardContent-root"
+      >
+        <h6
+          className="MuiTypography-root MuiTypography--heading MuiTypography-h6 MuiTypography-gutterBottom"
+        >
+          eminem
+        </h6>
+        <p
+          className="MuiTypography-root MuiTypography--subheading MuiTypography-body1"
+        >
+          Hip Hop
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography--indexNumb MuiTypography-body1"
+        >
+          #
+          11
+        </p>
+      </div>
+      <span
+        className="MuiCardActionArea-focusHighlight"
+      />
+    </button>
+  </div>
+</div>
+`;
